@@ -1,0 +1,1375 @@
+﻿
+<head>
+
+    <title>Manage Price</title>
+</head>
+<div class="col-lg-12 col-md-12">
+    <section class="panel">
+        <header class="panel-heading tab-bg-dark-navy-blue headerPrice" ng-controller="PriceController">
+            <ul class="nav nav-tabs">
+                <li class="">
+                    <a data-toggle="tab" data-target="#divSupplierPriceList" style="cursor:pointer" ng-click="ClickDivSupplierPriceList()">Supplier Price List</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" data-target="#divQouation" style="cursor:pointer" ng-click="ClickDivQouation()">Qoutation</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" data-target="#divPeyvastPrice" style="cursor:pointer" ng-click="ClickDivPeyvastPrice()">Peyvast Price</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" data-target="#divStockValue" style="cursor:pointer" ng-click="ClickDivStockValue()">Stock value peyvast</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" data-target="#divPreparationPriceList" style="cursor:pointer" ng-click="ClickDivPreparationPriceList()">Preparation PriceList</a>
+                </li>
+
+            </ul>
+        </header>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div id="divSupplierPriceList" class="tab-pane ">
+                    <section class="panel" ng-controller="SupplierPriceListFileController">
+                        <div class="panel-body" id="panelBodySupplierPriceListFile">
+                            <form id="FormSupplierPriceList" name="FormSupplierPriceList" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-warning" style="width:80px" data-ng-click="CancelSupplierPriceListFile()" />
+                                    <input id="AddSupplierPriceListFile" type="button" value="Add" class="btn btn-info" style="width:80px" data-ng-click="AddSupplierPriceListFile()" ng-disabled="FormSupplierPriceList.$invalid" />
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Title:</label>
+                                    <input type="text" id="TitleSupplierPriceList" name="TitleSupplierPriceList" data-ng-model="CurrentSupplierPriceList.Title" class="form-control" placeholder="Tile" required>
+                                    <span ng-hide="FormSupplierPriceList.TitleSupplierPriceList.$valid || FormSupplierPriceList.TitleSupplierPriceList.$pristine" style="color:red"> Please enter Title field ...</span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Supplier:</label>
+                                    <select id="drpSupplierInSupplierPriceList" ng-model="CurrentSupplierPriceList.Supplier" ng-options="x.IDUser as x.Name_En for x in Suppliers" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Select excel file:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn  btn-file btnSelectFileUpload">
+                                                Browse… <input type="file" accept=".xls,.xlsx" id="excelFileUploadSupplierPriceList" onchange="angular.element(this).scope().ChangeFileSupplierPriceList(this)" data-filetype="xls,xlsx">
+                                            </span>
+                                        </span>
+                                        <input id="urlNameSupplierPriceList" type="text" class="form-control" style="width: 70%;" readonly>
+                                        <button id="clearExcelFileSupplierPriceList" class="btn btnClearFileUpload" ng-click="ClearExcelFileUploadSupplierPriceList()">Clear</button>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Currency:</label>
+                                    <select id="drpCurrencyInSupplierPriceList" ng-model="CurrentSupplierPriceList.Currency" ng-options="x.IDCurrency as x.Title for x in Currencies" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                            <br />
+                            <br />
+                            <header class="panel-heading tab-bg-dark-navy-blue" style="background-color:#f7e148 !important">
+                                <ul class="nav nav-tabs">
+                                    <li data-ng-repeat="Supplier in Suppliers">
+                                        <a data-toggle="tab" data-ng-click="GetSupplierPriceListFile(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <form id="FormRatioSupplierPriceList" name="FormRatioSupplierPriceList" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="TableSupplierPriceListFile" style="display:none">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio Rial :</label>
+                                        <input type="text" id="RatioRialSupplierPriceList" name="RatioRialSupplierPriceList" value="0" ng-model="SupplierPrice.RatioRial" class="form-control" required maxlength="7" numbers-only placeholder="68000" onfocus="this.placeholder = ''" onblur="this.placeholder = '68000'">
+                                        <span ng-hide="FormRatioSupplierPriceList.RatioRialSupplierPriceList.$valid || FormRatioSupplierPriceList.RatioRialSupplierPriceList.$pristine" style="color:red"> Please enter Ratio Rial ...</span>
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio Transfer :</label>
+                                        <input type="text" id="RatioTransferSupplierPriceList" name="RatioTransferSupplierPriceList" value="0" ng-model="SupplierPrice.RatioTransfer" class="form-control" required maxlength="5" placeholder="1.35" onfocus="this.placeholder = ''" onblur="this.placeholder = '1.35'">
+                                        <span ng-hide="FormRatioSupplierPriceList.RatioTransferSupplierPriceList.$valid || FormRatioSupplierPriceList.RatioTransferSupplierPriceList.$pristine" style="color:red"> Please enter Ratio Transfer ...</span>
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio MarkUp :</label>
+                                        <input type="text" id="RatioMarkUpSupplierPriceList" name="RatioMarkUpSupplierPriceList" value="0" ng-model="SupplierPrice.RatioMarkUp" class="form-control" required maxlength="5" placeholder="2.3" onfocus="this.placeholder = ''" onblur="this.placeholder = '2.3'">
+                                        <span ng-hide="FormRatioSupplierPriceList.RatioMarkUpSupplierPriceList.$valid || FormRatioSupplierPriceList.RatioMarkUpSupplierPriceList.$pristine" style="color:red"> Please enter Ratio MarkUp ...</span>
+
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <input type="button" id="btnUpdateRatioSupplierPriceList" value="Save" class="btn btn-info" style="width:80px" data-ng-click="UpdateRatioSupplierPriceList()" ng-disabled="FormRatioSupplierPriceList.$invalid">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <a class="fa fa-sort-amount-asc buttonOnTable" data-ng-click="ShowModalSortSupplierPrice()" title="Sort" data-placement="top" data-tooltip></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-hover" style="margin-top:40px">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Title</th>
+                                                <th>Suppllier</th>
+                                                <th>Currency</th>
+                                                <th>Create date</th>
+                                                <th>RatioRial</th>
+                                                <th>RatioTransfer</th>
+                                                <th>RatioMarkUp</th>
+                                                <th>Download</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr data-ng-repeat-start="item in SupplierPriceListFiles">
+                                                <td>
+                                                    <i id="DeleteSupplierPriceListFile" class="fa fa-trash deleteTable" title="delete supplier price list file " data-placement="top" data-tooltip data-ng-click="DeleteSupplierPriceListFile(item.IDSupplierPriceListFile,item.IDSupplier,item.FileUrl)"></i>
+                                                    <i id="EditSupplierPriceListFile" class="fa fa-pencil editTable" title="edit supplier price list file" data-placement="top" data-tooltip data-ng-click="EditSupplierPriceListFile(item)"></i>
+                                                </td>
+                                                <td style="padding-top:4px">{{item.Title}} </td>
+                                                <td style="padding-top:4px">{{item.SupplierName}}</td>
+                                                <td style="padding-top:4px">{{item.CurrencyName}}</td>
+                                                <td style="padding-top:4px">{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                <td style="padding-top:4px">{{item.RatioRial}}</td>
+                                                <td style="padding-top:4px">{{item.RatioTransfer}}</td>
+                                                <td style="padding-top:4px">{{item.RatioMarkUp}}</td>
+
+                                                <td><a href="/{{item.FileUrl}}" class="fa fa-download Download"></a></td>
+                                                <td>
+                                                    <span class="fa fa-list Detail" data-ng-click="ShowSupplierPriceListDetail(item)">
+                                                    </span>
+                                                    <img src="/Portal/images/loader.gif" id="imgLoaderSupplierPrice{{item.IDSupplierPriceListFile}}" style="display:none;width:25px;height:25px;padding:0 0 5px 5px" />
+
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-repeat-end ng-if="activeRow==item.IDSupplierPriceListFile">
+                                                <td colspan="10" style="background-color:#f8f8f8">
+
+                                                    <div class="col-lg-12 col-md-12 SupplierPriceDetail ">
+
+                                                        <table class="display table table-bordered table-striped">
+
+                                                            <tr>
+
+                                                                <th class="PartNumber" style="padding-left:3px !important;padding-top:0px">
+                                                                    <input type="text" placeholder="PartNumber" style="padding-left:5px" ng-model="SearchPartNumberSupplierPrice">
+                                                                </th>
+                                                                <th style="padding-left:3px !important;padding-top:0px">
+                                                                    <input type="text" placeholder="Short Description" style="padding-left:5px;width:100%" ng-model="SearchShortDescriptionSupplierPrice">
+                                                                </th>
+                                                                <th class="Price">Price</th>
+                                                                <th class="FixedPrice">Fixed Price</th>
+                                                                <th class="MarkUp">MarkUp %</th>
+                                                                <th class="SalesPrice"><span>Sales Price</span></th>
+
+                                                            </tr>
+                                                            <tr dir-paginate="children in SupplierPriceListDetails|filter:{PartNumber:SearchPartNumberSupplierPrice}| filter:{ShortDescription:SearchShortDescriptionSupplierPrice}|itemsPerPage:10">
+                                                                <td>
+                                                                    <span ng-if="children.DefineInclude[0].IDXDefineDetailProduct==undefinded">{{children.PartNumber}}</span>
+                                                                    <a ng-if="children.DefineInclude[0].IDXDefineDetailProduct!=undefinded" href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{children.DefineInclude[0].IDXDefineDetailProduct}}" target="_blank" style="color:#610040">{{children.PartNumber}}</a>
+                                                                </td>
+                                                                <td>{{children.ShortDescription}}</td>
+                                                                <td>{{children.Price}}</td>
+                                                                <td>{{children.FixedPrice | number:0}}</td>
+
+                                                                <td>
+                                                                    {{children.MarkUp | number:1}}
+                                                                </td>
+                                                                <td class="tdSalesPrice">
+                                                                    <input type="text" id="SalesPriceInput{{children.IDSupplierPriceListDetail}}" class="SalesPriceInput" ng-change="ChangeSupplierSalesPriceInput(children)" ng-model="children.SalesPrice" numbers-only splitwithcomma>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumPrice|currency:""}}</b></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumFixedPrice|currency:"": 0}}</b></td>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumSalesPrice|currency:"": 0}}</b></td>
+                                                            </tr>
+
+
+                                                        </table>
+
+                                                    </div>
+                                                    <dir-pagination-controls max-size="5"
+                                                                             direction-links="true"
+                                                                             boundary-links="true">
+                                                    </dir-pagination-controls>
+
+                                                    <div class="clearfix"></div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal fade" id="ModalSortSupplierPrice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">
+                                            Sorting
+                                        </h4>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-y:scroll;height:300px;">
+                                                <table class="table table-hover table-Padding">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="Width:60%">Title</th>
+                                                            <th>Create Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-sortable="SortTableSupplierPrice" style="cursor:pointer;">
+                                                        <tr ng-repeat="item in SupplierPriceListFiles">
+                                                            <td>{{item.Title}}</td>
+                                                            <td>{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div id="divQouation" class="tab-pane">
+                    <section class="panel" ng-controller="QouationFileController">
+                        <div class="panel-body" id="panelBodyQouationFile">
+                            <form id="FormQouation" name="FormQouation" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-warning" style="width:80px" data-ng-click="CancelQouationFile()" />
+                                    <input id="AddQouationFile" type="button" value="Add" class="btn btn-info" style="width:80px" data-ng-click="AddQouationFile()" ng-disabled="FormQouation.$invalid" />
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <br />
+                                <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Excel:</label>
+                                    <br />
+                                    <input id="chkExcelModeQouation" type="checkbox" ng-model="ExcelModeQouation" ng-click="ChangExcelModeQouation(ExcelModeQouation)" ng-init="initialExcelModeQouation()" data-on=" " data-off=" ">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Title:</label>
+                                    <input type="text" id="TitleQouation" name="TitleQouation" data-ng-model="CurrentQouation.Title" class="form-control" placeholder="Tile" required>
+                                    <span ng-hide="FormQouation.TitleQouation.$valid || FormQouation.TitleQouation.$pristine" style="color:red"> Please enter Title field ...</span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Supplier:</label>
+                                    <select id="drpSupplierInQouation" ng-model="CurrentQouation.Supplier" ng-options="x.IDUser as x.Name_En for x in Suppliers" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                                <div id="divExcelFileQouation" class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left;display:none">
+                                    <label>Select excel file:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-file btnSelectFileUpload">
+                                                Browse… <input type="file" accept=".xls,.xlsx" id="excelFileUploadQouation" onchange="angular.element(this).scope().ChangeExcelFileQouation(this)" data-filetype="xls,xlsx">
+                                            </span>
+                                        </span>
+                                        <input id="urlNameExcelQouation" type="text" class="form-control" style="width: 70%;" readonly>
+                                        <button id="clearExcelFileQouation" class="btn btnClearFileUpload" data-ng-click="ClearExcelFileUploadQouation()">Clear</button>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Currency:</label>
+                                    <select id="drpCurrencyInQouation" ng-model="CurrentQouation.Currency" ng-options="x.IDCurrency as x.Title for x in Currencies" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <label>OrginalDate:</label>
+                                    <input type='text' class="form-control" id='OrigDateQouation' name="OrigDateQouation" ng-model="CurrentQouation.OrigDate" datepicker required />
+                                    <span ng-hide="FormQouation.OrigDateQouation.$valid || FormQouation.OrigDateQouation.$pristine" style="color:red"> Please enter OrginalDate field ...</span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Select pdf file:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-file btnSelectFileUpload">
+                                                Browse… <input type="file" accept=".pdf" id="PdfFileUploadQouation" onchange="angular.element(this).scope().ChangePdfFileQouation(this)" data-filetype="pdf">
+                                            </span>
+                                        </span>
+                                        <input id="urlNamePdfQouation" type="text" class="form-control" style="width: 70%" readonly>
+                                        <button id="clearPdfFileQouation" class="btn btnClearFileUpload" data-ng-click="ClearPdfFileUploadQouation()">Clear</button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Select email file:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-file btnSelectFileUpload">
+                                                Browse… <input type="file" accept=".eml" id="EmailFileUploadQouation" onchange="angular.element(this).scope().ChangeEmailFileUploadQouation(this)" data-filetype="eml">
+                                            </span>
+                                        </span>
+                                        <input id="urlNameEmailQouation" type="text" class="form-control" style="width: 70%" readonly>
+                                        <button id="clearEmailFileUploadQouation" class="btn btnClearFileUpload" data-ng-click="ClearEmailFileUploadQouation()">Clear</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="clearfix"></div>
+                            <br />
+                            <br />
+                            <br />
+                            <header class="panel-heading tab-bg-dark-navy-blue" style="background-color:#f3ac29 !important">
+                                <ul class="nav nav-tabs">
+                                    <li data-ng-repeat="Supplier in Suppliers">
+                                        <a data-toggle="tab" data-ng-click="GetQouationFile(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <form id="FormRatioQouation" name="FormRatioQouation" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="TableQouationFile" style="display:none">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio Rial :</label>
+                                        <input type="text" id="RatioRialQouation" name="RatioRialQouation" value="0" ng-model="Qouation.RatioRial" class="form-control" required maxlength="7" numbers-only placeholder="68000" onfocus="this.placeholder = ''" onblur="this.placeholder = '68000'">
+                                        <span ng-hide="FormRatioQouation.RatioRialQouation.$valid || FormRatioQouation.RatioRialQouation.$pristine" style="color:red"> Please enter Ratio Rial ...</span>
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio Transfer :</label>
+                                        <input type="text" id="RatioTransferQouation" name="RatioTransferQouation" value="0" ng-model="Qouation.RatioTransfer" class="form-control" required maxlength="5" placeholder="1.35" onfocus="this.placeholder = ''" onblur="this.placeholder = '1.35'">
+                                        <span ng-hide="FormRatioQouation.RatioTransferQouation.$valid || FormRatioQouation.RatioTransferQouation.$pristine" style="color:red"> Please enter Ratio Transfer ...</span>
+
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio MarkUp :</label>
+                                        <input type="text" id="RatioMarkUpQouation" name="RatioMarkUpQouation" value="0" ng-model="Qouation.RatioMarkUp" class="form-control" required maxlength="5" placeholder="2.3" onfocus="this.placeholder = ''" onblur="this.placeholder = '2.3'">
+                                        <span ng-hide="FormRatioQouation.RatioMarkUpQouation.$valid || FormRatioQouation.RatioMarkUpQouation.$pristine" style="color:red"> Please enter Ratio MarkUp ...</span>
+
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <input type="button" id="btnUpdateRatioQouation" value="Save" class="btn btn-info" style="width:80px" data-ng-click="UpdateRatioQouationFile()" ng-disabled="FormRatioQouation.$invalid">
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <a class="fa fa-sort-amount-asc buttonOnTable" data-ng-click="ShowModalSortQouation()" title="Sort" data-placement="top" data-tooltip></a>
+                                        <a class="fa fa-search buttonOnTable" data-ng-click="ShowModalSearchQouation()" title="Searching" data-placement="top" data-tooltip></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-hover" style="margin-top:20px">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Title</th>
+                                                <th>Suppllier</th>
+                                                <th>Currency</th>
+                                                <th>Create date</th>
+                                                <th>RatioRial</th>
+                                                <th>RatioTransfer</th>
+                                                <th>RatioMarkUp</th>
+                                                <th>RatioChfToEu</th>
+                                                <th>Orig date</th>
+                                                <th>Download Excel</th>
+                                                <th>Download Pdf</th>
+                                                <th>Download Email</th>
+                                                <th>Detail</th>
+                                                <th>Add Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr data-ng-repeat-start="item in QouationFiles">
+                                                <td>
+                                                    <i id="DeleteQouationFile" class="fa fa-trash deleteTable" title="delete qouation file " data-placement="top" data-tooltip data-ng-click="DeleteQouationFile(item.IDQouationFile,item.IDSupplier,item.FileUrlExcel,item.FileUrlPdf,item.FileUrlEmail)"></i>
+                                                    <i id="EditQouationFile" class="fa fa-pencil editTable" title="edit qouation file" data-placement="top" data-tooltip data-ng-click="EditQouationFile(item)"></i>
+                                                </td>
+                                                <td style="padding-top:4px">
+                                                    {{item.Title}}
+                                                </td>
+                                                <td style="padding-top:4px">{{item.SupplierName}}</td>
+                                                <td style="padding-top:4px">{{item.CurrencyName}}</td>
+                                                <td style="padding-top:4px">{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                <td style="padding-top:4px">{{item.RatioRial}}</td>
+                                                <td style="padding-top:4px">{{item.RatioTransfer}}</td>
+                                                <td style="padding-top:4px">{{item.RatioMarkUp}}</td>
+                                                <td style="padding-top:4px">{{item.RatioChfToEu}}</td>
+                                                <td style="padding-top:4px">{{item.OrigDate | date : "y/MM/dd h:mm a"}}</td>
+                                                <td><a href="/{{item.FileUrlExcel}}" class="fa fa-download Download" ng-show="item.ExcelMode"></a></td>
+                                                <td><a href="/{{item.FileUrlPdf}}" class="fa fa-download Download" target="_blank"></a></td>
+                                                <td><a href="/{{item.FileUrlEmail}}" class="fa fa-download Download" target="_blank" ng-show="item.FileUrlEmail != undefinded "></a></td>
+
+                                                <td>
+                                                    <span class="fa fa-list Detail" data-ng-click="ShowQouationDetail(item)">
+                                                    </span>
+                                                    <img src="/Portal/images/loader.gif" id="imgLoaderQouation{{item.IDQouationFile}}" style="display:none;width:25px;height:25px;padding:0 0 5px 5px" />
+
+
+                                                </td>
+                                                <td style="padding-left:25px;padding-top:4px">
+                                                    <span class="fa fa-plus" style="cursor:pointer;font-size:17px" ng-click="ShowAddDetailQouation(item)" ng-show="!item.ExcelMode">
+                                                    </span>
+                                                </td>
+
+                                            </tr>
+                                            <tr data-ng-repeat-end data-ng-if="activeRow==item.IDQouationFile">
+                                                <td colspan="15" style="background-color:#f8f8f8">
+
+                                                    <div class="col-lg-12 col-md-12 QouationDetail">
+                                                        <table class="display table table-bordered table-striped">
+
+                                                            <tr>
+                                                                <th class="PartNumber">
+                                                                    <input type="text" placeholder="PartNumber" style="padding-left:5px" ng-model="SearchPartNumberQouation">
+                                                                </th>
+                                                                <th class="ShortDescription">
+                                                                    <input type="text" placeholder="Short Description" style="padding-left:5px;width:100%" ng-model="SearchShortDescriptionQouation">
+                                                                </th>
+                                                                <th>Description</th>
+                                                                <th class="Count">Qty</th>
+                                                                <th class="Price">Price</th>
+                                                                <th class="Total">Total</th>
+                                                                <th class="FixedPrice">Fixed Price</th>
+                                                                <th class="Total">Total</th>
+                                                                <th class="MarkUp">MarkUp %</th>
+                                                                <th class="SalesPrice"><span>Sales Price</span></th>
+                                                            </tr>
+
+
+                                                            <tr dir-paginate="children in QouationDetails|filter:{PartNumber:SearchPartNumberQouation}| filter:{ShortDescription:SearchShortDescriptionQouation} |itemsPerPage:10">
+
+                                                                <td>
+                                                                    <span ng-if="children.DefineInclude[0].IDXDefineDetailProduct==undefinded">{{children.PartNumber}}</span>
+                                                                    <a ng-if="children.DefineInclude[0].IDXDefineDetailProduct!=undefinded" href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{children.DefineInclude[0].IDXDefineDetailProduct}}" target="_blank" style="color:#610040">{{children.PartNumber}}</a>
+                                                                </td>
+                                                                <td>{{children.ShortDescription}}</td>
+                                                                <td>{{children.Description}}</td>
+                                                                <td>{{children.Qty}}</td>
+                                                                <td>{{children.Price}}</td>
+                                                                <td>{{children.Price * children.Qty |currency:"": 2 }}</td>
+                                                                <td>{{children.FixedPrice | number:0}}</td>
+                                                                <td>{{children.FixedPrice * children.Qty |currency:"": 2 }}</td>
+                                                                <td>
+                                                                    {{children.MarkUp | number:1}}
+                                                                </td>
+                                                                <td class="tdSalesPrice">
+                                                                    <input type="text" id="SalesPriceInput{{children.IDQouationDetail}}" class="SalesPriceInput" ng-change="ChangeQouationSalesPriceInput(children)" ng-model="children.SalesPrice" numbers-only splitwithcomma>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumQty|currency:"": 0}}</b></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumPrice|currency:"": 2}}</b></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{QouationDetails|sumForTotal:'Qty':'Price'|currency:"":2}}</b></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumFixedPrice|currency:"": 0}}</b></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{QouationDetails|sumForTotal:'Qty':'FixedPrice'|currency:"":2}}</b></td>
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <td style="background-color: #d7f3d7"><b>{{SumSalesPrice|currency:"": 0}}</b></td>
+                                                            </tr>
+
+
+                                                        </table>
+                                                    </div>
+
+
+                                                    <div class="clearfix"></div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal fade" id="ModalAddDetailQouation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="width:95%">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h5 class="modal-title">
+                                            Add detail for <span style="color:red">{{HeadetInModalAddDetailQouation}}</span>
+                                        </h5>
+                                    </div>
+                                    <form id="FormManualQouationDetail" name="FormManualQouationDetail" novalidate>
+                                        <section class="panel">
+                                            <div class="panel-body">
+                                                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                    <input type="button" id="btnAddRowDetailInQouation" class="btn btn-warning" value="AddRow" ng-click="AddRowDetailInQouation()" />
+                                                    <input type="button" id="btnDeleteRowDetailInQouation" class="btn btn-danger" value="DeleteRow" ng-click="DeleteRowDetailInQouation()" />
+                                                    <input type="button" id="btnSaveAllDetailInQouation" class="btn btn-info" value="Save all" ng-click="SaveAllDetailInQouation()" ng-disabled="FormManualQouationDetail.$invalid" />
+
+                                                </div>
+                                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                                    <label>Per:</label>
+                                                    <input type="text" class="form-control" style="display:inline-block;width:65%" ng-model="PerForQouationDetail" numbers-only maxlength="3" title="price after change will divide over per " data-placement="top" data-tooltip />
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                    <label>Ratio CHF to EU:</label>
+                                                    <input type="number" class="form-control" style="display:inline-block;width:45%" ng-model="ChfEuQouationDetail" min="0" step="0.000001" maxlength="10" placeholder="2.33" onfocus="this.placeholder = ''" onblur="this.placeholder = '2.33'" title="ratio for change CHF to Eu" data-placement="top" data-tooltip />
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ManualQouationDetail" id="divManualQouationDetail">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="Select"><input type="checkbox" ng-model="selectedAllQouationDetailManual" ng-click="checkAllQouationDetailManual()" style="margin-left:10px" /></th>
+                                                                <th class="PartNumber">PartNumber</th>
+                                                                <th class="ShortDescription">ShortDescription</th>
+                                                                <th class="Description">Description</th>
+                                                                <th class="Count">Qty</th>
+                                                                <th class="Price">Price</th>
+                                                                <th class="Total">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="item in QouationDetails">
+                                                                <td><input type="checkbox" ng-model="item.selected" class="SelectQouationDetails" /></td>
+                                                                <td>
+                                                                    <div id="AutoCompleteDefineDetailProduct" type="text" svautocomplete ng-model="item.PartNumber" datasource="DefineDetailProducts" selectedevent="SelectedItem" rownumber="{{$index}}" minlength="3"></div>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="ShortDescriptionInQouationDetail" class="form-control" ng-model="item.ShortDescription" required>
+
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="DescriptionInQouationDetail" class="form-control" ng-model="item.Description" required>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="CountInQouationDetail{{item.IDQouationDetail}}" class="form-control" ng-model="item.Qty" required numbers-only>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="PriceInQouationDetail{{item.IDQouationDetail}}" class="form-control" ng-model="item.Price" ng-change="ChangePriceInModalAddDetailQouation(item.Price,$index)" ng-model-options="{debounce: 1000}" required>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="form-control" style="background-color:lightgray !important">{{item.Qty * item.Price | number:2}}</span>
+                                                                </td>
+
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <!--<td></td>--> <!--Select-->
+                                                                <!--<td></td>--> <!--PartNumber-->
+                                                                <!--<td></td>--> <!--shortDesc-->
+                                                                <!--<td></td>--> <!--Desc-->
+                                                                <td colspan="4" style="text-align:right"> <b>Total :</b></td>
+                                                                <!--Qty-->
+                                                                <td style="padding-left:15px"><b></b></td>
+                                                                <!--Price-->
+                                                                <td style="padding-left:15px"><b>{{QouationDetails|sumByKey:'Price'|currency:""}}</b></td>
+                                                                <!--Total-->
+                                                                <td style="padding-left:15px"><b>{{QouationDetails|sumForTotal:'Qty':'Price'|currency:""}}</b></td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="ModalSearchQouation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h5 class="modal-title">
+                                            Searching
+                                        </h5>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                                                <input type="text" id="txtSearchOnPartNumberInQouation" class="form-control" placeholder="PartNumber" ng-model="SearchByPartNumberInQouation" />
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                                <input type="button" id="btnSearchOnPartNumberInQouation" class="btn btn-warning" value="Find" ng-click="SearchOnPartNumberQouation(SearchByPartNumberInQouation)" />
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br />
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table table-hover table-Padding">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Title</th>
+                                                            <th>OrigDate</th>
+                                                            <th>Qty</th>
+                                                            <th>Price</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in FindPartNumberOnQouation">
+                                                            <td>{{item.Title}}</td>
+                                                            <td>{{item.OrigDate | date : "y/MM/dd h:mm a"}}</td>
+                                                            <td>{{item.Qty}}</td>
+                                                            <td>{{item.Price}}</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                                <div data-ng-show="FindPartNumberOnQouation.length == 0">
+                                                    <h5>No data to display</h5>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="ModalSortQouation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h5 class="modal-title">
+                                            Sorting
+                                        </h5>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-y:scroll;height:300px;">
+                                                <table class="table table-hover table-Padding">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="Width:60%">Title</th>
+                                                            <th>Create Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-sortable="SortTableQouation" style="cursor:pointer;">
+                                                        <tr ng-repeat="item in QouationFiles">
+                                                            <td>{{item.Title}}</td>
+                                                            <td>{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div id="divPeyvastPrice" class="tab-pane">
+                    <section class="panel" ng-controller="PeyvastPriceFileController">
+                        <div class="panel-body" id="panelBodyPeyvastPriceFile">
+                            <form id="FormPeyvastPrice" name="FormPeyvastPrice" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-warning" style="width:80px" data-ng-click="CancelPeyvastPriceFile()" />
+                                    <input id="AddPeyvastPriceFile" type="button" value="Add" class="btn btn-info" style="width:80px" data-ng-click="AddPeyvastPriceFile()" ng-disabled="FormPeyvastPrice.$invalid" />
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Title:</label>
+                                    <input type="text" id="TitlePeyvastPrice" name="TitlePeyvastPrice" data-ng-model="CurrentPeyvastPrice.Title" class="form-control" placeholder="Tile" required>
+                                    <span ng-hide="FormPeyvastPrice.TitlePeyvastPrice.$valid || FormPeyvastPrice.TitlePeyvastPrice.$pristine" style="color:red"> Please enter Title field ...</span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Supplier:</label>
+                                    <select id="drpSupplierInPeyvastPrice" ng-model="CurrentPeyvastPrice.Supplier" ng-options="x.IDUser as x.Name_En for x in Suppliers" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Select excel file:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-file btnSelectFileUpload">
+                                                Browse… <input type="file" accept=".xls,.xlsx" id="excelFileUploadPeyvastPrice" onchange="angular.element(this).scope().ChangeExcelFilePeyvastPrice(this)" data-filetype="xls,xlsx">
+                                            </span>
+                                        </span>
+                                        <input id="urlNameExcelPeyvastPrice" type="text" class="form-control" style="width: 70%" readonly>
+                                        <button id="clearExcelFilePeyvastPrice" class="btn btnClearFileUpload" data-ng-click="ClearExcelFileUploadPeyvastPrice()">Clear</button>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Currency:</label>
+                                    <select id="drpCurrencyInPeyvastPrice" ng-model="CurrentPeyvastPrice.Currency" ng-options="x.IDCurrency as x.Title for x in Currencies" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <label>OrginalDate:</label>
+                                    <input type='text' class="form-control" id='OrigDatePeyvastPrice' name="OrigDatePeyvastPrice" ng-model="CurrentPeyvastPrice.OrigDate" datepicker required />
+                                    <span ng-hide="FormPeyvastPrice.OrigDatePeyvastPrice.$valid || FormPeyvastPrice.OrigDatePeyvastPrice.$pristine" style="color:red"> Please enter OrginalDate field ...</span>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                            <br />
+                            <br />
+                            <br />
+                            <header class="panel-heading tab-bg-dark-navy-blue" style="background-color:#fd8b49 !important">
+                                <ul class="nav nav-tabs">
+                                    <li data-ng-repeat="Supplier in Suppliers">
+                                        <a data-toggle="tab" data-ng-click="GetPeyvastPriceFile(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <form id="FormRatioPeyvastPrice" name="FormRatioPeyvastPrice" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="TablePeyvastPriceFile" style="display:none">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio Rial :</label>
+                                        <input type="text" id="RatioRialPeyvastPrice" name="RatioRialPeyvastPrice" value="0" ng-model="PeyvastPrice.RatioRial" class="form-control" required maxlength="7" numbers-only placeholder="68000" onfocus="this.placeholder = ''" onblur="this.placeholder = '68000'">
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                        <label>Ratio MarkUp :</label>
+                                        <input type="text" id="RatioMarkPeyvastPrice" name="RatioMarkUpPeyvastPrice" value="0" ng-model="PeyvastPrice.RatioMarkUp" class="form-control" required maxlength="5" placeholder="2.3" onfocus="this.placeholder = ''" onblur="this.placeholder = '2.3'">
+                                        <span ng-hide="FormRatioPeyvastPrice.RatioMarkUpPeyvastPrice.$valid || FormRatioPeyvastPrice.RatioMarkUpPeyvastPrice.$pristine" style="color:red"> Please enter Ratio MarkUp ...</span>
+
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <input type="button" id="btnUpdateRatioPeyvastPrice" value="Save" class="btn btn-info" style="width:80px" data-ng-click="UpdateRatioPeyvastPrice()" ng-disabled="FormRatioPeyvastPrice.$invalid">
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                        <br />
+                                        <a class="fa fa-sort-amount-asc buttonOnTable" data-ng-click="ShowModalSortPeyvast()" title="Sort" data-placement="top" data-tooltip></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table class="table table-hover" style="margin-top:40px">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Title</th>
+                                                <th>Suppllier</th>
+                                                <th>Currency</th>
+                                                <th>Create date</th>
+                                                <th>RatioRial</th>
+                                                <th>RatioMarkUp</th>
+                                                <th>Orginal date</th>
+                                                <th>Download Excel</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr data-ng-repeat-start="item in PeyvastPriceFiles">
+                                                <td>
+                                                    <i id="DeletePeyvastPriceFile" class="fa fa-trash deleteTable " title="delete peyvast price file " data-placement="top" data-tooltip data-ng-click="DeletePeyvastPriceFile(item.IDPeyvastPriceFile,item.IDSupplier,item.FileUrlExcel)"></i>
+                                                    <i id="EditPeyvastPriceFile" class="fa fa-pencil editTable obs" title="edit peyvast price  file" data-placement="top" data-tooltip data-ng-click="EditPeyvastPriceFile(item)"></i>
+                                                </td>
+                                                <td style="padding-top:4px">
+                                                    {{item.Title}}
+                                                </td>
+                                                <td style="padding-top:4px">{{item.SupplierName}}</td>
+                                                <td style="padding-top:4px">{{item.CurrencyName}}</td>
+                                                <td style="padding-top:4px">{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                <td style="padding-top:4px">{{item.RatioRial}}</td>
+                                                <td style="padding-top:4px">{{item.RatioMarkUp}}</td>
+                                                <td style="padding-top:4px">{{item.OrigDate | date : "y/MM/dd h:mm a"}}</td>
+
+                                                <td><a href="/{{item.FileUrlExcel}}" class="fa fa-download Download"></a></td>
+                                                <td>
+                                                    <span class="fa fa-list Detail" data-ng-click="ShowPeyvastPriceDetail(item)">
+                                                    </span>
+                                                    <img src="/Portal/images/loader.gif" id="imgLoaderPeyvastPrice{{item.IDPeyvastPriceFile}}" style="display:none;width:25px;height:25px;padding:0 0 5px 5px" />
+
+                                                </td>
+                                            </tr>
+                                            <tr data-ng-repeat-end data-ng-if="activeRow==item.IDPeyvastPriceFile">
+                                                <td colspan="10" style="background-color:#f8f8f8">
+
+                                                    <div class="col-lg-12 col-md-12 PeyvastPriceDetail">
+                                                        <table class="display table table-bordered table-striped">
+
+                                                            <tr>
+                                                                <th class="PartNumber" style="padding-left:3px !important;padding-top:0px">
+                                                                    <input type="text" placeholder="PartNumber" style="padding-left:5px;width:100%" ng-model="SearchPartNumberPeyvastPrice">
+                                                                </th>
+                                                                <th class="Description" style="padding-left:3px !important;padding-top:0px">
+                                                                    <input type="text" placeholder="Description" style="padding-left:5px;width:100%" ng-model="SearchDescriptionPeyvastPrice">
+                                                                </th>
+                                                                <th class="Stock">Stock</th>
+                                                                <th class="Price">Price</th>
+                                                                <th class="CurrencyValue">Currency</th>
+                                                                <th class="Space"></th>
+                                                                <th class="MarkUp">MarkUp</th>
+                                                                <th class="SalePrice">SalePrice</th>
+                                                                <th class="Space"></th>
+                                                                <th class="FixedPrice">FixedPrice</th>
+                                                                <th class="MarkUp">MarkUp</th>
+                                                                <th class="SalePrice">SalePrice</th>
+
+
+                                                            </tr>
+
+
+                                                            <tr dir-paginate="children in PeyvastPriceDetails|filter:{PartNumber:SearchPartNumberPeyvastPrice}| filter:{TechnicalDescription:SearchDescriptionPeyvastPrice}|itemsPerPage:10">
+                                                                <td ng-class="{SetBorderRed: children.GetFromLastPeyvast==1}">
+                                                                    <a href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{children.IDXDefineDetailProduct}}" target="_blank"> {{children.PartNumber}}</a>
+                                                                </td>
+                                                                <td>{{children.TechnicalDescription}}</td>
+                                                                <td>{{children.stockCountExist}}</td>
+                                                                <td>{{children.Price|currency:"": 0}}</td>
+                                                                <td>{{children.CurrencyValue |currency:"": 0}}</td>
+                                                                <!--Space-->
+                                                                <td style="background-color: #e7e7e7 !important"></td>
+                                                                <!--MarkUp-->
+                                                                <td class="tdMarkUp">{{children.MarkUp1 | number:1}} %</td>
+                                                                <!--SalePrice-->
+                                                                <td class="tdSalesPrice">
+                                                                    <input type="text" id="SalesPriceInput1{{children.IDPeyvastPriceDetail}}" class="SalesPriceInput" ng-change="ChangePeyvastSalesPriceInput1(children)" ng-model="children.SalesPrice1" numbers-only splitwithcomma>
+                                                                </td>
+                                                                <!--Space-->
+                                                                <td style="background-color: #e7e7e7 !important"></td>
+                                                                <!--FixedPrice-->
+                                                                <td>{{children.FixedPrice2 |currency:"": 0}}</td>
+                                                                <!--MarkUp-->
+                                                                <td class="tdMarkUp">{{children.MarkUp2 | number:1}} %</td>
+                                                                <!--SalePrice-->
+                                                                <td class="tdSalesPrice">
+                                                                    <input type="text" id="SalesPriceInput2{{children.IDPeyvastPriceDetail}}" class="SalesPriceInput" ng-change="ChangePeyvastSalesPriceInput2(children)" ng-model="children.SalesPrice2" numbers-only splitwithcomma>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <!--PartNumber-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--Description-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--stock-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--Price-->
+                                                                <td style="background-color: #d7f3d7;"><b>{{SumPrice|currency:"": 0}}</b></td>
+                                                                <!--CurrencyValue-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--Space-->
+                                                                <td style="background-color: #e7e7e7"></td>
+                                                                <!--MarkUp-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--SalePrice1-->
+                                                                <td style="background-color: #d7f3d7"><b>{{SumSalesPrice1|currency:"": 0}}</b></td>
+                                                                <!--Space-->
+                                                                <td style="background-color: #e7e7e7"></td>
+                                                                <!--FixedPrice2-->
+                                                                <td style="background-color: #d7f3d7;"><b>{{SumFixedPrice2|currency:"": 0}}</b></td>
+                                                                <!--MarkUp-->
+                                                                <td style="background-color: #d7f3d7"></td>
+                                                                <!--SalePrice2-->
+                                                                <td style="background-color: #d7f3d7"><b>{{SumSalesPrice2|currency:"": 0}}</b></td>
+
+
+
+                                                            </tr>
+
+
+                                                        </table>
+                                                        <dir-pagination-controls max-size="5"
+                                                                                 direction-links="true"
+                                                                                 boundary-links="true">
+                                                        </dir-pagination-controls>
+
+                                                        <div class="clearfix"></div>
+                                                    </div>
+
+
+                                                    <div class="clearfix"></div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal fade" id="ModalSortPeyvast" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">
+                                            Sorting
+                                        </h4>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-y:scroll;height:300px;">
+                                                <table class="table table-hover table-Padding">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="Width:60%">Title</th>
+                                                            <th>Create Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-sortable="SortTablePeyvast" style="cursor:pointer;">
+                                                        <tr ng-repeat="item in PeyvastPriceFiles">
+                                                            <td>{{item.Title}}</td>
+                                                            <td>{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div id="divStockValue" class="tab-pane">
+                    <section class="panel" ng-controller="StockValuePeyvastController">
+                        <div class="panel-body" id="panelBodyStockValue">
+                            <br />
+                            <header class="panel-heading tab-bg-dark-navy-blue" style="background-color:#fd8b49 !important">
+                                <ul class="nav nav-tabs">
+                                    <li data-ng-repeat="Supplier in Suppliers">
+                                        <a data-toggle="tab" data-ng-click="GetStockValuePeyvast(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="TableStockValuePeyvast" style="display:none">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Currency</th>
+                                            <th>OrigDate</th>
+                                            <th>RatioRial</th>
+                                            <th>Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat-start="item in StockValuePeyvasts">
+                                            <td style="padding-top:4px">
+                                                {{item.Title}}
+                                            </td>
+                                            <td style="padding-top:4px">{{item.CurrencyName}}</td>
+                                            <td style="padding-top:4px">{{item.OrigDate | date : "y/MM/dd h:mm a"}}</td>
+                                            <td style="padding-top:4px"><input type="text" ng-model="item.RatioRial" numbers-only style="padding-left:4px;" maxlength="6" ng-change="ChangeRatioRialInStockValuePeyvast(item,item.RatioRial)" ng-model-options="{debounce: 750}" /></td>
+                                            <td>
+                                                <span class="fa fa-list Detail" ng-click="ShowLastPeyvastStockValue(item)">
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat-end ng-if="activeRow==item.IDPeyvastPriceFile">
+                                            <td colspan="5" style="background-color:#f8f8f8">
+                                                <div class="col-lg-12 col-md-12 PeyvastPriceDetail">
+                                                    <table class="display table table-bordered table-striped" style="margin-top:5px">
+
+                                                        <tr>
+                                                            <th class="PartNumber" style="padding-left:3px !important;padding-top:0px">
+                                                                <input type="text" placeholder="PartNumber" style="padding-left:5px;width:100%" ng-model="SearchPartNumberStockValuePeyvast">
+                                                            </th>
+                                                            <th class="Short Description" style="padding-left:3px !important;padding-top:0px">
+                                                                <input type="text" placeholder="Description" style="padding-left:5px;width:100%" ng-model="SearchDescriptionStockValuePeyvast">
+                                                            </th>
+                                                            <th class="Stock">Stock</th>
+                                                            <th class="CurrencyValue">CurrencyValue</th>
+                                                            <th class="Price">FixedPrice1</th>
+                                                            <th class="Price">Total1</th>
+                                                            <th class="FixedPrice">FixedPrice2</th>
+                                                            <th class="Price">Total2</th>
+                                                        </tr>
+
+
+                                                        <tr dir-paginate="children in item.PeyvastPriceDetails|filter:{PartNumber:SearchPartNumberStockValuePeyvast}| filter:{TechnicalDescription:SearchDescriptionStockValuePeyvast}|itemsPerPage:10">
+                                                            <td>
+                                                                <a href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{children.IDXDefineDetailProduct}}" target="_blank"> {{children.PartNumber}}</a>
+                                                            </td>
+                                                            <td>{{children.TechnicalDescription}}</td>
+                                                            <td>{{children.stockCountExist}}</td>
+                                                            <td>{{children.CurrencyValue |currency:"": 0}}</td>
+                                                            <td>{{children.Price|currency:"": 0}}</td>
+                                                            <td>{{children.Price * children.stockCountExist |currency:"": 0}}</td>
+                                                            <td>{{children.FixedPrice2 |currency:"": 0}}</td>
+                                                            <td>{{children.FixedPrice2 * children.stockCountExist |currency:"": 0}}</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="background-color: #d7f3d7"> <!--PartNumber-->  </td>
+                                                            <td style="background-color: #d7f3d7"><!--TechnicalDescription--></td>
+                                                            <td style="background-color: #d7f3d7"><!--stockCountExist--></td>
+                                                            <td style="background-color: #d7f3d7"><!--CurrencyValue--></td>
+                                                            <td style="background-color: #d7f3d7"><b>{{item.PeyvastPriceDetails|sumByKey:'Price'|number}}</b></td>
+                                                            <td style="background-color: #d7f3d7"><b>{{item.PeyvastPriceDetails|sumForTotal:'Price':'stockCountExist'|number}}</b></td>
+                                                            <td style="background-color: #d7f3d7"><b>{{item.PeyvastPriceDetails|sumByKey:'FixedPrice2'|number}}</b></td>
+                                                            <td style="background-color: #d7f3d7"><b>{{item.PeyvastPriceDetails|sumForTotal:'FixedPrice2':'stockCountExist'|number}}</b></td>
+
+                                                        </tr>
+
+
+                                                    </table>
+                                                    <dir-pagination-controls max-size="5"
+                                                                             direction-links="true"
+                                                                             boundary-links="true">
+                                                    </dir-pagination-controls>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+
+
+                                                <div class="clearfix"></div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div id="divPreparationPriceList" class="tab-pane">
+                    <section class="panel" ng-controller="PreparationPriceListController">
+                        <div class="panel-body" id="panelBodyPreparationPriceList">
+                            <form id="FormPreparationPriceList" name="FormPreparationPriceList" novalidate>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-warning" style="width:80px" data-ng-click="CancelPreparationPriceList()" />
+                                    <input id="AddPreparationPriceList" type="button" value="Add" class="btn btn-info" style="width:80px" data-ng-click="AddPreparationPriceList()" ng-disabled="FormPreparationPriceList.$invalid" />
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <br />
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Title:</label>
+                                    <input type="text" id="TitlePreparationPriceList" name="TitlePreparationPriceList" data-ng-model="CurrentPreparationPriceList.Title" class="form-control" placeholder="Tile" required>
+                                    <span ng-hide="FormPreparationPriceList.TitlePreparationPriceList.$valid || FormPreparationPriceList.TitlePreparationPriceList.$pristine" style="color:red"> Please enter Title field ...</span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="float:left">
+                                    <label>Supplier:</label>
+                                    <select id="drpSupplierInPreparationPriceList" ng-model="CurrentPreparationPriceList.Supplier" ng-options="x.IDUser as x.Name_En for x in Suppliers" class="form-control" required>
+                                        <option value="">Select Option</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <div class="clearfix"></div>
+                            <br />
+                            <br />
+                            <br />
+                            <header class="panel-heading tab-bg-dark-navy-blue" style="background-color:#fd8b49 !important">
+                                <ul class="nav nav-tabs">
+                                    <li data-ng-repeat="Supplier in Suppliers">
+                                        <a data-toggle="tab" data-ng-click="GetPreparationPriceList(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="TablePreparationPriceList" style="display:none">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Title</th>
+                                            <th>Suppllier</th>
+                                            <th>CreateDate</th>
+                                            <th>Title last spl</th>
+                                            <th>Title last qoutation</th>
+                                            <th>Title last peyvast</th>
+                                            <th>Show</th>
+                                            <th>Detail1</th>
+                                            <th>Detail2</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat-start="item in PreparationPriceLists">
+                                            <td>
+                                                <i id="DeletePreparationPriceList" class="fa fa-trash deleteTable " title="delete preparation price list " data-placement="top" data-tooltip data-ng-click="DeletePreparationPriceList(item.IDPreparationPriceList,item.IDSupplier)"></i>
+                                                <i id="EditPreparationPriceList" class="fa fa-pencil editTable obs" title="edit preparation price list" data-placement="top" data-tooltip data-ng-click="EditPreparationPriceList(item)"></i>
+                                            </td>
+                                            <td style="padding-top:4px">
+                                                {{item.Title}}
+                                            </td>
+                                            <td style="padding-top:4px">{{item.SupplierName}}</td>
+                                            <td style="padding-top:4px">{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                                            <td style="padding-top:4px">{{item.TitleSupplierPrice}}</td>
+                                            <td style="padding-top:4px">{{item.TitleQouation}}</td>
+                                            <td style="padding-top:4px">{{item.TitlePeyvastPrice}}</td>
+
+                                            <td>
+                                                <input id="chkShowPreparation{{$index}}" type="checkbox" class="css-checkbox" ng-model="item.Show" ng-change="UpdateShowPreparation(item.Show,item.IDPreparationPriceList)">
+                                                <label for="chkShowPreparation{{$index}}" class="css-label" style="margin-top:2px"></label>
+                                            </td>
+                                            <td>
+                                                <span class="fa fa-list Detail" ng-click="ShowPreparationPriceListDetailWithOutCategory(item)" title="PartNumbers NOT In Site " data-placement="top" data-tooltip>
+                                                </span>
+                                                <img src="/Portal/images/loader.gif" id="imgLoaderPreparationWithOutCategory{{item.IDPreparationPriceList}}" style="display:none;width:25px;height:25px;padding:0 0 5px 5px" />
+
+                                            </td>
+                                            <td>
+                                                <span class="fa fa-list Detail" ng-click="ShowPreparationPriceListDetailByCategory(item)" title="PartNumbers In Site " data-placement="top" data-tooltip>
+                                                </span>
+                                                <img src="/Portal/images/loader.gif" id="imgLoaderPreparationByCategory{{item.IDPreparationPriceList}}" style="display:none;width:25px;height:25px;padding:0 0 5px 5px" />
+
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat-end ng-if="activeRow==item.IDPreparationPriceList">
+                                            <td colspan="10" style="background-color:#f8f8f8">
+                                                <div id="divPreparationPriceListByCategory" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="overflow-y:scroll;height:500px;margin-bottom:30px">
+                                                    <div class="co3-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <label style="margin-bottom:5px;"><b>Change all EndUserPrice (%) :</b> </label>
+
+                                                        <input type="text" style="width:20%;text-align:center;" ng-model="PercentageInModalByCategory" maxlength="4" />
+                                                        <i class="fa fa-plus Plus" title="All prices will increase by this percentage" data-placement="bottom" tooltip ng-click="IncreaseAllEndUserPriceForByCategory(PercentageInModalByCategory,IDPreparationPriceList)"></i>
+                                                        <i class="fa fa-minus Minus" title="All prices will decrease by this percentage" data-placement="bottom" tooltip ng-click="DecreaseAllEndUserPriceByCategory(PercentageInModalByCategory,IDPreparationPriceList)"></i>
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <br />
+                                                    <table class="table table-invoice">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>NO</th>
+                                                                <th>PartNumber</th>
+                                                                <th>Stock</th>
+                                                                <th style="color:red">SP-Fixed </th>
+                                                                <th style="color:red">SP-%</th>
+                                                                <th style="color:red">SP-Sales </th>
+                                                                <th style="color:blue">Q-Fixed </th>
+                                                                <th style="color:blue">Q-% </th>
+                                                                <th style="color:blue">Q-Sales </th>
+                                                                <th style="color:green">PV-Fixed </th>
+                                                                <th style="color:green">PV-%</th>
+                                                                <th style="color:green">PV-Sales </th>
+                                                                <th>EndUserPrice</th>
+                                                                <th>SP-%</th>
+                                                                <th>Q-%</th>
+                                                                <th>PV-%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyMaster" ng-repeat="item in PreparationPriceDetailsByCategory.ProductCategory">
+                                                            <tr>
+                                                                <td colspan="17" style="background-color:white;text-align:left;padding-top:10px">
+                                                                    <a ng-click="ChangeSituation(item.IDProduct,$event)" style="cursor:pointer">
+                                                                        <i id="icon" class="fa fa-minus SetHeaderProductCategory"></i>
+                                                                    </a>
+                                                                    <span class="SetHeaderProductCategory" style="cursor:pointer">{{item.CategoryMasterName}}</span>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="trProductcategory" class="Collapse{{item.IDProduct}}" ng-repeat="itemDefineDetailProduct in item.Childs">
+                                                                <td style="text-align: center;">{{$index+1}}</td>
+                                                                <td style="text-align: left;"><a data-original-title="{{itemDefineDetailProduct.ShortTechnicalDescription}}" data-html="true" data-placement="top" tooltip href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{itemDefineDetailProduct.IDXDefineDetailProduct}}" target="_blank">{{itemDefineDetailProduct.PartNumber}}</a></td>
+                                                                <td><span title="Stock" data-placement="top" tooltip>{{itemDefineDetailProduct.Stock}}</span></td>
+                                                                <td><span data-original-title="Sp/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioSupplier[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioSupplier[0].RatioMarkUp}} <br> Ratio Transfer : {{itemDefineDetailProduct.RatioSupplier[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip style="color:red">{{itemDefineDetailProduct.SPFixedPrice|currency:"": 0}}</span></td>
+                                                                <td><span title="Sp/MarkUp" data-placement="top" tooltip style="color:red">{{itemDefineDetailProduct.SPMarkUp}}</span></td>
+                                                                <td><span title="Sp/SalesPrice" data-placement="top" tooltip style="color:red">{{itemDefineDetailProduct.SPSalesPrice|currency:"": 0}}</span></td>
+                                                                <td>
+                                                                    <i class="fa fa-list" style="cursor:pointer;margin-right:5px" ng-click="ShowListOfQoutationsByPartNumber(itemDefineDetailProduct)"></i>
+                                                                    <span data-original-title="Qou/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioQoutation[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioQoutation[0].RatioMarkUp}} <br> Ratio Transfer : {{itemDefineDetailProduct.RatioQoutation[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip style="color:blue">{{itemDefineDetailProduct.QOFixedPrice|currency:"": 0}}</span>
+                                                                </td>
+                                                                <td><span title="Qou/MarkUp" data-placement="top" tooltip style="color:blue">{{itemDefineDetailProduct.QOMarkUp}}</span></td>
+                                                                <td><span title="Qou/SalesPrice" data-placement="top" tooltip style="color:blue">{{itemDefineDetailProduct.QOSalesPrice|currency:"": 0}}</span></td>
+                                                                <td><span data-original-title="Pey/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioPeyvast[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioPeyvast[0].RatioMarkUp}} " data-html="true" data-placement="top" tooltip style="color:green">{{itemDefineDetailProduct.PEYFixedPrice|currency:"": 0}}</span></td>
+                                                                <td><span title="Pey/MarkUp" data-placement="top" tooltip style="color:green">{{itemDefineDetailProduct.PEYMarkUp1}}</span></td>
+                                                                <td><span span title="Pey/SalesPrice" data-placement="top" tooltip style="color:green">{{itemDefineDetailProduct.PEYSalesPrice1|currency:"": 0}}</span></td>
+                                                                <td>
+                                                                    <input type="text" id="EndUserPrice{{itemDefineDetailProduct.IDPreparationPriceListDetail}}" style="text-align:right;width:80px;display:inline-block" ng-change="ChangeEndUserPrice(itemDefineDetailProduct)" ng-model="itemDefineDetailProduct.EndUserPrice" splitwithcomma numbers-only>
+                                                                    <i class="fa fa-save" style="display:inline-block;color:blue;font-size:14px;margin-left:5px;cursor:pointer" ng-click="UpdateEndUserPrice(itemDefineDetailProduct)" />
+
+                                                                </td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for sp by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForSPlist | number:1}}</span></td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for Qo by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForQoutation | number:1}}</span></td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for Pey by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForPeyvast | number:1}}</span></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                        <tbody ng-repeat="item in PreparationPriceDetailsByCategory.AccessoryCategory| filter:search">
+                                                            <tr>
+                                                                <td colspan="5" style="background-color:white;text-align:left;padding-top:10px">
+                                                                    <a ng-click="ChangeSituation(item.IDProduct,$event)" style="cursor:pointer">
+                                                                        <i id="icon" class="fa fa-minus SetHeaderProductCategory"></i>
+                                                                        <span class="SetHeaderProductCategory">{{item.CategoryMasterName}}</span>
+                                                                    </a>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr id="trAccessory" class="Collapse{{item.IDProduct}}" ng-repeat="itemDefineDetailProduct in item.Childs">
+                                                                <td style="text-align: center;">{{$index+1}}</td>
+                                                                <td style="text-align: left;"><a data-original-title="{{itemDefineDetailProduct.ShortTechnicalDescription}}" data-html="true" data-placement="top" tooltip href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{itemDefineDetailProduct.IDXDefineDetailProduct}}" target="_blank">{{itemDefineDetailProduct.PartNumber}}</a></td>
+                                                              
+                                                                <td><span title="Stock" data-placement="top" tooltip>{{itemDefineDetailProduct.Stock}}</span></td>
+                                                                <td><span data-original-title="Sp/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioSupplier[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioSupplier[0].RatioMarkUp}} <br> Ratio Transfer : {{itemDefineDetailProduct.RatioSupplier[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip>{{itemDefineDetailProduct.SPFixedPrice|currency:"": 0}}</span></td>
+                                                                <td><span title="Sp/MarkUp" data-placement="top" tooltip>{{itemDefineDetailProduct.SPMarkUp}}</span></td>
+                                                                <td><span title="Sp/SalesPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.SPSalesPrice|currency:"": 0}}</span></td>
+                                                                <td>
+                                                                    <i class="fa fa-list" style="cursor:pointer;margin-right:5px" ng-click="ShowListOfQoutationsByPartNumber(itemDefineDetailProduct)"></i>
+                                                                    <span data-original-title="Qou/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioQoutation[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioQoutation[0].RatioMarkUp}} <br> Ratio Transfer : {{itemDefineDetailProduct.RatioQoutation[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip>{{itemDefineDetailProduct.QOFixedPrice|currency:"": 0}}</span>
+                                                                </td>
+                                                                <td><span title="Qou/MarkUp" data-placement="top" tooltip>{{itemDefineDetailProduct.QOMarkUp}}</span></td>
+                                                                <td><span title="Qou/SalesPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.QOSalesPrice|currency:"": 0}}</span></td>
+                                                                <td><span data-original-title="Pey/FixedPrice <br> Ratio Rial : {{itemDefineDetailProduct.RatioPeyvast[0].RatioRial}} <br> Ratio MarkUp : {{itemDefineDetailProduct.RatioPeyvast[0].RatioMarkUp}} " data-html="true" data-placement="top" tooltip>{{itemDefineDetailProduct.PEYFixedPrice|currency:"": 0}}</span></td>
+                                                                <td><span title="Pey/MarkUp" data-placement="top" tooltip>{{itemDefineDetailProduct.PEYMarkUp1}}</span></td>
+                                                                <td><span span title="Pey/SalesPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.PEYSalesPrice1|currency:"": 0}}</span></td>
+                                                                <td>
+                                                                    <input type="text" id="EndUserPrice{{itemDefineDetailProduct.IDPreparationPriceListDetail}}" style="text-align:right;width:80px;display:inline-block" ng-change="ChangeEndUserPrice(itemDefineDetailProduct)" ng-model="itemDefineDetailProduct.EndUserPrice" splitwithcomma numbers-only>
+                                                                    <i class="fa fa-save" style="display:inline-block;color:blue;font-size:14px;margin-left:5px;cursor:pointer" ng-click="UpdateEndUserPrice(itemDefineDetailProduct)" />
+
+                                                                </td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for sp by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForSPlist | number:1}}</span></td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for Qo by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForQoutation | number:1}}</span></td>
+                                                                <td class="tdMarkUp"><span title="MarkUp for Pey by EnduserPrice" data-placement="top" tooltip>{{itemDefineDetailProduct.MarkUpForPeyvast | number:1}}</span></td>
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="ModalPreparationPriceListWithOutCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="width:99%">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h5 class="modal-title">
+                                            <span style="color:red">{{HeaderModalPreparationPriceListWithOutCategory}} :</span> <span>List of PartNumbers are`nt existing in site</span>
+                                        </h5>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 PreparationPriceListDetail" style="overflow-y:scroll;height:500px;margin-bottom:30px" onscroll="angular.element(this).scope().ScrollDiv(this)">
+                                                <div class="co3-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                    <label style="margin-bottom:5px;"><b>Change all EndUserPrice (%) :</b> </label>
+
+                                                    <input type="text" style="width:20%;text-align:center;" ng-model="PercentageInModalWithOutCategory" maxlength="4" />
+                                                    <i class="fa fa-plus Plus" title="All prices will increase by this percentage" data-placement="bottom" tooltip ng-click="IncreaseAllEndUserPriceForWithOutCategory(PercentageInModalWithOutCategory,IDPreparationPriceList)"></i>
+                                                    <i class="fa fa-minus Minus" title="All prices will decrease by this percentage" data-placement="bottom" tooltip ng-click="DecreaseAllEndUserPriceForWithOutCategory(PercentageInModalWithOutCategory,IDPreparationPriceList)"></i>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <br />
+                                                <table class="display table table-bordered table-striped">
+                                                    <tr>
+                                                        <th>NO</th>
+                                                        <th style="padding-left:3px !important;padding-top:0px">
+                                                            <input type="text" placeholder="PartNumber" style="padding-left:5px;width:100%" ng-model="PartNumberPreparationDetail" ng-change="SearchPartNumberInPreparationDetail(PartNumberPreparationDetail)">
+                                                        </th>
+                                                        <th style="color:red">SP-Fixed </th>
+                                                        <th style="color:red">SP-%</th>
+                                                        <th style="color:red">SP-Sales </th>
+                                                        <th style="color:blue">Q-Fixed </th>
+                                                        <th style="color:blue">Q-% </th>
+                                                        <th style="color:blue">Q-Sales </th>
+                                                        <th style="width:10%">EndUserPrice</th>
+                                                        <th>SP-%</th>
+                                                        <th>Q-%</th>
+                                                    </tr>
+                                                    <tbody>
+                                                        <tr ng-repeat="children in PreparationPriceDetailsWithOutCategory">
+                                                            <td>
+                                                                {{$index+1}}
+                                                            </td>
+                                                            <td>
+                                                                <a data-original-title="{{children.ShortDescription}}" data-html="true" data-placement="top" tooltip> {{children.PartNumber}}</a>
+                                                            </td>
+                                                            <td><span data-original-title="Sp/FixedPrice <br> Ratio Rial : {{children.RatioSupplier[0].RatioRial}} <br> Ratio MarkUp : {{children.RatioSupplier[0].RatioMarkUp}} <br> Ratio Transfer : {{children.RatioSupplier[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip>{{children.SPFixedPrice|currency:"": 0}}</span></td>
+                                                            <td><span title="Sp/MarkUp" data-placement="top" tooltip>{{children.SPMarkUp}}</span></td>
+                                                            <td><span title="Sp/SalesPrice" data-placement="top" tooltip>{{children.SPSalesPrice|currency:"": 0}}</span></td>
+                                                            <td>
+                                                                <i class="fa fa-list" style="cursor:pointer;margin-right:5px" ng-click="ShowListOfQoutationsByPartNumber(children)"></i>
+                                                                <span data-original-title="Qou/FixedPrice <br> Ratio Rial : {{children.RatioQoutation[0].RatioRial}} <br> Ratio MarkUp : {{children.RatioQoutation[0].RatioMarkUp}} <br> Ratio Transfer : {{children.RatioQoutation[0].RatioTransfer}}" data-html="true" data-placement="top" tooltip>{{children.QOFixedPrice|currency:"": 0}}</span>
+                                                            </td>
+                                                            <td><span title="Qou/MarkUp" data-placement="top" tooltip>{{children.QOMarkUp}}</span></td>
+                                                            <td><span title="Qou/SalesPrice" data-placement="top" tooltip>{{children.QOSalesPrice|currency:"": 0}}</span></td>
+                                                            <td>
+                                                                <input type="text" id="EndUserPrice{{children.IDPreparationPriceListDetail}}" style="text-align:right;display:inline-block;width: 100px;" ng-change="ChangeEndUserPrice(children)" ng-model="children.EndUserPrice" splitwithcomma numbers-only>
+                                                                <i class="fa fa-save" style="display:inline-block;color:blue;font-size:14px;margin-left:5px;cursor:pointer" ng-click="UpdateEndUserPrice(children)" />
+                                                            </td>
+                                                            <td class="tdMarkUp"><span title="MarkUp for sp by EnduserPrice" data-placement="top" tooltip>{{children.MarkUpForSPlist | number:1}}</span></td>
+                                                            <td class="tdMarkUp"><span title="MarkUp for Qo by EnduserPrice" data-placement="top" tooltip>{{children.MarkUpForQoutation | number:1}}</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="ModalListOfQoutationByPartNumber" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h5 class="modal-title">
+                                            <span>List of Qoutations which Are found for </span><span style="color:red">{{CurrentItemInModalListOfQoutation.PartNumber}} :</span>
+                                        </h5>
+                                    </div>
+                                    <section class="panel">
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <table class="table table-hover table-Padding">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Title</th>
+                                                            <th>Qty</th>
+                                                            <th>Price</th>
+                                                            <th>FixedPrice</th>
+                                                            <th>MarkUp</th>
+                                                            <th>SalesPrice</th>
+                                                            <th>sort</th>
+                                                            <th>Select</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in ListOfPartNumbersInModalListOfQoutationByPartNumber">
+                                                            <td>{{item.Title}}</td>
+                                                            <td>{{item.Qty}}</td>
+                                                            <td>{{item.Price}}</td>
+                                                            <td>{{item.FixedPrice|currency:"": 0}}</td>
+                                                            <td>{{item.MarkUp}}</td>
+                                                            <td>{{item.SalesPrice|currency:"": 0}}</td>
+                                                            <td>{{item.sort}}</td>
+                                                            <td><i class="fa fa-check-circle" style="cursor:pointer;color:green;font-size:20px;margin-left:10px" title="Select and Save for this preparation price list " data-placement="top" tooltip ng-click="SaveQoutationDetainInPreparationListDetail(item)"></i></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                                <div data-ng-show="ListOfPartNumbersInModalListOfQoutationByPartNumber.length == 0">
+                                                    <h5>No data to display</h5>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

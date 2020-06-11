@@ -1,0 +1,44 @@
+﻿<div id="ModalNewsLetterManagement" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width:50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title Float-Right Color-Green" dir="rtl">مدیریت خبرنامه</h5>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body" style="direction:rtl;text-align:right">
+                <form name="FormTestNewsLetter">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input id="btnStartSendingNewsLetter" type="button" value="Start sending newsletter" class="btn btn-success" ng-click="StartSendingNewsLetter()" style="width:24%; display:inline-block" />
+                        <input id="btnRefreshNewsLetter" type="button" value="Refresh" class="btn btn-warning" ng-click="GetSentEmailByIDRet()" style="width:24%; display:inline-block" />
+                        <input id="btnExportExcel" type="button" value="Expor excel" class="btn btn-Add" ng-click="ExportExcel(SentEmails)" style="width:24%; display:inline-block" />
+                        <input id="btnConvertErrorToPending" type="button" value="Convert Error To Pending" class="btn btn-danger" ng-click="ConvertErrorToPending()" style="width:24%; display:inline-block" />
+                        <table class="table table-hover table-Padding" style="direction:rtl;text-align:right">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">
+                                        <input class="FilterTextbox" type="text" placeholder="Email to" style="padding-left:5px;float:right" ng-model="EmailTo">
+                                    </th>
+                                    <th style="text-align: center;">
+                                        <input class="FilterTextbox" type="text" placeholder="Status" style="padding-left:5px;float:right" ng-model="EmailStatus">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="item in SentEmails|filter:{EmailTo:EmailTo}|filter:{EmailStatus:EmailStatus} |itemsPerPage:10">
+                                    <td>{{item.EmailTo}}</td>
+                                    <td>{{item.EmailStatus}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls max-size="5"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </form>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

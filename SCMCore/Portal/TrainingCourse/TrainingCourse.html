@@ -1,0 +1,449 @@
+﻿<title>Training Courses Management</title>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="panel" ng-controller="TrainingCourseController">
+        <header class="panel-heading">
+            <h4 class="inline-block ">Training Course</h4>
+            <input id="btnNewTrainingCourse" type="button" class="btn btn-success Float-Right obs" title="New TrainingCourse" data-placement="top" tooltip value="New" ng-click="AddNewTrainingCourse()" />
+            <input id="btnModalTrainingCourseBatch" type="button" class="btn btn-warning Float-Right" title="Define TrainingCourse Batch" data-placement="top" tooltip value="Training Course Batch" ng-click="OpenModalTrainingCourseBatch()" style="margin-right:10px;" />
+            <div class="clearfix"></div>
+        </header>
+
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-hover table-Padding">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                <input class="FilterTextbox" type="text" placeholder=" Course Name" style="padding-left:5px" ng-model="txtCourseName">
+                            </th>
+                            <th style="direction:rtl; text-align:right">
+                                <input class="FilterTextbox" type="text" placeholder="عنوان" style="padding-left:5px" ng-model="txtCaption">
+                            </th>
+                            <th>
+                                <a ng-click="setSortColumn('EndDate')">
+                                    End Date
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="item in TrainingCourses|filter:{TrainingCourseCategoryName_Fa:txtCourseName} |filter:{Name_Fa:txtCaption} |orderBy:orderProperty |itemsPerPage:10">
+                            <td>
+                                <i id="DeleteTrainingCourses" class="obs fa fa-trash deleteTable " title="delete" data-placement="top" tooltip ng-click="DeleteTrainingCourse(item.IDTrainingCourse)"></i>
+                                <i id="EditTrainingCourses" class="obs fa fa-pencil editTable" title="edit" data-placement="top" tooltip ng-click="EditTrainingCourse(item)"></i>
+                                <i id="AddTrainedUser" class="fa fa-users TrainedUserTable" title="Add Trained User" data-placement="top" tooltip ng-click="AddTrainedUser(item.IDTrainingCourse)"></i>
+                                <i id="ImageGallery" class="fa fa-file-image-o GalleryTable" tooltip title="File Gallery" ng-click="OpenGalleryModal(item.IDTrainingCourse,item.Name_Fa)"></i>
+                                <i id="TrainingCourseBatch" class="fa fa-list-ul TrainingCourseBatchTable" tooltip title="Assign to Training Course Batch" ng-click="OpenTrainingCourseBatchAssignModal(item)"></i>
+                            </td>
+                            <td>{{item.TrainingCourseCategoryName_Fa}}</td>
+                            <td style="direction:rtl">{{item.Name_Fa}}</td>
+                            <td>{{item.EndDate | Gregorian2Jalali}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <dir-pagination-controls max-size="5"
+                                     direction-links="true"
+                                     boundary-links="true">
+            </dir-pagination-controls>
+
+            <div id="DivInfoTrainingCourse" class="Hide">
+                <form name="FormTrainingCourse">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelTrainingCourse()" />
+                        <input id="btnSaveTrainingCourse" type="button" value="Add" class="btn btn-success obs" ng-click="SaveTrainingCourse()" ng-disabled="FormTrainingCourse.$invalid" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label class="control-label">Training Course Name :</label>
+                        <i class="fa fa-plus btnAddQuickAccess" tooltip title="Add New Training Course Name" ng-click="AddTrainingCourseCategory()"></i><br />
+                        <select id="drpTrainingCourseCategory" name="drpTrainingCourseCategory" ng-model="CurrentTrainingCourse.IDTrainingCourseCategory" class="form-control" required>
+                            <option value="" selected>... Select Training Course Name ...</option>
+                            <optgroup label="{{item.Name_Fa}}" ng-repeat="item in TrainingCourseCategories">
+                                <option value="{{child.IDTrainingCourseCategory}}" ng-repeat="child in item.TrainingCourseCategory">{{child.Name_Fa}}</option>
+                            </optgroup>
+                        </select>
+                        <span ng-hide="FormTrainingCourse.drpTrainingCourseCategory.$valid || FormTrainingCourse.drpTrainingCourseCategory.$pristine || CurrentTrainingCourse.IDTrainingCourseCategory==''" class="txtValidation"> Select Training Course Name</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label class="control-label">Caption:</label>
+                        <input type="text" class="form-control" ng-model="CurrentTrainingCourse.Name_Fa" name="txtCaption" required />
+                        <span ng-hide="FormTrainingCourse.txtCaption.$valid || FormTrainingCourse.txtCaption.$pristine" class="txtValidation"> Enter Caption</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label class="control-label">End Date:</label>
+                        <div class="clearfix"></div>
+                        <input kendodatepicker ng-model="CurrentTrainingCourse.EndDate" name="txtEndDate" required />
+                        <div class="clearfix"></div>
+                        <span ng-hide="FormTrainingCourse.txtEndDate.$valid || FormTrainingCourse.txtEndDate.$pristine" class="txtValidation"> Enter End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label>انتخاب تصویر:</label>
+                        <div class="input-group" style="direction:ltr">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                    Browse… <input type="file" accept=".jpg,.png,.gif" id="TrainingCoursePicFileUpload" onchange="angular.element(this).scope().ChangeTrainingCourseFile(this)" data-filetype="jpg,png,gif" required>
+                                </span>
+                            </span>
+                            <input id="urlNameTrainingCoursePic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                            <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearTrainingCoursePicFileUpload()">Clear</button>
+                        </div>
+                        <img id="PreviewTrainingCourseImage" style="width:70px" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label">Description:</label>
+                        <textarea class="form-control" ng-model="CurrentTrainingCourse.Description" name="txtDescription" required />
+                        <span ng-hide="FormTrainingCourse.txtDescription.$valid || FormTrainingCourse.txtDescription.$pristine" class="txtValidation"> Enter Description</span>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+        </div>
+
+        <div class="modal fade" id="ModalTrainingCourseCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            Training Course Name
+                        </h4>
+                    </div>
+                    <div class="modal-body row">
+                        <section class="panel">
+                            <input id="btnNewTrainingCourseCategory" type="button" class="btn btn-success Float-Right obs" title="New Training Course Name" data-placement="top" tooltip value="New root category" ng-click="AddNewTrainingCourseCategory('00000000-0000-0000-0000-000000000000')" />
+                            <div class="clearfix"></div>
+                            <div class="panel-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <script type="text/ng-template" id="tree-structure-trainingcourse">
+                                        <div class="TrainingCourseCategoryNavigation">
+                                            <i class="CursorPointer" data-placement="top" tooltip title="New Training Course Category" ng-click="AddNewTrainingCourseCategory(SubCat.IDTrainingCourseCategory)">
+                                                <img src="/Portal/images/NewCategory.png" />
+                                            </i>
+                                            <i id="DeleteTrainingCourseUsers" class="fa fa-trash deleteTable" title="Delete" data-placement="top" tooltip ng-click="DeleteTrainingCourseCategory(SubCat.IDTrainingCourseCategory,SubCat.TrainingCourseCategory)"></i>
+                                            <i id="EditTrainingCourseUsers" class="fa fa-pencil-square-o editTableRow" title="Edit" data-placement="top" tooltip ng-click="EditTrainingCourseCategory(SubCat)"></i>
+                                        </div>
+                                        <a ng-click="ToggleCollpaseTrainingCourseCategory($event,SubCat.IDTrainingCourseCategory)" class="CursorPointer display-inline-block TreeItem">
+                                            <i id="icon{{SubCat.IDTrainingCourseCategory}}" class="fa fa-angle-double-left Color-Black "></i>
+                                            <span>{{SubCat.Name_Fa}}</span>
+                                        </a>
+
+                                        <div class="TrainingCourseCategoryTree" id="List{{SubCat.IDTrainingCourseCategory}}">
+                                            <ul>
+                                                <li ng-repeat="SubCat in SubCat.TrainingCourseCategory" ng-include="'tree-structure-trainingcourse'" style="padding-right:20px">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </script>
+                                    <ul class="TrainingCourseCategoryTypeTree" id="List0" dir="rtl">
+                                        <li ng-repeat="SubCat in TrainingCourseCategories" ng-include="'tree-structure-trainingcourse'">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="DivInfoTrainingCourseCategory" class="Hide">
+                                    <form name="FormTrainingCourseCategory">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelTrainingCourseCategory()" />
+                                            <input id="btnSaveTrainingCourseCategory" type="button" value="Add" class="btn btn-success" ng-click="SaveTrainingCourseCategory()" ng-disabled="FormTrainingCourseCategory.$invalid" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label">Name:</label>
+                                            <input type="text" class="form-control" ng-model="CurrentTrainingCourseCategory.Name_Fa" name=txtTrainingCourseCategoryName_Fa required />
+                                            <span ng-hide="FormTrainingCourseCategory.txtTrainingCourseCategoryName_Fa.$valid || FormTrainingCourseCategory.txtTrainingCourseCategoryName_Fa.$pristine" class="txtValidation"> Enter Name </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label">Short Description:</label>
+                                            <input type="text" class="form-control" ng-model="CurrentTrainingCourseCategory.ShortDescription" name=txtTrainingCourseCategoryShortDescription required />
+                                            <span ng-hide="FormTrainingCourseCategory.txtTrainingCourseCategoryShortDescription.$valid || FormTrainingCourseCategory.txtTrainingCourseCategoryShortDescription.$pristine" class="txtValidation"> Enter Short Description </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label">Caption:</label>
+                                            <input type="text" class="form-control" ng-model="CurrentTrainingCourseCategory.Caption" name=txtTrainingCourseCategoryCaption required />
+                                            <span ng-hide="FormTrainingCourseCategory.txtTrainingCourseCategoryCaption.$valid || FormTrainingCourseCategory.txtTrainingCourseCategoryCaption.$pristine" class="txtValidation"> Enter Caption </span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>انتخاب تصویر:</label>
+                                            <div class="input-group" style="direction:ltr">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                                        Browse… <input type="file" accept=".jpg,.png,.gif" id="TrainingCourseCategoryPicFileUpload" onchange="angular.element(this).scope().ChangeTrainingCourseCategoryFile(this)" data-filetype="jpg,png,gif" required>
+                                                    </span>
+                                                </span>
+                                                <input id="urlNameTrainingCourseCategoryPic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                                                <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearTrainingCourseCategoryPicFileUpload()">Clear</button>
+                                            </div>
+                                            <img id="PreviewTrainingCourseCategoryImage" style="width:70px" />
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>فایل ضمیمه توضیحات:</label>
+                                            <div class="input-group" style="direction:ltr">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                                        Browse… <input type="file" accept=".pdf" id="TrainingCourseCategoryAttachPDFFileUpload" onchange="angular.element(this).scope().ChangeTrainingCourseCategoryAttachPDF(this)" data-filetype="pdf" required>
+                                                    </span>
+                                                </span>
+                                                <input id="urlNameTrainingCourseCategoryAttachPDF" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                                                <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearTrainingCourseCategoryAttachPDFFileUpload()">Clear</button>
+                                                <a href="/{{CurrentTrainingCourseCategory.AttachPDFUrl}}" ng-if="CurrentTrainingCourseCategory.AttachPDFUrl" target="_blank">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label class="control-label">Description:</label>
+                                            <textarea class="form-control" ng-model="CurrentTrainingCourseCategory.Description" name=txtTrainingCourseCategoryDescription required />
+                                            <span ng-hide="FormTrainingCourseCategory.txtTrainingCourseCategoryDescription.$valid || FormTrainingCourseCategory.txtTrainingCourseCategoryDescription.$pristine" class="txtValidation"> Enter Description </span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="ModalTrainingCourseUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">
+                            Trained Users
+                        </h4>
+                    </div>
+                    <div class="modal-body row">
+                        <section class="panel">
+                            <input id="btnNewTrainingCourseUser" type="button" class="btn btn-success Float-Right obs" title="New Training Course User" data-placement="top" tooltip value="New" ng-click="AddNewTrainingCourseUser()" />
+                            <div class="clearfix"></div>
+                            <div class="panel-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table class="table table-hover table-Padding">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Certification ID</th>
+                                                <th>Name</th>
+                                                <th>Work field</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in TrainingCourseUsers">
+                                                <td>
+                                                    <i id="DeleteTrainingCourseUsers" class="fa fa-trash deleteTable" title="delete" data-placement="top" tooltip ng-click="DeleteTrainingCourseUser(item.IDTrainingCourseUser)"></i>
+                                                    <i id="EditTrainingCourseUsers" class="fa fa-pencil  editTable" title="Edit" data-placement="top" tooltip ng-click="EditTrainingCourseUser(item)"></i>
+                                                    <i id="ImageGallery" class="fa fa-file-image-o GalleryTable" tooltip title="File Gallery" ng-click="OpenGalleryModal(item.IDTrainingCourseUser,item.PersonelFullName_Fa)"></i>
+                                                </td>
+                                                <td>{{item.CertificationID}}</td>
+                                                <td>{{item.PersonelFullName_Fa}}</td>
+                                                <td>{{item.WorkTypeName_Fa}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="DivInfoTrainingCourseUser" class="Hide">
+                                    <form name="FormTrainingCourseUser">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelTrainingCourseUser()" />
+                                            <input id="btnSaveTrainingCourseUser" type="button" value="Add" class="btn btn-success" ng-click="SaveTrainingCourseUser()" ng-disabled="FormTrainingCourseUser.$invalid" />
+                                        </div>
+
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <label class="control-label">Name :</label>
+                                            <div custom-select="obj.IDPersonelInCompany as obj.FullName +' ' + obj.NationalCode for obj in PersonelInCompanies | filter: {FullName : $searchTerm} " ng-model="CurrentTrainingCourseUser.IDUser" required></div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <label class="control-label">Certification ID :</label>
+                                            <input type="text" class="form-control" ng-model="CurrentTrainingCourseUser.CertificationID" name=txtCertificationID required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <label class="control-label">Work field :</label>
+                                            <div custom-select="obj.IDWorkType as obj.Name_Fa for obj in WorkTypes | filter: {Name_Fa : $searchTerm} " ng-model="CurrentTrainingCourseUser.IDWorkType" required></div>
+
+                                        </div>
+
+
+                                    </form>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ModalImageGallery" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">{{ImageGalleryModalTitle}}</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label">Gallery Category :</label>
+                            <select id="drpGalleryCategory" name="drpGalleryCategory" ng-model="CurrentGalleryCategory.IDGalleryCategory" class="form-control drpGalleryCategory" ng-change="ImageGallery()">
+                                <option value="" selected>... Select Gallery Category ...</option>
+                                <option value="{{item.IDGalleryCategory}}" ng-repeat="item in GalleryCategorys">{{item.Title}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 Hide" id="GalleryFileUpload">
+                            <div class="input-group Float-Right">
+                                <span class="btn" tooltip title="انتخاب تصویر">
+                                    <span class="btn btn-default btn-file">
+                                        <span>تصاویر مورد نظر را انتخاب کنید</span>
+                                        <img src="/Portal/images/BrowsImage.png" style="width:70px" />
+                                        <input type="file" accept=".jpg,.png,.gif,.pdf,.zip,.docx,.rar,.mp4,.ttf,.doc" id="FileUploadGallery" multiple onchange="angular.element(this).scope().ReadFiles(this)">
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="GalleryImageContainer">
+                            <div class="ImageGalleryContainer" ng-repeat="Image in GalleryImages">
+                                <img ng-src="/{{Image.FileType == 'png' || Image.FileType == 'jpg' ||Image.FileType == 'gif' ||Image.FileType == 'bmp' ? Image.Url : 'images/'+Image.FileType + '.png'}}" alt="" class="ImageGalleryImg" />
+                                <div class="ImageGalleryOverlay"></div>
+                                <div class="ImageGalleryButton"><a ng-click="DeleteGallery(Image.IDGallery)"> <i class="fa fa-times"></i> </a></div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ModalTrainingCourseBatch" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">دسته بندی دوره های آموزشی</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <section class="panel">
+                                <input id="btnNewTrainingCourseBatch" type="button" class="btn btn-success Float-Right" title="New TrainingCourseBatch" placement="top" tooltip value="New" ng-click="NewTrainingCourseBatch()" />
+                                <i id="ContentModuleList" class="fa fa-th-large btnTrainingModuls" tooltip title="Training Course Batches Moduls" ng-click="InitiateContentModuleList()"></i>
+                                <div class="clearfix"></div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <table class="table table-hover table-Padding">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in TrainingCourseBatchs">
+                                                    <td>
+                                                        <i id="DeleteTrainingCourseBatchs" class="fa fa-trash deleteTable" title="delete" placement="top" tooltip ng-click="DeleteTrainingCourseBatch(item.IDTrainingCourseBatch)"></i>
+                                                        <i id="EditTrainingCourseBatchs" class="fa fa-pencil editTable" title="edit" placement="top" tooltip ng-click="EditTrainingCourseBatch(item)"></i>
+                                                        <i id="ContentModule" class="fa fa-th-large moduleTable" tooltip title="Place Batch In Moduls" ng-click="InitiateContentModule(item)"></i>
+                                                    </td>
+                                                    <td>{{item.Name_Fa}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="DivInfoTrainingCourseBatch" class="Hide">
+                                        <form name="FormTrainingCourseBatch">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelTrainingCourseBatch()" />
+                                                <input id="btnSaveTrainingCourseBatch" type="button" value="Add" class="btn btn-success" ng-click="SaveTrainingCourseBatch()" ng-disabled="FormTrainingCourseBatch.$invalid" />
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <label class="control-label">Name:</label>
+                                                <input type="text" class="form-control" ng-model="CurrentTrainingCourseBatch.Name_Fa" name="txtName_Fa" required />
+                                                <span ng-hide="FormTrainingCourseBatch.txtName_Fa.$valid || FormTrainingCourseBatch.txtName_Fa.$pristine" class="txtValidation"> Enter Name_Fa</span>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label class="control-label">Description:</label>
+                                                <textarea class="form-control" ng-model="CurrentTrainingCourseBatch.Description" name="txtDescription" />
+                                                <span ng-hide="FormTrainingCourseBatch.txtDescription.$valid || FormTrainingCourseBatch.txtDescription.$pristine" class="txtValidation"> Enter Description</span>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ModalTrainingCourseBatchAssign" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">دسته بندی دوره های آموزشی</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <section class="panel">
+                                <div class="clearfix"></div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <table class="table table-hover table-Padding">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in SelectedTrainingCourseBatchs">
+                                                    <td>
+                                                        <input id="chkSelect{{$index}}" type="checkbox" class="css-checkbox" ng-model="item.Selected" ng-change="ToggleSelectTrainingCourseBatch(item)">
+                                                        <label for="chkSelect{{$index}}" class="css-label" style="margin-top:2px"></label>
+                                                    </td>
+                                                    <td>{{item.Name_Fa}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </div>
+
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div contentmodulelist concept="'TrainingCourseBatch'"></div>
+    </section>
+
+    <div contentmoduleret></div> 
+</div>
+

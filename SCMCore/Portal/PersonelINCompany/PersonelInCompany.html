@@ -1,0 +1,434 @@
+﻿<title>Management Customers</title>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="panel" ng-controller="PersonelInCompanyController" style="padding-bottom:100px">
+        <header class="panel-heading">
+            <h4 class="inline-block ">Management Customers </h4>
+            <input id="btnNewPersonelInCompany" type="button" class="btn btn-success Float-Right" title="NewPersonelInCompany" data-placement="top" data-tooltip value="New" ng-click="ClearPersonelInCompany()" />
+            <div class="clearfix"></div>
+        </header>
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-hover table-Padding">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                <input type="text" placeholder="First Name" style="padding-left:5px" ng-model="txtFName_Fa">
+                                <a ng-click="setSortColumn('FName_Fa')">
+
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <input type="text" placeholder="Last Name" style="padding-left:5px" ng-model="txtLName_Fa">
+                                <a ng-click="setSortColumn('LName_Fa')">
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <input type="text" placeholder="National Code" style="padding-left:5px" ng-model="txtNationalCode">
+                                <a ng-click="setSortColumn('NationalCode')">
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <input type="text" placeholder="Company" style="padding-left:5px" ng-model="txtCompany_Name_Fa">
+                                <a ng-click="setSortColumn('Company_Name_Fa')">
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setSortColumn('OrganizationalPosition_Name_Fa')">
+                                    Organization Position
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a ng-click="setSortColumn('LevelOfPersonelInCompany_Title')">
+                                    Level Of Personel
+                                    <i class="fa fa-sort" style="padding-left:8px;font-size:16px;cursor:pointer"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="item in PersonelInCompanys|filter:{FName_Fa:txtFName_Fa} |filter:{LName_Fa:txtLName_Fa} |filter:{Company_Name_Fa:txtCompany_Name_Fa} |filter:{NationalCode:txtNationalCode} |orderBy:orderProperty |itemsPerPage:10 " pagination-id="PersonelInCompanyPagination">
+                            <td>
+                                <i id="DeletePersonelInCompanys" class="fa fa-trash deleteTable" title="delete" data-placement="top" data-tooltip ng-click="DeletePersonelInCompany(item.IDPersonelInCompany)"></i>
+                                <i id="EditPersonelInCompanys" class="fa fa-pencil editTable" title="edit" data-placement="top" data-tooltip ng-click="EditPersonelInCompany(item)"></i>
+                                <i id="AddNewContactWay" class="fa fa-share-alt ContactWayTable" title="Contact Way" data-placement="top" data-tooltip ng-click="AddNewContactWay(item.IDPersonelInCompany)"></i>
+                            </td>
+                            <td>{{item.FName_Fa}}</td>
+                            <td>{{item.LName_Fa}}</td>
+                            <td>{{item.NationalCode}}</td>
+                            <td>{{item.Company_Name_Fa}}</td>
+                            <td>{{item.OrganizationalPosition_Name_Fa}}</td>
+                            <td>{{item.LevelOfPersonelInCompany_Title}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <dir-pagination-controls pagination-id="PersonelInCompanyPagination"
+                                     max-size="5"
+                                     direction-links="true"
+                                     boundary-links="true">
+            </dir-pagination-controls>
+            <div id="DivInfoPersonelInCompany" class="Hide">
+                <form name="FormPersonelInCompany">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelPersonelInCompany()" />
+                        <input id="btnSavePersonelInCompany" type="button" value="Add" class="btn btn-success" ng-click="SavePersonelInCompany()" ng-disabled="FormPersonelInCompany.$invalid" />
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <label class="control-label">First Name (fa):</label>
+                        <input type="text" class="form-control" ng-model="CurrentPersonelInCompany.FName_Fa" name="txtFName_Fa" required />
+                        <span ng-hide="FormPersonelInCompany.txtFName_Fa.$valid || FormPersonelInCompany.txtFName_Fa.$pristine" class="txtValidation"> Enter First Name (fa) </span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <label class="control-label">Last Name (fa):</label>
+                        <input type="text" class="form-control" ng-model="CurrentPersonelInCompany.LName_Fa" name="txtLName_Fa" required />
+                        <span ng-hide="FormPersonelInCompany.txtLName_Fa.$valid || FormPersonelInCompany.txtLName_Fa.$pristine" class="txtValidation"> Enter Last Name (fa)</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <label class="control-label">First Name (en):</label>
+                        <input type="text" class="form-control" ng-model="CurrentPersonelInCompany.FName_En" name="txtFName_En" required />
+                        <span ng-hide="FormPersonelInCompany.txtFName_En.$valid || FormPersonelInCompany.txtFName_En.$pristine" class="txtValidation"> Enter First Name (en)</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <label class="control-label">Last Name (en):</label>
+                        <input type="text" class="form-control" ng-model="CurrentPersonelInCompany.LName_En" name="txtLName_En" required />
+                        <span ng-hide="FormPersonelInCompany.txtLName_En.$valid || FormPersonelInCompany.txtLName_En.$pristine" class="txtValidation"> Enter Last Name (en)</span>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <label class="control-label">National Code:</label>
+                        <input type="text" class="form-control" islet-iran-national-id maxlength="10" minlength="10" required ng-model="CurrentPersonelInCompany.NationalCode" name="txtNationalCode" />
+                        <span ng-hide="FormPersonelInCompany.txtNationalCode.$valid || FormPersonelInCompany.txtNationalCode.$pristine" class="txtValidation"> Enter NationalCode</span>
+
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <label class="control-label">Birth Date:</label>
+                        <div class="clearfix"></div>
+                        <input kendodatepicker ng-model="CurrentPersonelInCompany.BirthDate" name=txtBirthDate />
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label class="control-label">Company:</label>
+                        <i class="fa fa-plus btnAddQuickAccess" tooltip title="Add New Company" ng-click="AddNewCompany()"></i><br />
+                        <div custom-select="obj.IDCompany as obj.Name_Fa for obj in Companies | filter: {Name_Fa : $searchTerm} " ng-model="CurrentPersonelInCompany.IDCompany"></div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label class="control-label">Organization position:</label>
+                        <i class="fa fa-plus btnAddQuickAccess" tooltip title="Add New Organization position" ng-click="AddOrganizationalPosition()"></i><br />
+                        <div custom-select="obj.IDOrganizationPosition as obj.Name_Fa for obj in OrganizationalPositions | filter: {Name_Fa : $searchTerm} " ng-model="CurrentPersonelInCompany.IDOrganizationalPosition"></div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label class="control-label">Introducer :</label>
+                        <div custom-select="obj.IDCompany as obj.Name_Fa for obj in Companies | filter: {Name_Fa : $searchTerm} " ng-model="CurrentPersonelInCompany.IDIntroducer"></div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label class="control-label">Level of persone:</label>
+                        <i class="fa fa-plus btnAddQuickAccess" tooltip title="Add New Level of persone" ng-click="AddLevelOfPersonelInCompany()"></i><br />
+                        <div custom-select="obj.IDLevelOfPersonelInCompany as obj.Title for obj in LevelOfPersonelInCompanies | filter: {Title : $searchTerm} " ng-model="CurrentPersonelInCompany.IDLevelOfPersonelInCompany"></div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                        <label class="control-label">Sales Interface:</label>
+                        <div id="tvPersonel" type="text" svtreeview ng-model="CurrentPersonelInCompany.IDInterfaceSale" datasource="SaleUsers" selectevent="SelectItem"></div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <label>انتخاب تصویر:</label>
+                        <div class="input-group" style="direction:ltr">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                    Browse… <input type="file" accept=".jpg,.png,.gif" id="PersonelPicFileUpload" onchange="angular.element(this).scope().ChangePersonelFile(this)" data-filetype="jpg,png,gif" required>
+                                </span>
+                            </span>
+                            <input id="urlNamePersonelPic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                            <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearPersonelPicFileUpload()">Clear</button>
+                        </div>
+                        <img id="PreviewPersonelImage" style="width:70px" />
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+
+
+            <div class="modal fade" id="ModalCompaniesManagement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Companies Management
+                            </h4>
+                        </div>
+                        <div class="modal-body row">
+                            <section class="panel">
+                                <input id="btnNewCompany" type="button" class="btn btn-success Float-Right" title="NewCompany" data-placement="top" data-tooltip value="New" ng-click="CreateNewCompany()" />
+                                <div class="panel-body">
+                                    <table class="table table-hover table-Padding">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>
+                                                    <input type="text" placeholder="Name" style="padding-left:5px" ng-model="txtSearchCompanyName_Fa">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr dir-paginate="item in Companies|filter:{Name_Fa:txtSearchCompanyName_Fa}  |itemsPerPage:7" pagination-id="CompanyPagination">
+                                                <td>
+                                                    <i id="DeleteCompany" class="fa fa-trash deleteTable" title="delete" data-placement="top" data-tooltip ng-click="DeleteCompany(item.IDCompany)"></i>
+                                                    <i id="EditCompany" class="fa fa-pencil editTable" title="edit" data-placement="top" data-tooltip ng-click="EditCompany(item)"></i>
+                                                </td>
+                                                <td>{{item.Name_Fa}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                    <dir-pagination-controls pagination-id="CompanyPagination"
+                                                             max-size="5"
+                                                             direction-links="true"
+                                                             boundary-links="true">
+                                    </dir-pagination-controls>
+
+                                    <div id="DivInfoCompany" class="Hide">
+                                        <form name="FormCompany">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelCompany()" />
+                                                <input id="btnSaveCompany" type="button" value="Add" class="btn btn-success" ng-click="SaveCompany()" ng-disabled="FormCompany.$invalid" />
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <label class="control-label">Name</label>
+                                                <input type="text" class="form-control" ng-model="CurrentCompany.Name_Fa" name=txtName_Fa required />
+                                                <span ng-hide="FormCompany.txtName_Fa.$valid || FormCompany.txtName_Fa.$pristine" class="txtValidation"> Enter Name</span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalLevelOfPersonelInCompany" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Level Of Personel Management
+                            </h4>
+                        </div>
+                        <div class="modal-body row">
+                            <section class="panel">
+                                <input id="btnNewLevelOfPersonelInCompany" type="button" class="btn btn-success Float-Right" title="NewLevelOfPersonelInCompany" data-placement="top" data-tooltip value="New" ng-click="AddNewLevelOfPersonelInCompany()" />
+                                <div class="clearfix"></div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <table class="table table-hover table-Padding">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Title</th>
+                                                    <th>Sort</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in LevelOfPersonelInCompanies">
+                                                    <td>
+                                                        <i id="DeleteLevelOfPersonelInCompanys" class="fa fa-trash deleteTable" title="delete" data-placement="top" data-tooltip ng-click="DeleteLevelOfPersonelInCompany(item.IDLevelOfPersonelInCompany)"></i>
+                                                        <i id="EditLevelOfPersonelInCompanys" class="fa fa-pencil editTable" title="edit" data-placement="top" data-tooltip ng-click="EditLevelOfPersonelInCompany(item)"></i>
+                                                    </td>
+                                                    <td>{{item.Title}}</td>
+                                                    <td>{{item.Sort}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="DivInfoLevelOfPersonelInCompany" class="Hide">
+                                        <form name="FormLevelOfPersonelInCompany">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelLevelOfPersonelInCompany()" />
+                                                <input id="btnSaveLevelOfPersonelInCompany" type="button" value="Add" class="btn btn-success" ng-click="SaveLevelOfPersonelInCompany()" ng-disabled="FormLevelOfPersonelInCompany.$invalid" />
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <label class="control-label">Title:</label>
+                                                <input type="text" class="form-control" ng-model="CurrentLevelOfPersonelInCompany.Title" name=txtTitle required />
+                                                <span ng-hide="FormLevelOfPersonelInCompany.txtTitle.$valid || FormLevelOfPersonelInCompany.txtTitle.$pristine" class="txtValidation"> Enter Title</span>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <label class="control-label">Sort:</label>
+                                                <input type="text" class="form-control" ng-model="CurrentLevelOfPersonelInCompany.Sort" name=txtSort required />
+                                                <span ng-hide="FormLevelOfPersonelInCompany.txtSort.$valid || FormLevelOfPersonelInCompany.txtSort.$pristine" class="txtValidation"> Enter Sort</span>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalOrganizationalPosition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Organization Position
+                            </h4>
+                        </div>
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <input id="btnNewOrganizationalPosition" type="button" class="btn btn-success Float-Right" title="NewOrganizationalPosition" data-placement="top" data-tooltip value="New" ng-click="AddNewOrganizationalPosition()" />
+                                <div class="clearfix"></div>
+                            </header>
+                            <div class="panel-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <table class="table table-hover table-Padding">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th><input type="text" placeholder="Name" style="padding-left:5px" ng-model="txtSearchOrganizationalPositionName_Fa"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr dir-paginate="item in OrganizationalPositions|filter:{Name_Fa:txtSearchOrganizationalPositionName_Fa}  |itemsPerPage:7" pagination-id="OrganizationalPositionPagination">
+                                                <td>
+                                                    <i id="DeleteOrganizationalPositions" class="fa fa-trash deleteTable" title="delete" data-placement="top" data-tooltip ng-click="DeleteOrganizationalPosition(item.IDOrganizationalPosition)"></i>
+                                                    <i id="EditOrganizationalPositions" class="fa fa-pencil editTable" title="edit" data-placement="top" data-tooltip ng-click="EditOrganizationalPosition(item)"></i>
+                                                </td>
+                                                <td>{{item.Name_Fa}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="DivInfoOrganizationalPosition" class="Hide">
+                                    <form name="FormOrganizationalPosition">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelOrganizationalPosition()" />
+                                            <input id="btnSaveOrganizationalPosition" type="button" value="Add" class="btn btn-success" ng-click="SaveOrganizationalPosition()" ng-disabled="FormOrganizationalPosition.$invalid" />
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label class="control-label">Name:</label>
+                                            <input type="text" class="form-control" ng-model="CurrentOrganizationalPosition.Name_Fa" name=txtName_Fa required />
+                                            <span ng-hide="FormOrganizationalPosition.txtName_Fa.$valid || FormOrganizationalPosition.txtName_Fa.$pristine" class="txtValidation"> Enter Name_Fa</span>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <dir-pagination-controls pagination-id="OrganizationalPositionPagination"
+                                                         max-size="5"
+                                                         direction-links="true"
+                                                         boundary-links="true">
+                                </dir-pagination-controls>
+                                <div class="clearfix"></div>
+                                <br />
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalContactWay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">
+                                Contact Way
+                            </h4>
+                        </div>
+                        <section class="panel">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                <input id="btnNewContactWay" type="button" class="btn btn-success Float-Right obs" title="New Contact Way" data-placement="top" data-tooltip value="New" ng-click="CreateNewContactWay()" />
+                                <div class="clearfix"></div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <table class="table table-hover table-Padding">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Type</th>
+                                                    <th>Input</th>
+                                                    <th>Internal Input</th>
+                                                    <th>main</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in ContactWays">
+                                                    <td>
+                                                        <i id="DeleteContactWays" class="fa fa-trash deleteTable obs" title="delete" data-placement="top" data-tooltip ng-click="DeleteContactWay(item.IDContactWay)"></i>
+                                                        <i id="EditContactWays" class="fa fa-pencil editTable" title="edit" data-placement="top" data-tooltip ng-click="EditContactWay(item)"></i>
+                                                    </td>
+                                                    <td>{{item.ContactWayTypeName_Fa}}</td>
+                                                    <td>{{item.Input}}</td>
+                                                    <td>{{item.InternalInput}}</td>
+                                                    <td><input id="chkSelectMainContactWay{{$index}}" type="checkbox" ng-click="SelectMainItemByType(item,$index)" ng-model="item.Main" /></td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="DivInfoContactWay" class="Hide">
+                                        <form name="FormContactWay">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelContactWay()" />
+                                                <input id="btnSaveContactWay" type="button" value="Add" class="btn btn-success" ng-click="SaveContactWay()" ng-disabled="FormContactWay.$invalid" />
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                <label class="control-label">Type :</label>
+                                                <select name="drpContactWayType" ng-model="CurrentContactWay.IDContactWayType" ng-options="obj.IDContactWayType as obj.Name_Fa for obj in ContactWayTypes" class="form-control" required>
+                                                    <option value="">... Select Type ...</option>
+                                                </select>
+                                                <span ng-hide="FormContactWay.drpContactWayType.$valid || FormContactWay.drpContactWayType.$pristine" class="txtValidation"> Select Contact Way Type</span>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                <label class="control-label">Input:</label>
+                                                <input type="text" class="form-control" ng-model="CurrentContactWay.Input" name=txtInput required />
+                                                <span ng-hide="FormContactWay.txtInput.$valid || FormContactWay.txtInput.$pristine" class="txtValidation"> Enter Input</span>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                <label class="control-label">Internal Input:</label>
+                                                <input type="text" class="form-control" ng-model="CurrentContactWay.InternalInput" name=txtInternalInput />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br />
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+

@@ -1,0 +1,101 @@
+﻿<title>
+    Checking Question And Answer
+</title>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="QuestionAndAnswerCheckController">
+    <section class="panel">
+        <header class="panel-heading">
+            <h4 class="inline-block ">Checking Question And Answer</h4>
+            <div style="margin-left:30%;display:inline-block">
+                <label>
+                    <input type="radio" name="editList" value="New" ng-model="changeValueRadioButton"  ng-change="GetNewQuestionAnswer()" checked />New
+                </label>
+                <label style="margin-left:20px">
+                    <input type="radio" name="editList" value="Denied" ng-model="changeValueRadioButton"  ng-change="GetDeniedQuestionAnswer()" />Denied
+                </label>
+                <label style="margin-left:20px">
+                    <input type="radio" name="editList" value="Accepted" ng-model="changeValueRadioButton"  ng-change="GetAcceptedQuestionAnswer()"/>Accepted
+                </label>
+            </div>
+        </header>
+
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-hover table-Padding">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Author</th>
+                            <th> <input type="text" placeholder="PartNumber" style="padding-left:5px" ng-model="txtSearchPartNumber"></th>
+                            <th style="text-align:right;width:40%">Question</th>
+                            <th>Edit Date</th>
+                            <th>Detail</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="item in QuestionAndAnswers|filter:{PartNumber:txtSearchPartNumber}|itemsPerPage:30" ng-class="{SetTextColoRed: item.Accept==undefinded}">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.AuthorFullName}}</td>
+                            <td>
+                                <a href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{item.IDXDefineDetailProduct}}" target="_blank" style="color:blue">{{item.PartNumber}}</a>
+                            </td>
+                            <th style="text-align:right;direction:rtl">{{item.Question}}</th>
+                            <td>{{item.EditDate | date : "y/MM/dd h:mm a"}}</td>
+                            <td>
+                                <span class="fa fa-list Detail" style="cursor:pointer" ng-click="ShowAnswerModal(item)">
+
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <dir-pagination-controls max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="ModalShowAnswer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:80%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">
+                        Question And Answer For <span style="color:red">{{SelectedQuestionAnswer.PartNumber}}</span>
+                    </h4>
+                </div>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="col-lg-12 col-md-12">
+                            <input id="btnAccept" type="button" value="Accept" class="btn btn-info" style="width:80px" data-ng-click="AcceptAnswer()" />
+                            <input id="btnDeny" type="button" value="Deny" class="btn btn-warning" style="width:80px" data-ng-click="DenyAnswer()" ng-disabled="FormAnswerByPartNumber.$invalid" />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir="rtl">
+                            <b style="float:right;direction:rtl"> سوال :</b>
+                            <div class="clearfix"></div>
+                            <span style="float:right;direction:rtl">{{SelectedQuestionAnswer.Question}}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir="rtl">
+                            <b style="float:right;direction:rtl">پاسخ :</b>
+                            <div class="clearfix"></div>
+                            <span ng-bind-html="Answer" style="float:right;direction:rtl"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" dir="rtl">
+                            <form name="FormAnswerByPartNumber">
+                                <b style="float:right;direction:rtl"> دلیل مخالفت :</b>
+                                <textarea name="txtDescriptionByManager" class="form-control" ng-model="DescriptionByManager" required style="width:100%;text-align:right"></textarea>
+                                <span ng-hide="FormAnswerByPartNumber.txtDescriptionByManager.$valid || FormAnswerByPartNumber.txtDescriptionByManager.$pristine" style="color:red"> دلیل خودر را وارد کنید</span>
+
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

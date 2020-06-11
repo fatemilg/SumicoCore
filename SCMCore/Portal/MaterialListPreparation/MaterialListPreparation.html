@@ -1,0 +1,119 @@
+﻿<head>
+    <title>List of customers which created new material list</title>
+</head>
+<div class="col-lg-6 col-md-6">
+    <section class="panel" ng-controller="MaterialListPreparationController">
+        <header class="panel-heading">
+            <span>Manage new  material list </span>
+        </header>
+        <div class="clearfix"></div>
+
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12">
+                <table class="table table-hover" style="margin-top:20px;margin-left:2px">
+                    <thead>
+                        <tr>
+                            <th>FName</th>
+                            <th>LName</th>
+                            <th>Company</th>
+                            <th>Interface Sale</th>
+                            <th style="text-align:center !important">Count of Material List</th>
+                            <th>Lists</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="item in NewMaterialListCreatedByCustomer" ng-class="{SetTextColoRed: item.ShowDate[0]==undefinded}">
+                            <td>{{item.FName}}</td>
+                            <td>{{item.LName}}</td>
+                            <td>{{item.CompanyName}}</td>
+                            <td>{{item.InterfaceSaleName}}</td>
+                            <td style="text-align:center !important">{{item.CountNewMaterialListCreated}}</td>
+                            <td><i class="fa fa-list" style="font-size:22px;cursor:pointer" ng-click="ShowListOfMaterialsCreatedByCustomer(item)"></i></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="ModalIntegrateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h5 class="modal-title">
+                            <span style="color:red">{{CustomerSelected.FName +' '+ CustomerSelected.LName}}</span> should define into CRM or integrate with exist personel in CRM
+                        </h5>
+                    </div>
+                    <section class="panel">
+                        <div class="panel-body">
+ 
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul >
+                                    <li>
+                                        <h5>Customer information  that created material list:</h5>
+                                        <table class="table table-hover" style="margin-top:5px;margin-left:2px">
+                                            <thead>
+                                                <tr>
+                                                    <th>FName</th>
+                                                    <th>LName</th>
+                                                    <th>NationalCode</th>
+                                                    <th>CompanyName</th>
+                                                    <th>Add CRM</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr >
+                                                    <td>{{CustomerSelected.FName}}</td>
+                                                    <td>{{CustomerSelected.LName}}</td>
+                                                    <td style="color:red">{{CustomerSelected.NationalCode}}</td>
+                                                    <td>{{CustomerSelected.CompanyName}}</td>
+                                                    <td >
+                                                        <i class="fa fa-save" style="cursor:pointer;color:blue;font-size:20px;padding-left:10px" ng-click="AddIntoPersonelInCompanyAsNew()" ng-show="ShowBtnAddIntoCrm==true" ></i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br />
+                                    </li>
+                                    <li>
+                                        <h5>System suggestions for integration :</h5>
+                                        <table class="table table-hover" style="margin-top:5px;margin-left:2px">
+                                            <thead>
+                                                <tr>
+                                                    <th>FName</th>
+                                                    <th>LName</th>
+                                                    <th>NationalCode</th>
+                                                    <th>CompanyName</th>
+                                                    <th>Integrate</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr ng-repeat="item in PersonelInCompanyFounds">
+                                                    <td>{{item.FName_Fa}}</td>
+                                                    <td>{{item.LName_Fa}}</td>
+                                                    <td  ng-class="{SetTextColoRed: item.NationalCode==CustomerSelected.NationalCode}">{{item.NationalCode}}</td>
+                                                    <td>{{item.CompanyName_Fa}}</td>
+                                                    <td><i  class="fa fa-check" style="color:green;font-size:14px;padding-left:10px;cursor:pointer" ng-click="IntegratePersonelInComanyAndUserSite(item.IDPersonelInCompany)" title="Integrate this personel with customer " data-placement="top" data-tooltip></i></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div ng-show="PersonelInCompanyFounds.length == 0">
+                                            <h5>No data to display</h5>
+
+                                        </div>
+                                        <br />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

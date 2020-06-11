@@ -1,0 +1,42 @@
+﻿<div id="ModalImageGallery" class="modal fade" role="dialog" ng-controller="ImageGalleryController">
+    <div class="modal-dialog" style="width:50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title Float-Right Color-Green">{{ImageGalleryModalTitle}}</h5>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label">Gallery Category :</label>
+                    <select id="drpGalleryCategory" name="drpGalleryCategory" ng-model="CurrentGalleryCategory.IDGalleryCategory" class="form-control drpGalleryCategory" ng-change="ImageGallery()">
+                        <option value="" selected>... Select Gallery Category ...</option>
+                        <option value="{{item.IDGalleryCategory}}" ng-repeat="item in GalleryCategorys">{{item.Title}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 Hide" id="GalleryFileUpload">
+                    <div class="input-group Float-Right">
+                        <span class="btn" tooltip title="انتخاب تصویر">
+                            <span class="btn btn-default btn-file">
+                                <span>تصاویر مورد نظر را انتخاب کنید</span>
+                                <img src="/Portal/images/BrowsImage.png" style="width:70px" />
+                                <input type="file" accept=".jpg,.png,.gif,.pdf,.zip,.docx,.rar,.mp4,.ttf,.doc" id="FileUploadGallery" multiple onchange="angular.element(this).scope().ReadFiles(this)">
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="GalleryImageContainer">
+                    <div class="ImageGalleryContainer" ng-repeat="Image in GalleryImages">
+                        <img ng-src="/{{Image.FileType == 'png' || Image.FileType == 'jpg' ||Image.FileType == 'gif' ||Image.FileType == 'bmp' ? Image.Url : 'Portal/images/'+Image.FileType + '.png'}}" alt="" class="ImageGalleryImg" />
+                        <div class="ImageGalleryOverlay"></div>
+                        <div class="ImageGalleryButton"><a ng-click="DeleteGallery(Image.IDGallery)"> <i class="fa fa-times"></i> </a></div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿#drop{
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 5px dashed #F1F2F7;
+    border-radius: 3px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size:16px;
+    font-weight:bold;
+    color:#7f858a;
+}
+#drop a{
+    background-color:#1FB5AD;
+    padding:12px 26px;
+    color:#fff;
+    font-size:14px;
+    border-radius:2px;
+    cursor:pointer;
+    display:inline-block;
+    margin-top:12px;
+    line-height:1;
+}

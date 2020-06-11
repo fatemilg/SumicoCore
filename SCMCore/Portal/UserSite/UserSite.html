@@ -1,0 +1,47 @@
+﻿<head>
+    <title>Manage new users</title>
+</head>
+<div class="col-lg-12 col-md-12">
+    <section class="panel" ng-controller="UserSiteController">
+        <header class="panel-heading">
+            <span>Manage new  enroll users </span>
+        </header>
+        <div class="clearfix"></div>
+
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12">
+                <table class="table table-hover" style="margin-top:20px;margin-left:2px">
+                    <thead>
+                        <tr>
+                            <th>FName</th>
+                            <th>LName</th>
+                            <th>National Code</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Company Name</th>
+                            <th>Create Date</th>
+                            <th>ExistInCRM</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="item in UsersSite" ng-class="{SetTextColoRed: item.ShowDate[0]==undefinded}">
+                            <td>{{item.FName}}</td>
+                            <td>{{item.LName}}</td>
+                            <td>{{item.NationalCode}}</td>
+                            <td>{{item.Mobile}}</td>
+                            <td>{{item.Email}}</td>
+                            <td>{{item.CompanyName}}</td>
+                            <td>{{item.CreateDate | date : "y/MM/dd h:mm a"}}</td>
+                            <td>
+                                <span class="fa fa-check" ng-if="item.ExistNationalCode==1" style="margin-left:30px"></span>
+                            </td>
+                            <td><i class="fa fa-user" style="cursor:pointer;font-size:18px" ng-click="UpdateShowDate(item)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

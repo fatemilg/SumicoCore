@@ -1,0 +1,26 @@
+﻿<div id="ModalContentModuleList" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width:50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title Float-Right Color-Green" dir="rtl">مدیریت ماژول ها</h5>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body" style="direction:rtl;text-align:right">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label class="control-label">Modules :</label>
+                    <select id="drpContentModules"  ng-model="CurrentModule.IDContentModule" class="form-control drpGalleryCategory" ng-change="GetContentModuleList()">
+                        <option value="" selected>... Select Module ...</option>
+                        <option value="{{item.IDContentModule}}" ng-repeat="item in ContentModules">{{item.Name_Fa}}</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <ul style="max-height:400px;overflow-y:scroll;" data-ng-sortable="SortInModule">
+                        <li style="cursor:pointer;" ng-repeat="item in ItemsInModule">{{item.Title_Fa}}</li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

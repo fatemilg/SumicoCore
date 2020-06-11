@@ -1,0 +1,31 @@
+﻿<div name="FormTreeView" class="FormTreeView">
+    <div class="SelectBoxTreeView" ng-click="ToggleTreeViewBody($event)">
+        <span ng-bind="SelectedTextTreeView"></span>
+        <i class="fa fa-sort-down DownTreeView"></i>
+    </div>
+    <div class="TreeViewBody">
+        <script type="text/ng-template" id="tree-structure">
+            <i class="fa fa-sort-down"></i>
+            <b>{{SubGroup.Title}}</b>
+            <div class="clearfix"></div>
+            <ul>
+                <li ng-repeat="User in SubGroup.UserGroup">
+                    <a ng-click="SelectItem(User,$event)" >
+                        <i class="fa fa-user"></i>
+                        <span>{{User.Title}}</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+            <ul>
+                <li ng-repeat="SubGroup in SubGroup.SubGroup" ng-include="'tree-structure'">
+                </li>
+            </ul>
+        </script>
+        <ul>
+            <li ng-repeat="SubGroup in datasource" class="TreeViewItem" ng-include="'tree-structure'">
+            </li>
+        </ul>
+
+    </div>
+</div>

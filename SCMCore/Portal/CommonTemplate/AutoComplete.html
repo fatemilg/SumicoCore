@@ -1,0 +1,9 @@
+﻿<form style="position:absolute" name="FormAutoComplete">
+    <input name="txtAutoSearchParam" type="text" class="form-control AutoCompleteInput" ng-Model="AutoSearchParam" required autocomplete="off"  ng-change="ChangeAutoComplete()" />
+    <div ng-if="AutoSearchParam.length>minlength && !FormAutoComplete.txtAutoSearchParam.$pristine " class="AutoCompleteBody">
+        <div ng-repeat="item in datasource | filter:{Title:AutoSearchParam}" ng-click="SelectedItem(item,$event)" class="AutoCompleteItem">
+            {{item.Title}}
+        </div>
+    </div>
+
+</form>

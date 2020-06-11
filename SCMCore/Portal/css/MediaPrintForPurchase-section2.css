@@ -1,0 +1,189 @@
+﻿/*Section2*/
+@media print {
+
+    .SetPositionPurchaseOrderTable {
+        margin-top: 10px;
+        margin-left: 10px
+    }
+
+        /*POCIndex*/
+        .SetPositionPurchaseOrderTable .POCIndex {
+            width: 1%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .index {
+            padding-top: 18px;
+        }
+        /*POCPicture*/
+        .SetPositionPurchaseOrderTable .POCPicture {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        /*POCPartNumber*/
+        .SetPositionPurchaseOrderTable .POCPartNumber {
+            width: 2%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .PartNumber {
+            padding-top: 18px;
+        }
+
+        /*POCShortDes*/
+        .SetPositionPurchaseOrderTable .POCShortDes {
+            display: none;
+        }
+
+
+        /*POCCountryOrgin*/
+        .SetPositionPurchaseOrderTable .POCCountryOrgin {
+            display: none;
+        }
+
+
+        /*POCQty*/
+        .SetPositionPurchaseOrderTable .POCQty {
+            display: none;
+        }
+
+
+        /*POCPrice*/
+        .SetPositionPurchaseOrderTable .POCPrice {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .Price {
+            padding-top: 18px;
+        }
+
+
+        /*POCTotal1*/
+        .SetPositionPurchaseOrderTable .POCTotal1 {
+            display: none;
+        }
+
+
+        /*POCUnit*/
+        .SetPositionPurchaseOrderTable .POCUnit {
+            display: none;
+        }
+
+        /*POCHsCode*/
+        .SetPositionPurchaseOrderTable .POCHsCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .HsCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+        /*POCIDCode*/
+        .SetPositionPurchaseOrderTable .POCIDCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .IDCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCUnderValue*/
+        .SetPositionPurchaseOrderTable .POCUnderValue {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .UnderValue {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCTotal2*/
+        .SetPositionPurchaseOrderTable .POCTotal2 {
+            width: 3%;
+        }
+
+        .SetPositionPurchaseOrderTable .Total2 {
+            padding-top: 18px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+    /*POCOperation*/
+    .POCOperation {
+        display: none
+    }
+
+
+
+    /*FooterIndex*/
+    .FooterIndex {
+    }
+    /*FooterPicture*/
+    .FooterPicture {
+    }
+    /*FooterPartNumber*/
+    .FooterPartNumber {
+    }
+    /*FooterShortDescription*/
+    .FooterShortDescription {
+        display: none;
+    }
+    /*FooterCo*/
+    .FooterCo {
+        display: none;
+    }
+
+    /*FooterSumQty*/
+    .FooterSumQty {
+        display: none;
+    }
+    /*FooterSumPrice*/
+    .FooterSumPrice {
+        padding-left: 5px
+    }
+    /*FooterSumTotal1*/
+    .FooterSumTotal1 {
+        display: none;
+    }
+    /*FooterUnit*/
+    .FooterUnit {
+        display: none;
+    }
+    /*FooterHsCode*/
+    .FooterHsCode {
+    }
+    /*FooterIDCode*/
+    .FooterIDCode {
+    }
+    /*FooterSumUnderValue*/
+    .FooterSumUnderValue {
+        padding-left: 5px;
+    }
+    /*FooterSumTotal2*/
+    .FooterSumTotal2 {
+        padding-right: 5px;
+        text-align: right;
+    }
+    /*FooterOperation*/
+    .FooterOperation {
+        display: none;
+    }
+
+    .form-control {
+        border-color: white;
+        padding: 12px 0px;
+    }
+
+    .HeaderPurchaseForPrint {
+        display: table;
+    }
+}

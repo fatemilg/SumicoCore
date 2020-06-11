@@ -1,0 +1,168 @@
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="IncidentController">
+    <section class="panel">
+        <header class="panel-heading">
+            <h4 class="inline-block ">رویدادها</h4>
+            <input id="btnNewIncidentCategory" type="button" class="btn btn-success Float-Right" title="New Incident" placement="top" tooltip value="New" ng-click="NewIncidentCategory()" />
+            <div class="clearfix"></div>
+        </header>
+        <div class="panel-body">
+            <section class="panel">
+                <div class="panel-body">
+                    <script type="text/ng-template" id="tree-structure">
+                        <div ng-mouseenter="MouseEnter(SubCat)" ng-mouseleave="MouseLeave(SubCat)" style="height:25px">
+                            <div class="IncidentNameContainer" ng-click="ToggleIncidentCategory(SubCat)">
+                                <i ng-if="!SubCat.IDIncident && !SubCat.Open" class="fa fa-folder"></i>
+                                <i ng-if="SubCat.Open == true" class="fa fa-folder-open"></i>
+                                <i ng-if="SubCat.IDIncident" class="fa fa-file"></i>
+                                <span class="IncidentName">{{SubCat.Name_Fa}}</span>
+                            </div>
+                            <div class="NavigationInTreeCategory" ng-show="SubCat.ShowNavigation">
+                                <i id="btnAddIncidentCategory" ng-if="!SubCat.Incidents && !SubCat.IDIncident" class="fa fa-plus tree-item-category NavigationIemInTree" title="New Incident Category" data-placement="right" tooltip ng-click="NewIncidentCategory(SubCat)"></i>
+                                <i id="btnEditIncidentCategory" ng-if="!SubCat.IDIncident" class="fa fa-edit tree-item-category NavigationIemInTree" title="Edit Incident Category" data-placement="right" tooltip ng-click="EditIncidentCategory(SubCat)"></i>
+                                <i id="btnDeleteIncidentCategory" ng-if="!SubCat.Incidents && !SubCat.IDIncident" class="fa fa-trash tree-item-category NavigationIemInTree" title="Delete Incident Category" data-placement="left" tooltip ng-click="DeleteIncidentCategory(SubCat.IDIncidentCategory)"></i>
+                                <i id="btnAddIncident" ng-if="!SubCat.IDIncident" class="fa fa-file-text tree-item-category NavigationIemInTree" title="Add Incident" data-placement="left" tooltip ng-click="OpenModalIncident(SubCat,'Add')"></i>
+                                <i id="btnEditIncident" ng-if="SubCat.IDIncident" class="fa fa-edit tree-item-category NavigationIemInTree" title="Edit Incident" data-placement="right" tooltip ng-click="OpenModalIncident(SubCat,'Update')"></i>
+                                <i id="btnDeleteIncident" ng-if="SubCat.IDIncident" class="fa fa-trash tree-item-category NavigationIemInTree" title="Delete Incident" data-placement="left" tooltip ng-click="DeleteIncident(SubCat.IDIncident)"></i>
+                                <i id="btnModalGallery" ng-if="SubCat.IDIncident" class="fa fa-file-image-o tree-item-category NavigationIemInTree" title="Incident Gallery" data-placement="left" tooltip ng-click="OpenGalleryModal(SubCat.IDIncident,SubCat.Name_Fa)"></i>
+                            </div>
+                        </div>
+                        <ul class="IncidentCategoryTree" ng-if="SubCat.Open">
+                            <li ng-repeat="SubCat in SubCat.IncidentCategorys" ng-include="'tree-structure'">
+                            </li>
+
+                        </ul>
+                        <ul class="IncidentCategoryTree" ng-if="SubCat.Open">
+                            <li ng-repeat="SubCat in SubCat.Incidents" ng-include="'tree-structure'">
+                            </li>
+                        </ul>
+                    </script>
+                    <ul class="IncidentCategoryTree" style="direction:rtl">
+                        <li ng-repeat="SubCat in IncidentCategorys" ng-include="'tree-structure'">
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="DivInfoIncidentCategory" class="Hide">
+                    <form name="FormIncidentCategory">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelIncidentCategory()" />
+                            <input id="btnSaveIncidentCategory" type="button" value="Add" class="btn btn-success" ng-click="SaveIncidentCategory()" ng-disabled="FormIncidentCategory.$invalid" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label">Name:</label>
+                            <input type="text" class="form-control" ng-model="CurrentIncidentCategory.Name_Fa" name="txtName_Fa" required />
+                            <span ng-hide="FormIncidentCategory.txtName_Fa.$valid || FormIncidentCategory.txtName_Fa.$pristine" class="txtValidation"> Enter Name_Fa</span>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <div id="ModalIncident" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green">تعریف رویداد</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+
+                    <form name="FormIncident">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelIncident()" />
+                            <input id="btnSaveIncident" type="button" value="Add" class="btn btn-success" ng-click="SaveIncident()" ng-disabled="FormIncident.$invalid" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label">Name:</label>
+                            <input type="text" class="form-control" ng-model="CurrentIncident.Name_Fa" name="txtName_Fa" required />
+                            <span ng-hide="FormIncident.txtName_Fa.$valid || FormIncident.txtName_Fa.$pristine" class="txtValidation"> Enter Name_Fa</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label">Start Date:</label>
+                            <div class="clearfix"></div>
+                            <input kendodatepicker ng-model="CurrentIncident.StartDate" name="txtStartDate" required />
+                            <div class="clearfix"></div>
+                            <span ng-hide="FormIncident.txtStartDate.$valid || FormIncident.txtStartDate.$pristine" class="txtValidation"> Enter Start Date</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label class="control-label">End Date:</label>
+                            <div class="clearfix"></div>
+                            <input kendodatepicker ng-model="CurrentIncident.EndDate" name="txtEndDate" required />
+                            <div class="clearfix"></div>
+                            <span ng-hide="FormIncident.txtEndDate.$valid || FormIncident.txtEndDate.$pristine" class="txtValidation"> Enter End Date</span>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Description:</label>
+                            <textarea data-froala class="form-control" ng-model="CurrentIncident.Description_Fa" name="txtDescription_Fa" />
+                            <span ng-hide="FormIncident.txtDescription_Fa.$valid || FormIncident.txtDescription_Fa.$pristine" class="txtValidation"> Enter Description_Fa</span>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>انتخاب تصویر:</label>
+                            <div class="input-group" style="direction:ltr">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                        Browse… <input type="file" accept=".jpg,.png,.gif" id="IncidentPicFileUpload" onchange="angular.element(this).scope().ChangeIncidentFile(this)" data-filetype="jpg,png,gif">
+                                    </span>
+                                </span>
+                                <input id="urlNameIncidentPic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                                <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearIncidentPicFileUpload()">Clear</button>
+                            </div>
+                            <img id="PreviewIncidentImage" class="width-100" src="\{{CurrentIncident.PicUrl}}" />
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="ModalImageGallery" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green">{{ImageGalleryModalTitle}}</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">Gallery Category :</label>
+                        <select id="drpGalleryCategory" name="drpGalleryCategory" ng-model="CurrentGalleryCategory.IDGalleryCategory" class="form-control drpGalleryCategory" ng-change="ImageGallery()">
+                            <option value="" selected>... Select Gallery Category ...</option>
+                            <option value="{{item.IDGalleryCategory}}" ng-repeat="item in GalleryCategorys">{{item.Title}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 Hide" id="GalleryFileUpload">
+                        <div class="input-group Float-Right">
+                            <span class="btn" tooltip title="انتخاب تصویر">
+                                <span class="btn btn-default btn-file">
+                                    <span>تصاویر مورد نظر را انتخاب کنید</span>
+                                    <img src="/Portal/images/BrowsImage.png" style="width:70px" />
+                                    <input type="file" accept=".jpg,.png,.gif,.pdf,.zip,.docx,.rar,.mp4,.ttf,.doc" id="FileUploadGallery" multiple onchange="angular.element(this).scope().ReadFiles(this)">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="GalleryImageContainer">
+                        <div class="ImageGalleryContainer" ng-repeat="Image in GalleryImages">
+                            <img ng-src="/{{Image.FileType == 'png' || Image.FileType == 'jpg' ||Image.FileType == 'gif' ||Image.FileType == 'bmp' ? Image.Url : 'Portal/images/'+Image.FileType + '.png'}}" alt="" class="ImageGalleryImg" />
+                            <div class="ImageGalleryOverlay"></div>
+                            <div class="ImageGalleryButton"><a ng-click="DeleteGallery(Image.IDGallery)"> <i class="fa fa-times"></i> </a></div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

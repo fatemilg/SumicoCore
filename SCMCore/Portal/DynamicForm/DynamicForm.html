@@ -1,0 +1,235 @@
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="panel" ng-controller="DynamicFormController">
+        <header class="panel-heading">
+            <h4 class="inline-block ">Dynamic Form</h4>
+            <input id="btnNewDynamicForm" type="button" class="btn btn-success Float-Right" title="New DynamicForm" placement="top" tooltip value="New" ng-click="NewDynamicForm()" />
+            <div class="clearfix"></div>
+        </header>
+        <div class="panel-body">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <table class="table table-hover table-Padding">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Relation</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in DynamicForms">
+                            <td>
+                                <i id="DeleteDynamicForms" class="fa fa-trash deleteTable" title="delete" placement="top" tooltip ng-click="DeleteDynamicForm(item.IDDynamicForm)"></i>
+                                <i id="EditDynamicForms" class="fa fa-pencil editTable" title="edit" placement="top" tooltip ng-click="EditDynamicForm(item)"></i>
+                            </td>
+                            <td>{{item.Name_Fa}}</td>
+                            <td>
+                                <i id="Relations" class="fa fa-share-alt editTable" title="Open Relations" placement="top" tooltip ng-click="OpenRelations(item)"></i>
+                            </td>
+                            <td><i id="FormQuestion" class="fa fa-question-circle editTable " title="Define Questions" placement="top" tooltip ng-click="OpenFormQuestionModal(item)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="DivInfoDynamicForm" class="Hide col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <form name="FormDynamicForm">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelDynamicForm()" />
+                        <input id="btnSaveDynamicForm" type="button" value="Add" class="btn btn-success" ng-click="SaveDynamicForm()" ng-disabled="FormDynamicForm.$invalid" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">Name:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDynamicForm.Name_Fa" name="txtName_Fa" required />
+                        <span ng-hide="FormDynamicForm.txtName_Fa.$valid || FormDynamicForm.txtName_Fa.$pristine" class="txtValidation"> Enter Name</span>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 Float-Right">
+                        <label class="control-label">متن اصلی:</label><br />
+                        <textarea name="txtDescription" data-froala ng-model="CurrentDynamicForm.Description" required></textarea>
+                        <span ng-hide="FormDynamicForm.txtDescription.$valid || FormDynamicForm.txtDescription.$pristine" class="txtValidation"> Enter Description</span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div id="ModalFormQuestion" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">{{FormQuestionModalTitle}}</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+                        <input id="btnNewFormQuestion" type="button" class="btn btn-success Float-Right" title="New FormQuestion" placement="top" tooltip value="New" ng-click="NewFormQuestion()" />
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-hover table-Padding">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Question Text</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-ng-sortable="SortTableSelectedFormQuestion">
+                                    <tr ng-repeat="item in FormQuestions">
+                                        <td>
+                                            <i id="DeleteFormQuestions" class="fa fa-trash deleteTable" title="delete" placement="top" tooltip ng-click="DeleteFormQuestion(item.IDFormQuestion)"></i>
+                                            <i id="EditFormQuestions" class="fa fa-pencil editTable" title="edit" placement="top" tooltip ng-click="EditFormQuestion(item)"></i>
+                                        </td>
+                                        <td>{{item.QuestionText}}</td>
+                                        <td>{{item.UniqueName}}</td>
+
+                                        <td>
+                                            <i id="FormOptions" class="fa fa-list-ul editTable" title="Define Options" placement="top" tooltip ng-click="OpenFormOptionModal(item)"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="DivInfoFormQuestion" class="Hide">
+                            <form name="FormFormQuestion">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelFormQuestion()" />
+                                    <input id="btnSaveFormQuestion" type="button" value="Add" class="btn btn-success" ng-click="SaveFormQuestion()" ng-disabled="FormFormQuestion.$invalid" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="control-label">Question Text:</label>
+                                    <input type="text" class="form-control" ng-model="CurrentFormQuestion.QuestionText" name="txtQuestionText" required />
+                                    <span ng-hide="FormFormQuestion.txtQuestionText.$valid || FormFormQuestion.txtQuestionText.$pristine" class="txtValidation"> Enter QuestionText</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="control-label">Optional:</label>
+                                    <div class="clearfix"></div>
+                                    <input id="chkOptional" type="checkbox" class="css-checkbox" ng-model="CurrentFormQuestion.Optional">
+                                    <label for="chkOptional" class="css-label" style="margin-top:2px"></label>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="control-label">Question Type:</label>
+                                    <select id="drpQuestionType" name="drpQuestionType" ng-model="CurrentFormQuestion.IDFormQuestionType" class="form-control" required>
+                                        <option value="" selected>... Select Form Question Type ...</option>
+                                        <option value="{{child.IDFormQuestionType}}" ng-repeat="child in FormQuestionTypes">{{child.UniqueName}}</option>
+                                    </select>
+                                    <span ng-hide="FormFormQuestion.drpQuestionType.$valid || FormFormQuestion.drpQuestionType.$pristine" class="txtValidation"> Enter QuestionType</span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ModalFormOption" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">{{FormOptionModalTitle}}</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+                        <input id="btnNewFormOption" type="button" class="btn btn-success Float-Right" title="New FormOption" placement="top" tooltip value="New" ng-click="NewFormOption()" />
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-hover table-Padding">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Option Text</th>
+                                        <th>Picture</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-ng-sortable="SortTableSelectedFormOption">
+                                    <tr ng-repeat="item in FormOptions">
+                                        <td>
+                                            <i id="DeleteFormOptions" class="fa fa-trash deleteTable" title="delete" placement="top" tooltip ng-click="DeleteFormOption(item.IDFormOption)"></i>
+                                            <i id="EditFormOptions" class="fa fa-pencil editTable" title="edit" placement="top" tooltip ng-click="EditFormOption(item)"></i>
+                                        </td>
+                                        <td>{{item.OptionText}}</td>
+                                        <td>
+                                            <img ng-src="/{{item.PicUrl}}" style="width:70px" ng-show="SelectedFormQuestionType == 'Icon' ? 1 : 0" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="DivInfoFormOption" class="Hide">
+                            <form name="FormFormOption">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelFormOption()" />
+                                    <input id="btnSaveFormOption" type="button" value="Add" class="btn btn-success" ng-click="SaveFormOption()" ng-disabled="FormFormOption.$invalid" />
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <label class="control-label">Option Text:</label>
+                                    <input type="text" class="form-control" ng-model="CurrentFormOption.OptionText" name="txtOptionText" required />
+                                    <span ng-hide="FormFormOption.txtOptionText.$valid || FormFormOption.txtOptionText.$pristine" class="txtValidation"> Enter OptionText</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-show="SelectedFormQuestionType == 'Icon' ? true : false">
+                                    <label>انتخاب تصویر:</label>
+                                    <div class="input-group" style="direction:ltr">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                                Browse… <input type="file" accept=".jpg,.png,.gif" id="FormOptionPicFileUpload" onchange="angular.element(this).scope().ChangeFormOptionFile(this)" data-filetype="jpg,png,gif" required>
+                                            </span>
+                                        </span>
+                                        <input id="urlNameFormOptionPic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                                        <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearFormOptionPicFileUpload()">Clear</button>
+
+                                    </div>
+                                    <img id="PreviewFormOptionImage" style="width:70px" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ModalDynamicFormRelation" class="modal fade" role="dialog">
+            <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                        <h5 class="modal-title Float-Right Color-Green">{{RelationModalTitle}}</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label class="control-label">Relation Category :</label>
+                                <select id="drpRelationCategory" name="drpRelationCategory" ng-model="RelationCategory" class="form-control drpRelationCategory" ng-change="LoadRelations(RelationCategory)">
+                                    <option value="" selected>... Select Category ...</option>
+                                    <option value="Incident">رویداد ها</option>
+                                    <option value="TrainingCourse">دوره های آموزشی</option>
+                                    <option value="Content">مطالب</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align:right;direction:rtl">
+                                <ul>
+                                    <li ng-repeat="incident in Incidents">
+                                        <input type="checkbox" id="chk{{incident.IDIncident}}" value="{{incident.IDIncident}}" style="margin-left:2px" />
+                                        <label for="chk{{incident.IDIncident}}">{{incident.Name_Fa}}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+

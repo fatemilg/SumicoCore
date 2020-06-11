@@ -1,0 +1,166 @@
+
+  <article
+    class="container" 
+    style="background-color: rgb(242, 242, 242); 
+      max-width: 750px; 
+      height: 100%; 
+      width: 95%; 
+      margin: 0 auto; 
+      text-align: right;
+      direction: rtl;
+      padding: 7px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #333">
+    <header
+      class="header">
+      <p 
+        class="header-redirection" 
+        style="margin: 0;
+          font-size: 10px;
+          text-align: left;
+          color: #777;">
+         در صورت عدم مشاهده محتوای خبرنامه به <a href="https://farbin.ir/#!/NewsLetterDetail/@@IDXContent" style="color: #610040; text-decoration: none; font-size: 12px;">اینجا</a> بروید.
+      </p>
+    </header>
+    <main
+      class="main" 
+      style="background-color: #fff;
+        margin: 10px 0 20px 0;">
+      
+
+      @@Content
+
+
+    </main>
+    <footer 
+      class="footer"
+      style="font-size: 12px;
+        text-align: center;
+        color: #999;">
+      <section
+        class="footer-socialMedia"
+          style="margin: 10px auto;
+            text-align: center;">
+        <a 
+          class="footer-socialMedia-instagram"
+          href="https://www.instagram.com/farbin_company/"
+          style="display: inline-block;
+            margin: 0 5px;">
+          <img 
+            src="https://farbin.ir/NewsLetter/insta-icon.png" 
+            alt="farbin-instagram"
+            style="width: 20px;
+              height: 20px;">
+        </a>
+        <a 
+          class="footer-socialMedia-instagram"
+          href="https://t.me/farbinme"
+          style="margin-bottom: 15px;
+            display: inline-block;
+            margin: 0 5px;">
+          <img 
+            src="https://farbin.ir/NewsLetter/telegram-icon.png" 
+            alt="farbin-instagram"
+            style="width: 20px;
+              height: 20px;">
+        </a>
+        <a 
+          class="footer-socialMedia-linkedin"
+          href="https://www.linkedin.com/company/farbincompany/"
+          style="margin-bottom: 15px;
+            display: inline-block;
+            margin: 0 5px;">
+          <img 
+            src="https://farbin.ir/NewsLetter/linkedin-icon.png" 
+            alt="farbin-instagram"
+            style="width: 20px;
+              height: 20px;">
+        </a>
+        <a 
+          class="footer-socialMedia-email"
+          href="mailto:info@farbin.ir"
+          style="margin-bottom: 15px;
+            display: inline-block;
+            margin: 0 5px;">
+          <img 
+            src="https://farbin.ir/NewsLetter/email-icon.png" 
+            alt="farbin-instagram"
+            style="width: 20px;
+              height: 20px;">
+        </a>
+      </section>
+      <section 
+        class="footer-links"
+        style="
+          margin: 10px auto 0 auto;
+          text-align: center;">
+        <a 
+          href="https://farbin.ir/#!/TrainingMain"
+          style="color: #777;
+            display: inline-block;
+            margin: 0 3px;
+            font-size: 12px;
+            text-decoration: underline;">
+          آموزش
+        </a>
+        <a 
+          href="https://farbin.ir/#!/ArticleCategory"
+          style="color: #777;
+            display: inline-block;
+            margin: 0 3px;
+            font-size: 12px;
+            text-decoration: underline;">
+          آخرین مقالات
+        </a>
+        <a 
+          href="https://farbin.ir/#!/ProductCategory/6/0"
+          style="color: #777;
+            display: inline-block;
+            margin: 0 3px;
+            font-size: 12px;
+            text-decoration: underline;">
+          محصولات <b style="font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight: normal; font-size: 11px;">Huber+Suhner</b>
+        </a>
+        <a 
+          href="https://farbin.ir/#!/AboutUsCategory"
+          style="color: #777;
+            display: inline-block;
+            margin: 0 3px;
+            font-size: 12px;
+            text-decoration: underline;">
+          درباره فربین
+        </a>
+      </section>
+      <p 
+        class="footer-unsubscribe"
+        style="margin: 10px 0 0 0;">
+        در صورت عدم نیاز به ارسال خبرنامه به <a href="https://farbin.ir/#!/Unsubscribe/@@EmailName" style="color: #610040; text-decoration: none; font-size: 13px;">اینجا</a> بروید.
+      </p>
+      <a href="https://farbin.ir/#!/Unsubscribe/@@EmailName"
+        class="footer-unsubscribe-en"
+        style="margin: 0;
+          color: #999;
+          text-decoration: none;
+          display: block;
+          margin-bottom: 0px;
+          font-family: system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        Unsubscribe
+      </a>
+      <p 
+        class="footer-address" 
+        style="margin: 0;
+          line-height: 25px;">
+        تهران - خیابان مطهری - خیابان لارستان - کوچه جهانسوز - پلاک 13
+      </p>
+      <a 
+        href="tel:+982141548000"
+        class="footer-phoneContact-number" 
+        style="margin: 0;
+          color: #999;
+          text-decoration: none;
+          display: block;
+          margin-bottom: 20px;">
+        021-41548000
+      </a>
+    </footer>
+  </article>

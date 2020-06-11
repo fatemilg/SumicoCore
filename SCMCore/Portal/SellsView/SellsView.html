@@ -1,0 +1,151 @@
+﻿
+
+<head>
+    <title>Sells view</title>
+</head>
+<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" data-ng-controller="SellsViewController">
+    <!--tab nav start-->
+    <section class="panel">
+        <header class="panel-heading tab-bg-dark-navy-blue SetHeaderMasterTable">
+            <ul class="nav nav-tabs">
+                <li data-ng-repeat="Supplier in Suppliers">
+                    <a data-toggle="tab" data-ng-click="ProductCategoryFromParentToMaster(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                </li>
+            </ul>
+            <div class="tools pull-right SetButtonInHeaderMasterTable" style="width:60%">
+
+
+                <a style="color: white; font-size: 20px; margin-top: 7px;float:right;cursor:pointer" data-ng-click="OpenMasterSetting()"> <b class="fa fa-bars" style="color:black"></b></a>
+
+                <ul class="dropdown-menu MasterSetting" id="ulMasterSetting">
+
+                    <li>
+                        <label>Include Stock:</label>
+                        <input id="chkStockSituation" type="checkbox" data-ng-model="Stock" data-ng-click="StockSituation(Stock)" data-ng-init="initialStock()" data-on=" " data-off=" ">
+                    </li>
+                    <li>
+                        <label>Show short description:</label>
+                        <input id="chkColumnShortDescription" type="checkbox" data-ng-model="ColumnShortDescription" data-ng-click="ShowShortDescription(ColumnShortDescription)" data-ng-init="initialColumn()" data-on=" " data-off=" ">
+                    </li>
+                    <li>
+                        <label>Show description:</label>
+                        <input id="chkColumnDescription" type="checkbox" data-ng-model="ColumnDescription" data-ng-click="ShowDescription(ColumnDescription)" data-ng-init="initialColumn()" data-on=" " data-off=" ">
+
+                    </li>
+                </ul>
+
+
+                <input id="txtSearch" type="text" data-ng-model="search" placeholder="Search for ..." class="form-control" style="width:50%;display:inline-block;margin-bottom:-3px" ng-minlength="4" /><span class="fa fa-search" style="font-size:15px;margin-left:-25px"></span>
+
+            </div>
+        </header>
+
+        <div class="clearfix"></div>
+        <div class="panel-body" style="padding-top:40px">
+            <div id="ContainerProductCategory" style="overflow-y:scroll;max-height:500px;-webkit-overflow-scrolling: touch;padding-left:30px">
+                <div data-ng-repeat="item in Categories.ProductCategory| filter:search">
+                    <a data-toggle="collapse" data-parent="#ContainerProductCategory" data-ng-click="ChnageSituation(item.IDProduct,$event)" style="cursor:pointer">
+                        <i id="icon" class="fa fa-minus SetHeaderProductCategory"></i>
+                        <span class="SetHeaderProductCategory">{{item.CategoryMasterName}}</span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div data-ng-attr-id="Collapse{{item.IDProduct}}" class="panel-collapse collapse in ">
+                        <table class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th class="th1MasterTable">NO</th>
+                                    <th class="th2MasterTable">PartNumber</th>
+                                    <th class="th3MasterTable" data-ng-show="ColumnShortDescription">ShortDescription</th>
+                                    <th class="th4MasterTable" data-ng-show="ColumnDescription">Description</th>
+                                    <th class="th5MasterTable">Stock</th>
+                                    <th class="th5MasterTable">MadeCountry</th>
+                                    <th data-ng-repeat="column in PurchaseOrderFiles" style="width:90px">
+                                        <table style="width:100%">
+                                            <tr><th colspan="2" style="border-bottom:solid 1px;text-align:center;">{{column.Title}} / <span style="font-size:10px">{{column.DeliverDate}}</span></th></tr>
+                                            <tr>
+                                                <th style="text-align:center">Qty</th>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="itemDefineDetailProduct in item.Childs" data-ng-show="(Stock==true && itemDefineDetailProduct.Stock>0) || (Stock==false)">
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: center;">{{$index+1}}</td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.PartNumber | lowercase).includes(search | lowercase) && search !=''}"><a href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{itemDefineDetailProduct.IDXDefineDetailProduct}}" target="_blank">{{itemDefineDetailProduct.PartNumber}}</a></span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;" data-ng-show="ColumnShortDescription"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.ShortTechnicalDescription | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.ShortTechnicalDescription}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;" data-ng-show="ColumnDescription"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.TechnicalDescription | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.TechnicalDescription}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.Stock | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.Stock}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.Stock | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.MadeCountry}}</span></td>
+                                    <td data-ng-repeat="column in PurchaseOrderFiles">
+                                        <table style="width:100%;">
+                                            <tr><th colspan="2"></th></tr>
+                                            <tr>
+                                                <td style="text-align:center;width:41.9%" data-ng-bind="Qty(column.IDPurchaseOrderFile,itemDefineDetailProduct.IDDefineDetailProduct)"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div data-ng-repeat="item in Categories.AccessoryCategory| filter:search">
+                    <a data-toggle="collapse" data-parent="#ContainerProductCategory" data-ng-click="ChnageSituation(item.IDProduct,$event)" style="cursor:pointer">
+                        <i id="icon" class="fa fa-minus SetHeaderProductCategory"></i>
+                        <span class="SetHeaderProductCategory">{{item.CategoryMasterName}}</span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div data-ng-attr-id="Collapse{{item.IDProduct}}" class="panel-collapse collapse in ">
+                        <table class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th class="th1MasterTable">NO</th>
+                                    <th class="th2MasterTable">PartNumber</th>
+                                    <th class="th3MasterTable" data-ng-show="ColumnShortDescription">ShortDescription</th>
+                                    <th class="th4MasterTable" data-ng-show="ColumnDescription">Description</th>
+                                    <th class="th5MasterTable">Stock</th>
+                                    <th class="th5MasterTable">MadeCountry</th>
+                                    <th data-ng-repeat="column in PurchaseOrderFiles" style="width:90px">
+                                        <table style="width:100%">
+                                            <tr><th colspan="2" style="border-bottom:solid 1px;text-align:center;">{{column.Title}} / <span style="font-size:9px">{{column.DeliverDate}}</span></th></tr>
+                                            <tr>
+                                                <th style="text-align:center">Qty</th>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="itemDefineDetailProduct in item.Childs" data-ng-show="(Stock==true && itemDefineDetailProduct.Stock>0) || (Stock==false)">
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: center;">{{$index+1}}</td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.PartNumber | lowercase).includes(search | lowercase) && search !=''}"><a href="http://{{ClientUrl}}/#!/DefineDetailProduct/{{itemDefineDetailProduct.IDXDefineDetailProduct}}" target="_blank">{{itemDefineDetailProduct.PartNumber}}</a></span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;" data-ng-show="ColumnShortDescription"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.ShortTechnicalDescription | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.ShortTechnicalDescription}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;" data-ng-show="ColumnDescription"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.TechnicalDescription | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.TechnicalDescription}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.Stock | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.Stock}}</span></td>
+                                    <td style="padding: 0px 10px 0px 10px !important; text-align: left;"><span data-ng-class="{HighLightText: (itemDefineDetailProduct.Stock | lowercase).includes(search | lowercase) && search !=''}">{{itemDefineDetailProduct.MadeCountry}}</span></td>
+
+                                    <td data-ng-repeat="column in PurchaseOrderFiles">
+                                        <table style="width:100%;">
+                                            <tr><th colspan="2"></th></tr>
+                                            <tr>
+                                                <td style="text-align:center;width:41.9%" data-ng-bind="Qty(column.IDPurchaseOrderFile,itemDefineDetailProduct.IDDefineDetailProduct)"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!--tab nav start-->
+
+</div>
+
+
+
+

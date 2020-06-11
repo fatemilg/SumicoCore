@@ -1,0 +1,112 @@
+﻿<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <section class="panel" ng-controller="DictionaryController">
+        <header class="panel-heading">
+            <h4 class="inline-block ">Dictionary</h4>
+            <input id="btnNewDictionary" type="button" class="btn btn-success Float-Right" title="New Dictionary" placement="top" tooltip value="New" ng-click="NewDictionary()" />
+            <div class="clearfix"></div>
+        </header>
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table table-hover table-Padding col-lg-6 col-md-6 col-sm-12 col-xs-12 FA-Grid" style="direction:rtl;float:right">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Status</th>
+                            <th>
+                                <input type="text" placeholder=" اصطلاح" style="padding-left:5px" ng-model="txtFilterDictionary">
+                            </th>
+                            <th><input type="text" placeholder=" عبارت" style="padding-left:5px" ng-model="txtFilterTitle"></th>
+                            <th>Pic</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="item in Dictionarys|filter:{KeyWord:txtFilterDictionary} |filter:{Title:txtFilterTitle}  |orderBy:KeyWord |itemsPerPage:5">
+
+                            <td>
+                                <i id="DeleteDictionarys" class="fa fa-trash deleteTable" title="delete" placement="top" tooltip ng-click="DeleteDictionary(item.IDDictionary)"></i>
+                                <i id="EditDictionarys" class="fa fa-pencil editTable" title="edit" placement="top" tooltip ng-click="EditDictionary(item)"></i>
+                                <a href="http://{{ClientUrl}}/#!/DictionaryDescription/{{item.IDX}}" target="_blank"><i id="ExternalLink" class="fa fa-external-link btn-tree" tooltip title="Show in website"></i></a>
+                            </td>
+                            <td><i class="fa fa-warning Color-Yellow" ng-if="!item.Active" tooltip title="This Key Is Inactive"></i></td>
+                            <td>{{item.KeyWord}}</td>
+                            <td>{{item.Title}}</td>
+                            <td><img src="/{{item.PicUrl}}" style="width:50px" /></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="clearfix"></div>
+                <dir-pagination-controls max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls>
+            </div>
+            <div id="DivInfoDictionary" class="Hide">
+                <form name="FormDictionary">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelDictionary()" />
+                        <input id="btnSaveDictionary" type="button" value="Add" class="btn btn-success" ng-click="SaveDictionary()" ng-disabled="FormDictionary.$invalid" />
+                        <input id="btnToggleActivation" type="button" ng-if="CurrentDictionary.Active != undefined" value="{{CurrentDictionary.Active == true ? 'Inactive' : 'Active'}}" class="btn btn-{{CurrentDictionary.Active == true ? 'danger' : 'default'}}" ng-click="ToggleActivation()" />
+
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">اصطلاح:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.KeyWord" name="txtKeyWord" required />
+                        <span ng-hide="FormDictionary.txtKeyWord.$valid || FormDictionary.txtKeyWord.$pristine" class="txtValidation"> Enter KeyWord</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">عبارت:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.Title" name="txtTitle" required />
+                        <span ng-hide="FormDictionary.txtTitle.$valid || FormDictionary.txtTitle.$pristine" class="txtValidation"> Enter Title</span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">خلاصه توضیح:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.Abstract" name="txtAbstract" required />
+                        <span ng-hide="FormDictionary.txtAbstract.$valid || FormDictionary.txtAbstract.$pristine" class="txtValidation"> Enter Abstract</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">منبع:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.SourceText" name="txtSourceText" required />
+                        <span ng-hide="FormDictionary.txtSourceText.$valid || FormDictionary.txtSourceText.$pristine" class="txtValidation"> Enter SourceText</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">Meta Tags:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.MetaTag" name="txtMetaTag" required />
+                        <span ng-hide="FormDictionary.txtMetaTag.$valid || FormDictionary.txtMetaTag.$pristine" class="txtValidation"> Enter MetaTag</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">Meta Descriptions:</label>
+                        <input type="text" class="form-control" ng-model="CurrentDictionary.MetaDescription" name="txtMetaDescription" required />
+                        <span ng-hide="FormDictionary.txtMetaDescription.$valid || FormDictionary.txtMetaDescription.$pristine" class="txtValidation"> Enter MetaDescription</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label>انتخاب تصویر:</label>
+                        <div class="input-group" style="direction:ltr">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                    Browse… <input type="file" accept=".jpg,.png,.gif" id="PicFileUpload" onchange="angular.element(this).scope().ChangeFile(this)" data-filetype="jpg,png,gif" required>
+                                </span>
+                            </span>
+                            <input id="urlNameDictionaryPic" type="text" class="form-control" style="width: 70%; border-radius: 0; " readonly>
+                            <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearPicFileUpload()">Clear</button>
+                        </div>
+                        <img id="PreviewDictionaryImage" src="/{{CurrentDictionary.PicUrl}}" class="max-width-100" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label">توضیحات:</label>
+                        <textarea data-froala ng-model="CurrentDictionary.Value" name="txtValue" required></textarea>
+                        <span ng-hide="FormDictionary.txtValue.$valid || FormDictionary.txtValue.$pristine" class="txtValidation"> Enter Value</span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </section>
+</div>
+
+
+
+

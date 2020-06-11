@@ -1,0 +1,332 @@
+﻿<title>Content Management</title>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 Float-Right" ng-controller="ContentCategoryTypeController">
+    <header class="panel-heading">
+        <h4 class="inline-block ">Content Management</h4>
+        <i id="ContentModuleList" class="fa fa-th-large btnContentCategoryModuls" tooltip title="Content Category Moduls" ng-click="InitiateContentModuleList()"></i>
+    </header>
+
+    <section class="panel">
+        <div class="panel-body">
+            <script type="text/ng-template" id="tree-structure">
+                <a ng-click="ToggleCollpase($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)" class="CursorPointer display-inline-block TreeItem"
+                   ng-mouseenter="OpenNavigationMenu(SubCat.IDContentCategoryType,SubCat.IDContentCategory)">
+                    <i id="icon{{SubCat.IDContentCategoryType}}{{SubCat.IDContentCategory}}" class="fa fa-angle-double-left Color-Black "></i>
+                    <input type="text" class="txtTreeItem txtEditName_Fa" id="txtEditName_Fa" disabled="disabled" ng-model="SubCat.Name_Fa" />
+                </a>
+                <div id="Navigation{{SubCat.IDContentCategoryType}}{{SubCat.IDContentCategory}}" class="NavigationInTree">
+                    <i ng-if="!SubCat.Content" id="Add" class="fa fa-plus btn-tree" tooltip title="Add Sub Category" ng-click="AddNewCategoryNode($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)"></i>
+                    <i id="Edit" class="fa fa-pencil btn-tree" tooltip title="Edit" ng-click="EditCategory($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)"></i>
+                    <i ng-if="!SubCat.Content && !SubCat.ContentCategory" id="Remove" class="fa fa-trash btn-tree" tooltip title="Remove" ng-click="DeleteCategory($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)"></i>
+                    <i ng-if="!SubCat.ContentCategory" id="NewContent" class="fa fa-file-text btn-tree" tooltip title="Add New Content" ng-click="AddNewContent($event,SubCat.IDContentCategory,SubCat.Name_Fa)"></i>
+                    <i id="Cancel" class="fa fa-times btn-tree display-none" tooltip title="Cancel" ng-click="CancelEdit($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory,SubCat.BeforeEditedName_Fa)"></i>
+                    <i id="SaveEdit" class="fa fa-check btn-tree display-none" tooltip title="Save" ng-click="SaveEditContentCategory($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory,SubCat.Name_Fa)"></i>
+                    <i ng-if="SubCat.IDContentCategory && !SubCat.ContentCategory" id="ContentModule" class="fa fa-th-large btn-tree" tooltip title="Place Category In Moduls" ng-click="InitiateContentModule(SubCat)"></i>
+                    <i ng-if="SubCat.IDContentCategory" id="SortContents" class="fa fa-sort-amount-asc btn-tree" tooltip title="Sort Contents" ng-click="OpenSortContentModal(SubCat)"></i>
+                </div>
+                <div class="clearfix"></div>
+                <div id="InfoOfTree{{SubCat.IDContentCategoryType}}{{SubCat.IDContentCategory}}" class="InfoOfTree">
+                    <input type="text" class="form-control txtTree" placeholder="Name" ng-model="CurrentContentCategory.Name_Fa" />
+                    <i id="Cancel" class="fa fa-times btn-tree" tooltip title="Cancel" ng-click="HideInfoOFTree($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)"></i>
+                    <i id="Add" class="fa fa-check btn-tree" tooltip title="Save" ng-click="SaveNewContentCategory($event,SubCat.IDContentCategoryType,SubCat.IDContentCategory)"></i>
+                </div>
+
+                <div class="ContentCategoryTree" id="List{{SubCat.IDContentCategoryType}}{{SubCat.IDContentCategory}}">
+                    <ul>
+                        <li ng-repeat="Content in SubCat.Content" style="padding-right:5px;">
+                            <div style="display:inline-block;cursor:pointer" ng-mouseenter="OpenNavigationContent($event,Content.IDContentCategoryContent)">
+                                <i class="fa fa-file-text-o"></i>
+                                <i class="fa fa-warning Color-Yellow" ng-if="!Content.Active" tooltip title="This Content Is Inactive"></i>
+                                <span> {{Content.Name_Fa}}</span>
+                            </div>
+                            <div id="Navigation{{Content.IDContentCategoryContent}}" class="NavigationInTree">
+                                <i id="EditContent" class="fa fa-pencil btn-tree" tooltip title="Edit" ng-click="EditContent($event,Content)"></i>
+                                <i id="RemoveContent" class="fa fa-trash btn-tree" tooltip title="Remove" ng-click="DeleteContent($event,Content.IDContent)"></i>
+                                <i id="ImageGallery" class="fa fa-image btn-tree" tooltip title="Image Gallery" ng-click="OpenGalleryModal(Content.IDContent,Content.Name_Fa)" ng-if="Content.TypeName != 'NewsLetter'"></i>
+                                <i id="AddContentCategory" class="fa fa-list-ul btn-tree" tooltip title="Add to other category" ng-click="OpenOtherContentCategory(Content.IDContent,Content.Name_Fa)" ng-if="Content.TypeName != 'NewsLetter'"></i>
+                                <i id="AddDictionary" class="fa fa-book btn-tree" tooltip title="Add Dictionary" ng-click="OpenDictionaryModal(Content.IDContent,Content.Name_Fa)" ng-if="Content.TypeName != 'NewsLetter'"></i>
+                                <i id="ContentRelate" class="fa fa-code-fork btn-tree" tooltip title="Relations" ng-click="OpenModalContentRelate(Content)" ng-if="Content.TypeName != 'NewsLetter'"></i>
+                                <i id="ContentSentEmail" class="fa fa-send btn-tree" tooltip title="Send Newsletter" ng-click="InitSentEmail(Content)" ng-if="Content.TypeName == 'NewsLetter'"></i>
+                                <a href="http://{{ClientUrl}}/#!/{{Content.TypeName == 'Articles' ? 'Article/' + Content.IDX : ''}}{{Content.TypeName == 'NewsLetter' ? 'NewsLetterDetail/' + Content.IDX : ''}}" target="_blank"><i id="ExternalLink" class="fa fa-external-link btn-tree" tooltip title="Show in website"></i></a>
+                            </div>
+                        </li>
+                        <li ng-repeat="SubCat in SubCat.ContentCategory" ng-include="'tree-structure'" style="padding-right:5px;margin-right: 20px;">
+                        </li>
+
+                    </ul>
+                </div>
+            </script>
+            <ul class="ContentCategoryTypeTree" id="List0" dir="rtl" ng-mouseleave="CloseNavigationMenu()">
+                <li ng-repeat="SubCat in ContentCategoryTypes" ng-include="'tree-structure'" style="padding-right:5px;margin-right: 20px;">
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <div id="ModalContent" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:80%;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green">{{ContentModalTitle}}</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+                    <form name="FormDataContent" id="FormDataContent" style="direction:rtl">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 Float-Right">
+                            <input type="button" value="Cancel" class="btn btn-info" ng-click="CancelContent()" />
+                            <input id="btnSaveContent" type="button" value="Add" class="btn btn-success" ng-click="SaveContent()" ng-disabled="FormDataContent.$invalid" />
+                            <input id="btnToggleActivation" type="button" ng-if="SelectedContent" value="{{SelectedContent.Active == true ? 'Inactive' : 'Active'}}" class="btn btn-{{SelectedContent.Active == true ? 'danger' : 'default'}} obs" ng-click="ToggleActivation()" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 Float-Right">
+                            <label class="control-label">عنوان:</label>
+                            <input name="txtName_Fa" type="text" class="form-control" ng-model="CurrentContent.Name_Fa" placeholder="عنوان" required />
+                            <span ng-hide="FormDataContent.txtName_Fa.$valid || FormDataContent.txtName_Fa.$pristine" class="txtValidation"> Enter Name (fa) </span>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 Float-Right">
+                            <label class="control-label">خلاصه:</label><br />
+                            <input name="txtAbstract_Fa" type="text" class="form-control" ng-model="CurrentContent.Abstract_Fa" placeholder="خلاصه" required />
+                            <span ng-hide="FormDataContent.txtAbstract_Fa.$valid || FormDataContent.txtAbstract_Fa.$pristine" class="txtValidation"> Enter Abstract (fa) </span>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 Float-Right">
+                            <label class="control-label">Meta Tags:</label>
+                            <input type="text" class="form-control" ng-model="CurrentContent.MetaTags" placeholder="کلمات کلیدی" />
+                            <div class="clearfix"></div>
+                            <label class="control-label">Meta Descriptions:</label>
+                            <textarea class="form-control" ng-model="CurrentContent.MetaDescriptions" placeholder="توضیحات کلیدی"></textarea>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 Float-Right">
+                            <label>انتخاب تصویر:</label>
+                            <div class="input-group" style="direction:ltr">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file" style="background-color: #365df3;border-radius: 0; ">
+                                        Browse… <input type="file" accept=".jpg,.png,.gif" id="PicFileUpload" onchange="angular.element(this).scope().ChangeFile(this)" data-filetype="jpg,png,gif" required>
+                                    </span>
+                                </span>
+                                <input id="urlNameContentPic" type="text" class="form-control" style="width: 50%; border-radius: 0; " readonly>
+                                <button id="clear" class="btn btn-default" style="border-radius: 0;  background-color: #f3363f; " ng-click="ClearPicFileUpload()">Clear</button>
+                            </div>
+                            <img id="PreviewContentImage" class="width-100" />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 Float-Right">
+                            <label class="control-label">متن اصلی:</label><br />
+                            <input type="button" class="btn btn-success" value="Change Mode" ng-click="ChangeContentDescriptionMode()" />
+                            <textarea class="form-control" ng-model="CurrentContent.Description_Fa" ng-if="CurrentContent.PureTextMode"></textarea>
+                            <textarea name="txtDescription_Fa" data-froala ng-model="CurrentContent.Description_Fa" ng-if="!CurrentContent.PureTextMode"></textarea>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalImageGallery" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green">{{ImageGalleryModalTitle}}</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <label class="control-label">Gallery Category :</label>
+                        <select id="drpGalleryCategory" name="drpGalleryCategory" ng-model="CurrentGalleryCategory.IDGalleryCategory" class="form-control drpGalleryCategory" ng-change="ImageGallery()">
+                            <option value="" selected>... Select Gallery Category ...</option>
+                            <option value="{{item.IDGalleryCategory}}" ng-repeat="item in GalleryCategorys">{{item.Title}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 Hide" id="GalleryFileUpload">
+                        <div class="input-group Float-Right">
+                            <span class="btn" tooltip title="انتخاب تصویر">
+                                <span class="btn btn-default btn-file">
+                                    <span>تصاویر مورد نظر را انتخاب کنید</span>
+                                    <img src="/Portal/images/BrowsImage.png" style="width:70px" />
+                                    <input type="file" accept=".jpg,.png,.gif,.pdf,.zip,.docx,.rar,.mp4,.ttf,.doc" id="FileUploadGallery" multiple onchange="angular.element(this).scope().ReadFiles(this)">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="GalleryImageContainer">
+                        <div class="ImageGalleryContainer" ng-repeat="Image in GalleryImages">
+                            <img ng-src="/{{Image.FileType == 'png' || Image.FileType == 'jpg' ||Image.FileType == 'gif' ||Image.FileType == 'bmp' ? Image.Url : '/images/'+Image.FileType + '.png'}}" alt="" class="ImageGalleryImg" />
+                            <div class="ImageGalleryOverlay"></div>
+                            <div class="ImageGalleryButton"><a ng-click="DeleteGallery(Image.IDGallery)"> <i class="fa fa-times"></i> </a></div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalOtherContentCategory" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green" dir="rtl">{{OtherContentCategoryModalTitle}}</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+                    <script type="text/ng-template" id="other-tree-structure">
+                        <input type="checkbox" ng-checked="CheckExist(SubCat)" ng-click="ToggleOtherContentCategory(SubCat,$event)" ng-if="!SubCat.ContentCategory" />
+                        <a ng-click="ToggleList(SubCat)" class="tree-item-category">
+                            <i class="fa fa-angle-down CursorPointer" ng-show="SubCat.ShowChild && SubCat.ContentCategory"></i>
+                            <i class="fa fa-angle-left CursorPointer" ng-show="!SubCat.ShowChild && SubCat.ContentCategory"></i>
+                            <span>{{SubCat.Name_Fa}}</span>
+                        </a>
+
+                        <div class="clearfix"></div>
+                        <ul class="SecondaryContentCategoryTree" ng-show="SubCat.ShowChild  && SubCat.ContentCategory">
+                            <li ng-repeat="SubCat in SubCat.ContentCategory" ng-include="'other-tree-structure'">
+                            </li>
+                        </ul>
+                    </script>
+
+                    <ul class="SecondaryContentCategoryTree" dir="rtl">
+                        <li ng-repeat="SubCat in ContentCategoryTypes">
+                            <a ng-click="ToggleList(SubCat)" class="tree-item-category">
+                                <i class="fa fa-angle-down CursorPointer" ng-show="SubCat.ShowChild && SubCat.ContentCategory"></i>
+                                <i class="fa fa-angle-left CursorPointer" ng-show="!SubCat.ShowChild && SubCat.ContentCategory"></i>
+                                <b>{{SubCat.Name_Fa}}</b>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul class="SecondaryContentCategoryTree" ng-show="SubCat.ShowChild  && SubCat.ContentCategory">
+                                <li ng-repeat="SubCat in SubCat.ContentCategory" ng-include="'other-tree-structure'">
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalDictionary" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green" dir="rtl">{{DictionaryModalTitle}}</h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <input type="text" placeholder=" اصطلاح" style="padding-left:5px" ng-model="txtFilterDictionary">
+                        <ul>
+                            <li dir-paginate="Dictionary in Dictionaries|filter:{KeyWord:txtFilterDictionary}  |orderBy:KeyWord |itemsPerPage:5">
+                                <input type="checkbox" ng-checked="Dictionary.Exist" ng-click="ToggleContentDictionary(Dictionary)" />
+                                <span>{{Dictionary.KeyWord}}</span>
+                            </li>
+                        </ul>
+                        <dir-pagination-controls max-size="5"
+                                                 direction-links="true"
+                                                 boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="border-left:1px solid #d6d6d6">
+                        <b style="padding:5px 10px 3px 10px;text-align:right;float:right">اصطلاحات انتخاب شده</b>
+
+
+                        <table class="table table-hover table-Padding">
+
+                            <tbody data-ng-sortable="SortTableSelectedContentDictionary" style="cursor:grab;">
+                                <tr ng-repeat="Dictionary in SelectedContentDictionary">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{Dictionary.KeyWord}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div contentmoduleret></div>
+
+    <div contentmodulelist concept="'ContentCategory'"></div>
+
+    <div newsletterpreparation></div>
+
+    <div id="ModalSortContent" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green" dir="rtl">مرتب سازی مطالب <b>{{SortContentModalTitle}}</b></h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body" style="direction:rtl;text-align:right">
+                    <ul style="max-height:400px;overflow-y:scroll;" data-ng-sortable="SortContentsInCategory">
+                        <li style="cursor:pointer;" ng-repeat="Content in ContentListForSort">{{Content.Name_Fa}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="ModalContentRelate" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width:50%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title Float-Right Color-Green" dir="rtl">مطالب مرتبط با <b>{{ContentRelateTitle}}</b></h5>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-body" style="direction:rtl;text-align:right">
+                    <script type="text/ng-template" id="RelateContent-tree-structure">
+                        <input type="checkbox" ng-checked="SubCat.isRelated" ng-click="SaveToggleContentRet(SubCat)" ng-if="SubCat.IDContent && SubCat.IDContent !=SelectedContentForRelation" />
+                        <a ng-click="ToggleList(SubCat)" class="tree-item-category">
+                            <i class="fa fa-angle-down CursorPointer" ng-show="(SubCat.ShowChild) && (SubCat.ContentCategory || SubCat.Content)"></i>
+                            <i class="fa fa-angle-left CursorPointer" ng-show="(!(SubCat.ShowChild) && (SubCat.ContentCategory || SubCat.Content))"></i>
+                            <span ng-if="SubCat.IDContent != SelectedContentForRelation">{{SubCat.Name_Fa}}</span>
+                        </a>
+
+                        <div class="clearfix"></div>
+                        <ul class="SecondaryContentCategoryTree" ng-show="SubCat.ShowChild  && SubCat.ContentCategory">
+                            <li ng-repeat="SubCat in SubCat.ContentCategory" ng-include="'RelateContent-tree-structure'">
+                            </li>
+                        </ul>
+                        <ul class="SecondaryContentCategoryTree" ng-show="SubCat.ShowChild  && SubCat.Content">
+                            <li ng-repeat="SubCat in SubCat.Content" ng-include="'RelateContent-tree-structure'">
+                            </li>
+                        </ul>
+                    </script>
+
+                    <ul class="SecondaryContentCategoryTree" dir="rtl" style="max-height:300px; overflow-y:scroll">
+                        <li ng-repeat="SubCat in ContentCategoryTypes">
+                            <a ng-click="ToggleList(SubCat)" class="tree-item-category">
+                                <i class="fa fa-angle-down CursorPointer" ng-show="SubCat.ShowChild && SubCat.ContentCategory"></i>
+                                <i class="fa fa-angle-left CursorPointer" ng-show="!SubCat.ShowChild && SubCat.ContentCategory"></i>
+                                <b>{{SubCat.Name_Fa}}</b>
+                                <div class="clearfix"></div>
+                            </a>
+                            <ul class="SecondaryContentCategoryTree" ng-show="SubCat.ShowChild  && SubCat.ContentCategory">
+                                <li ng-repeat="SubCat in SubCat.ContentCategory" ng-include="'RelateContent-tree-structure'">
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

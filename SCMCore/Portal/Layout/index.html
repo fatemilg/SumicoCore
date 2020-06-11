@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- META -->
+
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#610040" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#610040" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!--<base href="/Management/">-->
+    <!-- /META -->
+
+    <link href="/Portal/css/bootstrap.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/bootstrap-toggle.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/jquery-ui/jquery-ui-1.10.1.custom.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/bootstrap-reset.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/font-awesome.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/style.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/style-responsive.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/angular-page-loader.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/CheckBoxStyle.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/ngProgress.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/kendo.default.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/kendo.common.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/Responsive.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/angular-table-resize.min.css?v=7.6" rel="stylesheet" />
+    <link href="/Portal/css/bootstrap-datetimepicker.css?v=7.6" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/froala_editor.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/froala_style.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/code_view.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/colors.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/emoticons.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/image_manager.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/image.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/line_breaker.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/table.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/char_counter.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/video.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/fullscreen.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/file.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/plugins/quick_insert.css?v=7.6">
+    <link rel="stylesheet" href="/Portal/css/FroalaCSS/codemirror.min.css?v=7.6">
+
+    <!--UPRooting-->
+    <script src="/Portal/Scripts/jquery-1.11.3.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/jquery-ui-1.10.1.custom.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/bootstrap.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/Sortable.js?v=7.6"></script>
+    <script src="/Portal/Scripts/bootstrap-toggle.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular-route.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular-cookies.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/ExtensionMethod.js?v=7.6"></script>
+    <script src="/Portal/Scripts/ng-file-upload.js?v=7.6"></script>
+    <script src="/Portal/Scripts/ng-sortable.js?v=7.6"></script>
+    <script src="/Portal/Scripts/kendo.all.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular-table-resize.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/jquery.scrollTo.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/jquery.nicescroll.js?v=7.6"></script>
+    <script src="/Portal/Scripts/jquery.dcjqaccordion.2.7.js?v=7.6"></script>
+    <script src="/Portal/Scripts/scripts.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular-page-loader.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/xls.core.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/xlsx.core.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/ngProgress.js?v=7.6"></script>
+    <script src="/Portal/Scripts/jquery-sortable.js?v=7.6"></script>
+    <script src="/Portal/Scripts/moment.js?v=7.6"></script>
+    <script src="/Portal/Scripts/bootstrap-datetimepicker.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/dirPagination.js?v=7.6"></script>
+    <script src="/Portal/Scripts/angular-iran-national-id.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/underscore.js?v=7.6"></script>
+
+
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/codemirror.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/xml.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/froala_editor.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/align.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/char_counter.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/code_beautifier.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/code_view.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/colors.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/draggable.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/emoticons.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/entities.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/file.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/font_size.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/font_family.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/fullscreen.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/image.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/image_manager.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/line_breaker.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/inline_style.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/link.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/lists.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/paragraph_format.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/paragraph_style.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/quick_insert.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/quote.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/table.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/save.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/url.min.js?v=7.6"></script>
+    <script type="text/javascript" src="/Portal/Scripts/FroalaJS/plugins/video.min.js?v=7.6"></script>
+    <script src="/Portal/Scripts/FroalaJS/angular-froala.js?v=7.6"></script>
+    <script src="/Portal/Scripts/customSelect.js?v=7.6"></script>
+    <script src="/Portal/Scripts/Alert.js?v=7.6"></script>
+
+    <!--UPRooting-->
+
+    <script src="/Portal/Routing.js?v=7.6"></script>
+
+    <!--DownRooting-->
+    <script src="/Portal/CommonServices/MenuService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentCategoryTypeService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/DefineDetailProductService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ProductCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/AttachInterfaceCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PurchaseOrderFileService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/SupplierService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/QuestionAndAnswerService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PurchaseOrderService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/GalleryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PersonelInCompanyService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/CompanyService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/LevelOfPersonelInCompanyService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/OrganizationalPositionService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PersonelService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContactWayService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContactWayTypeService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/CurrencyService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/RelatePurchaseOrderFileService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseUserService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseContentService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/EventUserService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/SupplierPriceListFileService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/QouationFileService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/QouationDetailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PeyvastPriceFileService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/WorkTypeService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/GalleryCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/SupplierPriceListDetailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PeyvastPriceDetailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PreparationPriceListService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PreparationPriceListDetailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/UserSiteService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/PeyvastStockService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/MaterialListPreparationService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/QuestionCustomerService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/GroupService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/OptionCustomerService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/CombinationOptionsService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentCategoryContentService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentDictionaryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/OptionInheritanceService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/DictionaryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentModuleService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentModuleRetService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TreeRulePropertyService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentCategoryContentService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/MaterialListDetailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ContentRelateService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/DynamicFormService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/FormQuestionService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/FormQuestionTypeService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/FormOptionService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseBatchService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/TrainingCourseBatchTrainingCourseService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/IncidentCategoryService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/IncidentService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/SentEmailService.js?v=7.6"></script>
+    <script src="/Portal/CommonServices/ApplicationFormService.js?v=7.6"></script>
+
+    <script src="/Portal/CommonFactories/ContentModuleRetFactory.js?v=7.6"></script>
+    <script src="/Portal/CommonFactories/SentEmailFactory.js?v=7.6"></script>
+
+    <script src="/Portal/Layout/IndexController.js?v=7.6"></script>
+    <script src="/Portal/Layout/leftSideMenuController.js?v=7.6"></script>
+    <script src="/Portal/Content/ContentCategoryTypeController.js?v=7.6"></script>
+    <script src="/Portal/MasterTable/MasterTableController.js?v=7.6"></script>
+    <script src="/Portal/FileManager/FileManagerController.js?v=7.6"></script>
+    <script src="/Portal/SellsView/SellsViewController.js?v=7.6"></script>
+    <script src="/Portal/PurchaseOrder/PurchaseOrderController.js?v=7.6"></script>
+    <script src="/Portal/QuestionAndAnswer/QuestionAndAnswerController.js?v=7.6"></script>
+    <script src="/Portal/PersonelInCompany/PersonelINCompanyController.js?v=7.6"></script>
+    <script src="/Portal/TrainingCourse/TrainingCourseController.js?v=7.6"></script>
+    <script src="/Portal/POHistory/POHistoryController.js?v=7.6"></script>
+    <script src="/Portal/Price/SupplierPriceListFileController.js?v=7.6"></script>
+    <script src="/Portal/Price/QouationFileController.js?v=7.6"></script>
+    <script src="/Portal/Price/PeyvastPriceFileController.js?v=7.6"></script>
+    <script src="/Portal/Price/PriceController.js?v=7.6"></script>
+    <script src="/Portal/Price/StockValuePeyvastController.js?v=7.6"></script>
+    <script src="/Portal/Price/PreparationPriceListController.js?v=7.6"></script>
+    <script src="/Portal/UserSite/UserSiteController.js?v=7.6"></script>
+    <script src="/Portal/MaterialListPreparation/MaterialListPreparationController.js?v=7.6"></script>
+    <script src="/Portal/QuestionCustomer/QuestionCustomerController.js?v=7.6"></script>
+    <script src="/Portal/Dictionary/DictionaryController.js?v=7.6"></script>
+    <script src="/Portal/TreeRuleProperty/TreeRulePropertyController.js?v=7.6"></script>
+    <script src="/Portal/QuestionAndAnswerCheck/QuestionAndAnswerCheckController.js?v=7.6"></script>
+    <script src="/Portal/MaterialListDetail/MaterialListDetailController.js?v=7.6"></script>
+    <script src="/Portal/DynamicForm/DynamicFormController.js?v=7.6"></script>
+    <script src="/Portal/Incident/IncidentController.js?v=7.6"></script>
+    <script src="/Portal/ApplicationForm/ApplicationFormController.js?v=7.6"></script>
+
+
+    <script src="/Portal/CommonDirectives/Tooltip.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/Sortable.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/Kendo_DatePicker.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/obs.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/AdminSetting.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/DatePicker1.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/OnlyNumberDirective.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/Pagination.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/SplitNumberWithComma.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/AutoComplete.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/TreeView.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/ContentModuleRet.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/ContentModuleList.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/NewsLetterPreparation.js?v=7.6"></script>
+    <script src="/Portal/CommonDirectives/NewsLetterManagement.js?v=7.6"></script>
+
+    <script src="/Portal/CommonFilters/Gregorian2Jalali.js?v=7.6"></script>
+    <script src="/Portal/CommonFilters/SumOnColumn.js?v=7.6"></script>
+
+
+
+    <!--DownRooting-->
+
+</head>
+<body data-ng-app="myApp" data-ng-cloak ng-controller="IndexController">
+
+    <page-loader latency="500"></page-loader>
+    <div class="alert_placeholders"></div>
+    <section id="container">
+        <header class="header fixed-top clearfix">
+
+            <div class="brand">
+                <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars"></div>
+                </div>
+            </div>
+
+            <div class="nav notify-row" id="top_menu">
+                <ul class="nav top-menu">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle">
+                            <i class="fa fa-bell" style="cursor:pointer"></i>
+                            <span class="badge bg-warning">{{NewUserSiteNotShown.CountUserNotShown + NewMaterialListCreatedNotShown.CountNewMaterialListCreated}}</span>
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <li id="alertNewUserSite" class="obs">
+                                <div class="alert alert-info clearfix">
+                                    <span class="alert-icon"><i class="fa fa-users"></i></span>
+                                    <div class="noti-info">
+                                        <a href="/Portal/Layout/#!/UserSite">
+                                            {{NewUserSiteNotShown.CountUserNotShown}} New User
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li id="alertNewMaterialList" class="obs">
+                                <div class="alert alert-success clearfix">
+                                    <span class="alert-icon"><i class="fa fa-th-large"></i></span>
+                                    <div class="noti-info">
+                                        <a href="/Portal/Layout/#!/MaterialListPreparation">
+                                            {{NewMaterialListCreatedNotShown.CountNewMaterialListCreated}} Material List
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="top-nav clearfix">
+                <span style="float:right;margin-right:23px">Last peyvast update : <i style="color:red">{{PeyvastStock.CreateDate| date : "y/MM/dd h:mm a"}}</i></span>
+                <br />
+                <ul class="nav pull-right top-menu">
+                    <li class="dropdown">
+                        <a data-ng-click="OpenIndexSetting()" style="cursor:pointer">
+                            <img style="display:inline-block;width:30px;" src="/Admin/images/user_male.png" />
+                            <span class="username">{{Personel.FullName}}</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu IndexSetting" id="ulIndexSetting">
+
+                            <li id="liAccess">
+                                <label>Log Out:</label>
+                                <i class=" fa fa-power-off" style="color:red;margin-left:20px;cursor:pointer" ng-click="LogOut()"></i>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </header>
+
+        <aside>
+            <ng-include src="'/Portal/Layout/LeftSideMenu.html'"></ng-include>
+        </aside>
+
+        <section id="main-content" class="merge-left">
+            <section class="wrapper">
+                <div class="row">
+                    <div data-ng-view></div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <div id="HoverAccessMenu" style="z-index:10000;position: fixed;display:none;background-color:#ffffff; border:solid 1px #e7e7e7; border-radius:3px; box-shadow: 0 0 10px #808080 ;padding:5px;width:300px;">
+        Users who have access to this Action
+        <button type="button" class="close" onclick="CloseHoverAccessMenu()">&times;</button>
+        <div class="clearfix" style="border-bottom:solid 1px #e7e7e7"></div>
+
+        <ul>
+            <li ng-repeat="Personel in Personels">
+                <label class="chkAccessMenuLabel"></label>
+                <input ng-click="SaveEventUser(Personel,$event)" type="checkbox" id="btn{{Personel.IDUser}}" class="chkAccessMenu" ng-checked="Personel.Access" />{{Personel.PersonelFullName}}
+            </li>
+        </ul>
+    </div>
+    <div class="SettingForAdmin" adminsetting>
+        <ul id="SettingAdmin" class="ulSettingForAdmin">
+            <li>
+                <label style="margin-right:10px">Access:</label>
+                <input id="chkAllowAccessLevel" type="checkbox" data-ng-model="AccessLevel" ng-click="AllowAccessLevel(AccessLevel)" data-ng-init="initialAccessLevel()" data-on=" " data-off=" ">
+            </li>
+        </ul>
+        <i class="fa fa-ellipsis-v ButtonClickSettingForAdmin" ng-click="ToggleSettingAdmin()"></i>
+
+    </div>
+</body>
+
+</html>
+

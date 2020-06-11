@@ -1,0 +1,1228 @@
+﻿
+.SupplierPriceDetail table tr th {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #d7f3d7 !important;
+}
+
+.SupplierPriceDetail table tr td {
+    padding-left: 10px;
+    padding-top: 3px;
+}
+
+
+.SupplierPriceDetail .PartNumber {
+    width: 10%;
+}
+
+.SupplierPriceDetail .Price {
+    width: 8%;
+}
+
+.SupplierPriceDetail .FixedPrice {
+    width: 8%;
+}
+
+.SupplierPriceDetail .MarkUp {
+    width: 7%;
+}
+
+.SupplierPriceDetail .SalesPrice {
+    width: 4%;
+}
+
+.SupplierPriceDetail .tdSalesPrice {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+    .SupplierPriceDetail .tdSalesPrice .SalesPriceInput {
+        margin-top: -6px;
+        padding-left: 5px;
+        margin-bottom: 4px;
+    }
+
+
+.QouationDetail table tr th {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #d7f3d7 !important;
+}
+
+.QouationDetail table tr td {
+    padding-left: 10px;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+
+
+.QouationDetail .PartNumber {
+    width: 10%;
+    padding-left: 3px !important;
+    padding-top: 0px
+}
+
+.QouationDetail .ShortDescription {
+    width: 13%;
+    padding-left: 3px !important;
+    padding-top: 0px;
+}
+
+.QouationDetail .Count {
+    width: 8%;
+}
+
+.QouationDetail .Price {
+    width: 8%;
+}
+
+.QouationDetail .Total {
+    width: 8%;
+}
+
+.QouationDetail .FixedPrice {
+    width: 8%;
+}
+
+.QouationDetail .MarkUp {
+    width: 7%;
+}
+
+.QouationDetail .SalesPrice {
+    width: 4%;
+}
+
+.QouationDetail .tdSalesPrice {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+    .QouationDetail .tdSalesPrice .SalesPriceInput {
+        margin-top: 0px;
+        padding-left: 5px;
+        margin-bottom: 4px;
+    }
+
+
+
+.ManualQouationDetail .Select {
+    width: 2%;
+}
+
+.ManualQouationDetail .PartNumber {
+    width: 12.2%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .ShortDescription {
+    width: 30%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .Description {
+    width: 28%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .Price {
+    width: 10%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .Count {
+    width: 10%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .Total {
+    width: 10%;
+    padding-left: 4px
+}
+
+.ManualQouationDetail .SelectQouationDetails {
+    margin: 10px;
+}
+
+
+.PeyvastPriceDetail table tr th {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #d7f3d7 !important;
+}
+
+.PeyvastPriceDetail table tr td {
+    padding-left: 10px;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+
+
+.PeyvastPriceDetail .PartNumber {
+    width: 10%;
+}
+
+.PeyvastPriceDetail .Description {
+    width: 25%;
+}
+
+.PeyvastPriceDetail .Stock {
+    width: 1%;
+}
+
+.PeyvastPriceDetail .Price {
+    width: 2%;
+}
+
+.PeyvastPriceDetail .CurrencyValue {
+    width: 2%;
+}
+
+.PeyvastPriceDetail .MarkUp {
+    width: 2%;
+    text-align: center;
+}
+
+.PeyvastPriceDetail .FixedPrice {
+    width: 2%;
+}
+
+.PeyvastPriceDetail .SalePrice {
+    width: 4%;
+    text-align: center;
+}
+
+.PeyvastPriceDetail .Space {
+    width: 0.01%;
+    background-color: #e7e7e7 !important;
+    padding: 0px;
+}
+
+.PeyvastPriceDetail .tdSalesPrice {
+    padding-left: 7px;
+    padding-right: 5px;
+}
+
+    .PeyvastPriceDetail .tdSalesPrice .SalesPriceInput {
+        padding-left: 5px;
+        margin-bottom: 2px;
+    }
+
+
+
+.PreparationPriceListDetail table tr th {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #d7f3d7 !important;
+}
+
+.PreparationPriceListDetail table tr td {
+    padding-left: 10px;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+
+.PreparationPriceListDetail .NO {
+    width: 1%;
+}
+
+.PreparationPriceListDetail .PartNumber {
+    width: 6%;
+}
+
+.PreparationPriceListDetail .ShortDescription {
+    width: 15%;
+}
+
+.PreparationPriceListDetail .Stock {
+    width: 1%;
+}
+
+.PreparationPriceListDetail .Price {
+    width: 1%;
+}
+
+.PreparationPriceListDetail .EndUserPrice {
+    width: 1%;
+}
+
+.PreparationPriceListDetail .MarkUp {
+    width: 1%;
+    text-align: center;
+}
+
+.PreparationPriceListDetail .tdMarkUp {
+    text-align: center;
+}
+
+#divPreparationPriceListByCategory table thead tr th {
+    padding-left: 10px;
+}
+
+#divPreparationPriceListByCategory #tbodyMaster #trProductcategory td {
+    padding: 0px 10px 0px 10px !important
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .SetHeaderProductCategory {
+        display: inline-block;
+        margin-right: 3px;
+        font-size: 12px;
+    }
+
+    .HeaderFileManager {
+        background-color: #0c84e4;
+        height: 45px;
+    }
+
+    .LeftNav {
+        color: white;
+        font-size: 16px;
+        float: left;
+        margin-top: -3px;
+    }
+
+    .RightNav {
+        color: white;
+        font-size: 16px;
+        float: right;
+        margin-top: -7px;
+    }
+
+    .SettingPosition {
+        left: -154px;
+        font-size: 16px;
+    }
+
+    .LeftSideFileManager {
+        background-color: #f5f5f5;
+        min-height: 600px;
+    }
+
+    .RightSideFileManager {
+        background-color: white;
+        min-height: 600px;
+    }
+
+    .th1ManagerList { /*checkboxList*/
+        width: 3%;
+    }
+
+    .th2ManagerList { /*Name*/
+        width: 40%;
+    }
+
+    .th3ManagerList { /*Modified*/
+        width: 20%;
+    }
+
+    .th4ManagerList { /*Size*/
+        width: 7%;
+    }
+
+    .th5ManagerList {
+        width: 5%;
+    }
+
+    .childElementFileManager {
+        list-style: none;
+        padding: 0px;
+    }
+
+        .childElementFileManager > li {
+            padding: 5px 0px 0px 7px;
+        }
+
+    .OpenFolder {
+        display: block;
+    }
+
+    .CloseFolder {
+        display: none;
+    }
+
+    .th1MasterTable { /*NO*/
+        width: 5%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th2MasterTable { /*PartNumber*/
+        width: 12%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th3MasterTable { /*ShortDescription*/
+        width: 20%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th4MasterTable { /*Description*/
+        width: 30%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th5MasterTable { /*Stock*/
+        width: 7%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .SetButtonInHeaderMasterTable {
+        margin-top: -30px;
+    }
+
+    .SetHeaderMasterTable {
+        width: 100%;
+        margin-top: -15px;
+    }
+
+    .editTable {
+        color: blue;
+        font-size: 25px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+    .moduleTable {
+        color: blue;
+        font-size: 25px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+    .ContactWayTable {
+        color: #1FB5AD;
+        font-size: 25px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+
+    .deleteTable {
+        color: red;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .Detail {
+        margin-left: 7px;
+        margin-top: 2px;
+        font-size: 22px;
+        cursor: pointer
+    }
+
+    .TrainedUserTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .ContentTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .GalleryTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .TrainingCourseBatchTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .Download {
+        margin-left: 17px;
+        margin-top: 2px;
+        font-size: 22px;
+    }
+
+    .SetPositionPdfButton {
+        display: none;
+    }
+
+    .SetPositionPurchaseOrderTable {
+        margin-top: 10px;
+        margin-left: 10px
+    }
+
+        /*POCIndex*/
+        .SetPositionPurchaseOrderTable .POCIndex {
+            width: 1%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .index {
+            padding-top: 18px;
+        }
+        /*POCPicture*/
+        .SetPositionPurchaseOrderTable .POCPicture {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        /*POCPartNumber*/
+        .SetPositionPurchaseOrderTable .POCPartNumber {
+            width: 2%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .PartNumber {
+            padding-top: 18px;
+        }
+
+        /*POCShortDes*/
+        .SetPositionPurchaseOrderTable .POCShortDes {
+            width: 12%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .ShortTechnicalDescription {
+            padding-top: 18px;
+        }
+
+        /*POCCountryOrgin*/
+        .SetPositionPurchaseOrderTable .POCCountryOrgin {
+            width: 2%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .CountryOrgin {
+            padding-top: 18px;
+        }
+
+        /*POCQty*/
+        .SetPositionPurchaseOrderTable .POCQty {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .Qty {
+            padding-top: 18px;
+        }
+
+        /*POCPrice*/
+        .SetPositionPurchaseOrderTable .POCPrice {
+            width: 1%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .Price {
+            padding-top: 18px;
+        }
+        /*POCCurrencyValue*/
+        .SetPositionPurchaseOrderTable .POCCurrencyValue {
+            width: 1%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .CurrencyValue {
+            padding-top: 18px;
+        }
+
+        /*POCTotal1*/
+        .SetPositionPurchaseOrderTable .POCTotal1 {
+            width: 3%;
+        }
+
+        .SetPositionPurchaseOrderTable .Total1 {
+            padding-top: 18px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+
+        /*POCUnit*/
+        .SetPositionPurchaseOrderTable .POCUnit {
+            width: 2%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .Unit {
+            padding-top: 18px;
+        }
+
+
+
+
+        /*POCHsCode*/
+        .SetPositionPurchaseOrderTable .POCHsCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .HsCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+        /*POCIDCode*/
+        .SetPositionPurchaseOrderTable .POCIDCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .IDCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCUnderValue*/
+        .SetPositionPurchaseOrderTable .POCUnderValue {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .UnderValue {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCTotal2*/
+        .SetPositionPurchaseOrderTable .POCTotal2 {
+            width: 3%;
+        }
+
+        .SetPositionPurchaseOrderTable .Total2 {
+            padding-top: 18px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+
+        /*POCOperation*/
+        .SetPositionPurchaseOrderTable .POCOperation {
+            width: 1%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .Operation {
+            padding-top: 18px;
+            padding-right: 2px;
+        }
+
+            .SetPositionPurchaseOrderTable .Operation .btnOnTable {
+                cursor: pointer;
+                width: 18px;
+                height: 18px;
+                padding-right: 2px;
+            }
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+
+
+    /*FooterIndex*/
+    .FooterIndex {
+    }
+    /*FooterPicture*/
+    .FooterPicture {
+    }
+    /*FooterPartNumber*/
+    .FooterPartNumber {
+    }
+    /*FooterShortDescription*/
+    .FooterShortDescription {
+    }
+    /*FooterCountryOrgin*/
+    .FooterCountryOrgin {
+    }
+
+    /*FooterSumQty*/
+    .FooterSumQty {
+        padding-left: 5px !important;
+    }
+    /*FooterSumPrice*/
+    .FooterSumPrice {
+        padding-left: 5px !important;
+    }
+    /*FooterSumPrice*/
+    .FooterCurrencyValue {
+        padding-left: 5px !important;
+    }
+    /*FooterSumTotal1*/
+    .FooterSumTotal1 {
+        padding-right: 5px !important;
+        text-align: right;
+    }
+    /*FooterHsCode*/
+    .FooterHsCode {
+    }
+    /*FooterIDCode*/
+    .FooterIDCode {
+    }
+    /*FooterSumUnderValue*/
+    .FooterSumUnderValue {
+        padding-left: 5px !important;
+    }
+    /*FooterSumTotal2*/
+    .FooterSumTotal2 {
+        padding-right: 5px !important;
+        text-align: right;
+    }
+    /*FooterOperation*/
+    .FooterOperation {
+    }
+
+    .buttonOnTable {
+        Padding: 10px;
+        margin: 3px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        border: 1px solid lightgray;
+    }
+
+        .buttonOnTable:hover {
+            background: lightgray;
+        }
+
+    .HeaderPurchaseForPrint {
+        display: none;
+    }
+
+
+
+    #divContainerData {
+        overflow: scroll;
+        height: 450px;
+        overflow-x: scroll;
+        width: 80%;
+        display: inline-block;
+    }
+
+    #divContainerParam {
+        overflow-y: hidden;
+        height: 450px;
+        display: inline-block;
+        width: 19.5%;
+    }
+
+    .tblPOHistory thead tr th {
+        text-align: center;
+        color: black;
+        background-color: #f3ecec;
+    }
+
+    .tblPOHistory tr td {
+        text-align: center;
+    }
+
+    .tblPOHistory .PartNumber {
+        padding-top: 20px;
+    }
+
+    .AutoCompleteInput {
+        width: 66%;
+    }
+}
+
+@media screen and (orientation:landscape) and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .sizeOfModalSortInCrm {
+        width: 80%;
+    }
+}
+
+@media screen and (orientation:portrait) and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .sizeOfModalSortInCrm {
+        width: 95%;
+    }
+}
+
+
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) {
+    .SetHeaderProductCategory {
+        display: inline-block;
+        margin-right: 3px;
+        font-size: 14px;
+    }
+
+    .HeaderFileManager {
+        background-color: #0c84e4;
+        height: 45px;
+    }
+
+    .LeftNav {
+        color: white;
+        font-size: 16px;
+        float: left;
+        margin-top: -3px;
+    }
+
+    .RightNav {
+        color: white;
+        font-size: 16px;
+        float: right;
+        margin-top: -7px;
+    }
+
+    .SettingPosition {
+        left: -154px;
+        font-size: 16px;
+    }
+
+    .LeftSideFileManager {
+        background-color: #f5f5f5;
+        min-height: 550px;
+    }
+
+
+
+    .RightSideFileManager {
+        background-color: white;
+        min-height: 550px;
+    }
+
+    .th1ManagerList {
+        width: 3%;
+    }
+
+    .th2ManagerList {
+        width: 60%;
+    }
+
+    .th3ManagerList {
+        width: 13%;
+    }
+
+    .th4ManagerList {
+        width: 7%;
+    }
+
+    .th5ManagerList {
+        width: 5%;
+    }
+
+    .childElementFileManager {
+        list-style: none;
+        padding: 0px;
+    }
+
+        .childElementFileManager > li {
+            padding: 5px 0px 0px 7px;
+        }
+
+    .OpenFolder {
+        display: block;
+    }
+
+    .CloseFolder {
+        display: none;
+    }
+
+    .th1MasterTable { /*NO*/
+        width: 3%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th2MasterTable { /*PartNumber*/
+        width: 12%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th3MasterTable { /*ShortDescription*/
+        width: 150px;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th4MasterTable { /*Description*/
+        width: 200px;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .th5MasterTable { /*Stock*/
+        width: 5%;
+        padding: 0px 10px 0px 10px !important;
+    }
+
+    .SetButtonInHeaderMasterTable {
+        margin-top: -30px;
+    }
+
+    .SetHeaderMasterTable {
+        width: 100%;
+        margin-top: -15px;
+    }
+
+    .editTable {
+        color: blue;
+        font-size: 25px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+    .moduleTable {
+        color: blue;
+        font-size: 25px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+    .editTableRow {
+        color: blue;
+        font-size: 16px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
+    .ContactWayTable {
+        color: #1FB5AD;
+        font-size: 25px;
+        margin-left: 8px;
+        cursor: pointer;
+    }
+
+    .deleteTable {
+        color: red;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .TrainedUserTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .ContentTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    .GalleryTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+    .TrainingCourseBatchTable {
+        color: #1FB5AD;
+        cursor: pointer;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+    .Detail {
+        margin-left: 7px;
+        margin-top: 2px;
+        font-size: 22px;
+        cursor: pointer
+    }
+
+    .Download {
+        margin-left: 17px;
+        margin-top: 2px;
+        font-size: 22px;
+    }
+
+    .SetPositionPdfButton {
+        margin-left: 21px;
+        margin-top: 5px;
+    }
+
+    .SetPositionPurchaseOrderTable {
+        margin-top: 10px;
+        margin-left: 10px
+    }
+
+        /*POCIndex*/
+        .SetPositionPurchaseOrderTable .POCIndex {
+            width: 1%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .index {
+            padding-top: 18px;
+        }
+        /*POCPicture*/
+        .SetPositionPurchaseOrderTable .POCPicture {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        /*POCPartNumber*/
+        .SetPositionPurchaseOrderTable .POCPartNumber {
+            width: 2%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .PartNumber {
+            padding-top: 18px;
+        }
+
+        /*POCShortDes*/
+        .SetPositionPurchaseOrderTable .POCShortDes {
+            width: 12%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .ShortTechnicalDescription {
+            padding-top: 18px;
+        }
+
+        /*POCCountryOrgin*/
+        .SetPositionPurchaseOrderTable .POCCountryOrgin {
+            width: 2%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .CountryOrgin {
+            padding-top: 18px;
+        }
+
+        /*POCQty*/
+        .SetPositionPurchaseOrderTable .POCQty {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .Qty {
+            padding-top: 18px;
+        }
+
+        /*POCPrice*/
+        .SetPositionPurchaseOrderTable .POCPrice {
+            width: 1%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .Price {
+            padding-top: 18px;
+        }
+        /*POCCurrencyValue*/
+        .SetPositionPurchaseOrderTable .POCCurrencyValue {
+            width: 1%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .CurrencyValue {
+            padding-top: 18px;
+        }
+
+        /*POCTotal1*/
+        .SetPositionPurchaseOrderTable .POCTotal1 {
+            width: 1%;
+        }
+
+        .SetPositionPurchaseOrderTable .Total1 {
+            padding-top: 18px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+
+        /*POCUnit*/
+        .SetPositionPurchaseOrderTable .POCUnit {
+            width: 2%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .Unit {
+            padding-top: 18px;
+        }
+
+
+
+
+        /*POCHsCode*/
+        .SetPositionPurchaseOrderTable .POCHsCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .HsCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+        /*POCIDCode*/
+        .SetPositionPurchaseOrderTable .POCIDCode {
+            width: 6%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .IDCode {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCUnderValue*/
+        .SetPositionPurchaseOrderTable .POCUnderValue {
+            width: 3%;
+            padding-left: 5px;
+        }
+
+        .SetPositionPurchaseOrderTable .UnderValue {
+            padding-top: 12px;
+            padding-right: 2px;
+        }
+
+
+        /*POCTotal2*/
+        .SetPositionPurchaseOrderTable .POCTotal2 {
+            width: 1%;
+        }
+
+        .SetPositionPurchaseOrderTable .Total2 {
+            padding-top: 18px;
+            padding-right: 5px;
+            text-align: right;
+        }
+
+
+        /*POCOperation*/
+        .SetPositionPurchaseOrderTable .POCOperation {
+            width: 1%;
+            text-align: center;
+        }
+
+        .SetPositionPurchaseOrderTable .Operation {
+            padding-top: 18px;
+            padding-right: 2px;
+        }
+
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+            .SetPositionPurchaseOrderTable .Operation .addOnTable {
+            }
+
+
+
+            .SetPositionPurchaseOrderTable .Operation .btnOnTable {
+                cursor: pointer;
+                width: 18px;
+                height: 18px;
+                padding-right: 2px;
+            }
+
+    /*FooterIndex*/
+    .FooterIndex {
+    }
+    /*FooterPicture*/
+    .FooterPicture {
+    }
+    /*FooterPartNumber*/
+    .FooterPartNumber {
+    }
+    /*FooterShortDescription*/
+    .FooterShortDescription {
+    }
+    /*FooterCountryOrgin*/
+    .FooterCountryOrgin {
+    }
+
+    /*FooterSumQty*/
+    .FooterSumQty {
+        padding-left: 5px !important;
+    }
+    /*FooterSumPrice*/
+    .FooterSumPrice {
+        padding-left: 5px !important;
+    }
+    /*FooterSumPrice*/
+    .FooterCurrencyValue {
+        padding-left: 5px !important;
+    }
+    /*FooterSumTotal1*/
+    .FooterSumTotal1 {
+        padding-right: 5px !important;
+        text-align: right;
+    }
+    /*FooterHsCode*/
+    .FooterHsCode {
+    }
+    /*FooterIDCode*/
+    .FooterIDCode {
+    }
+    /*FooterSumUnderValue*/
+    .FooterSumUnderValue {
+        padding-left: 5px !important;
+    }
+    /*FooterSumTotal2*/
+    .FooterSumTotal2 {
+        padding-right: 5px !important;
+        text-align: right;
+    }
+    /*FooterOperation*/
+    .FooterOperation {
+    }
+
+
+    .buttonOnTable {
+        Padding: 8px;
+        margin: 3px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .buttonOnTable:hover {
+            background: lightgray;
+        }
+
+    .HeaderPurchaseForPrint {
+        display: none;
+    }
+
+
+
+
+    #divContainerData {
+        overflow: scroll;
+        height: 450px;
+        overflow-x: scroll;
+        width: 84.5%;
+        display: inline-block;
+    }
+
+    #divContainerParam {
+        overflow-y: hidden;
+        height: 450px;
+        display: inline-block;
+        width: 15%;
+        padding-bottom: 17px;
+    }
+
+    .tblPOHistory thead tr th {
+        text-align: center;
+        color: black;
+        background-color: #f3ecec;
+    }
+
+    .tblPOHistory tr td {
+        text-align: center;
+    }
+
+    .tblPOHistory .PartNumber {
+        padding-top: 20px;
+    }
+
+    .sizeOfModalSortInCrm {
+        width: 50%;
+    }
+
+    .AutoCompleteInput {
+        width: 100%;
+    }
+}

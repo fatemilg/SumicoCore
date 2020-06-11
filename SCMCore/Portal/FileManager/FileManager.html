@@ -1,0 +1,123 @@
+﻿
+<link href="/Portal/css/jqtree.css" rel="stylesheet" />
+<head>
+    <title>File Manager</title>
+
+</head>
+<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" data-ng-controller="FileManagerController">
+
+    <header class="panel-heading HeaderFileManager">
+        <div class="LeftNav">FileManager</div>
+        <div class="RightNav">
+            <ul>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="color:white"> <b class="fa fa-ellipsis-v"></b></a>
+                    <ul class="dropdown-menu SettingPosition">
+                        <li><a><i class="fa fa-plus" style="margin-right:14px"></i>New Folder</a></li>
+                        <li><a><i class="fa fa-cloud-upload" style="margin-right:11px"></i>Upload Files</a></li>
+                        <li class="divider" data-ng-show="selected"></li>
+                        <li data-ng-show="selectedItems"><a><i class="fa fa-arrows" style="margin-right:12px"></i>Move</a></li>
+                        <li data-ng-show="selectedItems"><a><i class="fa fa-trash-o" style="margin-right:14px"></i>Delete</a></li>
+                        <li data-ng-show="selectedItems" class=" divider"></li>
+                        <li data-ng-show="selectedItems"><a><i class="fa fa-lock" style="margin-right:14px"></i>Permission</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="clearfix"></div>
+    <div class="col-lg-9 col-md-8 col-xs-12 col-sm-12 RightSideFileManager">
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <ul class="breadcrumbs-alt">
+                    <li data-ng-repeat="Breadcrumb in Breadcrumbs">
+                        <a class="active-trail active" style="cursor:pointer" data-ng-click="LoadRightSide(Breadcrumb.IDAttachInterfaceCategory)">{{Breadcrumb.Name_En}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="th1ManagerList"><input type="checkbox" class=" SelectAll" name="chkSelectAll" data-ng-change="SelectAllItems(SelectAll)" data-ng-model="SelectAll"  /></th>
+                            <th class="th2ManagerList">Name</th>
+                            <th class="th3ManagerList">Modified</th>
+                            <th class="th4ManagerList">Size</th>
+                            <th class="th5ManagerList"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="FoldersFile in FoldersFiles">
+                            <td><input type="checkbox" name="SelectOne" id="{{FoldersFile.ID}}" data-ng-click="SelectOneItem(SelectOne)" data-ng-model="SelectOne" class="selectone" /></td>
+                            <td style="text-align: left; cursor: pointer" data-ng-click="LoadRightSide(FoldersFile.ID)">
+                                <i data-ng-if="FoldersFile.FileType=='Folder'" class="fa fa-folder" style="margin-right:4px;font-size:18px;color:orange"></i>
+                                <i data-ng-if="FoldersFile.FileType!='Folder'" class="fa fa-file" style="margin-right:4px;font-size:18px;color:Blue"></i>
+                                {{FoldersFile.Title}}
+                            </td>
+                            <td>{{FoldersFile.CreateDate}}</td>
+                            <td>{{FoldersFile.FileSize}}</td>
+                            <td>
+
+                                <ul>
+                                    <li class="dropdown" style="margin-top:0px">
+                                        <a href=" javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="color:gray">
+                                            <b class="fa fa-ellipsis-v"></b>
+                                        </a>
+                                        <ul class="dropdown-menu SettingPosition">
+                                            <li><a><i class="fa fa-download" style="margin-right:12px"></i>Download</a></li>
+                                            <li><a><i class="fa fa-edit" style="margin-right:12px"></i>Rename</a></li>
+                                            <li><a><i class="fa fa-arrows" style="margin-right:12px"></i>Move</a></li>
+                                            <li><a><i class="fa fa-trash-o" style="margin-right:14px"></i>Delete</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#"><i class="fa fa-lock" style="margin-right:14px"></i>Permission</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div data-ng-show="FoldersFiles.length == 0">
+                    <h4>No data to display</h4>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-xs-12 col-sm-12 LeftSideFileManager">
+        <div class="panel-body">
+
+            <script type="text/ng-template" id="tree-FileManager">
+                <a data-ng-click="LoadRightSide(dt.id);ToggleCollpase($event,dt.id)" style="cursor:pointer">
+                    <i id="icon{{dt.id}}" class="fa fa-folder"></i>
+                    <span>{{dt.label}}</span>
+                </a>
+
+                <ul class="childElementFileManager CloseFolder" id="List{{dt.id}}">
+                    <li ng-repeat="dt in dt.children" ng-include="'tree-FileManager'">
+                    </li>
+                </ul>
+            </script>
+
+            <ul class="childElementFileManager">
+                <li ng-repeat="dt in AttachInterfaceCategories" ng-include="'tree-FileManager'">
+                </li>
+            </ul>
+
+
+
+
+
+
+        </div>
+    </div>
+
+</div>

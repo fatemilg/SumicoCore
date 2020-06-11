@@ -1,0 +1,21 @@
+﻿<div id="ModalContentModule" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width:50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close Float-Left" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title Float-Right Color-Green" dir="rtl">تخصیص دسته <b>{{ContentModuleModalTitle}}</b> به ماژول ها</h5>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body" style="direction:rtl;text-align:right">
+                <ul>
+                    <li ng-repeat="ContentModule in ContentModules">
+                        <input type="checkbox" ng-checked="ContentModule.Exist" ng-click="ToggleContentModule(ContentModule)" />
+                        <span>{{ContentModule.Name_Fa}}</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+</div>

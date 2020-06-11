@@ -1,0 +1,16 @@
+﻿<div data-ng-controller="Menu">
+    <div id="sidebar" class="nav-collapse hide-left-bar right-side-accordion">
+        <div id="accordionLeftSideMenu">
+            <div class="SideBarMenuItem" data-ng-repeat="item in Menu">
+                <a data-toggle="collapse" class="CursorPointer" data-parent="#accordionLeftSideMenu" data-ng-click="FillSubMenu(item.IDMenu)">{{item.Name_Fa}}<i class="fa fa-circle-o"></i></a>
+                <div class="clearfix"></div>
+                <div data-ng-attr-id="Collapse{{item.IDMenu}}" class="panel-collapse collapse SubItem">
+                    <div class="SideBarSubMenuItem" data-ng-repeat="SubItem in SubMenu">
+                        <a href="/{{SubItem.MenuUrl}}">{{SubItem.Name_Fa}}<i class="fa fa-minus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu end-->
+    </div>
+</div>

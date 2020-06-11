@@ -1,0 +1,122 @@
+﻿<head>
+    <title>History of purchase orders</title>
+</head>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" data-ng-controller="POHistoryController">
+    <section class="panel">
+        <header class="panel-heading tab-bg-dark-navy-blue SetHeaderMasterTable">
+            <ul class="nav nav-tabs">
+                <li data-ng-repeat="Supplier in Suppliers">
+                    <a data-toggle="tab" ng-click="FillPurchaseOrderFile(Supplier.IDUser)" style="cursor:pointer">{{Supplier.Name_Fa}}</a>
+                </li>
+            </ul>
+            <div class="tools pull-right SetButtonInHeaderMasterTable" style="width:60%">
+                <a style="color: white; font-size: 20px; margin-top: 7px;float:right;cursor:pointer" ng-click="OpenPurchaseList()"> <b class="fa fa-bars" style="color:black"></b></a>
+
+                <ul class="PurchaseList" id="ulPurchaseList">
+                    <li style="border-bottom:solid 1px #ebe9e9;">
+                        <span>PurchaseOrders:</span>
+                        <button type="button" class="close" ng-click="ClosePurchaseList()" style="color:red;float:right;">&times;</button>
+                        <div class="clearfix"></div>
+                    </li>
+                    <li style="border-bottom:solid 1px #ebe9e9;">
+                        <input id="chkSelectAll" type="checkbox" class="css-checkbox SelectAll"  ng-model="SelectAll" data-ng-change="SelectAllItems(SelectAll)">
+                        <label for="chkSelectAll" class="css-label"> SelectAll</label>
+                    </li>
+                    <li ng-repeat="Col in PurchaseOrderFiles">
+                        <input id="chkPu{{$index}}" type="checkbox" class="css-checkbox SelectOne" ng-click="LoadPOHistory(SelectOne,Col.IDPurchaseOrderFile)" ng-model="SelectOne">
+                        <label for="chkPu{{$index}}" class="css-label"> {{Col.Title}}</label>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+                <input id="txtSearch" type="text"  ng-model="searchPurchase" placeholder="Search for ..." class="form-control" style="width:50%;display:inline-block;margin-bottom:-3px;padding-left:30px" ng-minlength="4" /><span class="fa fa-close" style="font-size:15px;margin-left:-25px;cursor:pointer" data-ng-click="ClearSearch()"></span>
+
+            </div>
+        </header>
+
+        <div class="clearfix"></div>
+        <div class="panel-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="divPoHistory" style="display:none">
+                    <div id="divContainerParam">
+                        <table class="table table-bordered tblPOHistory" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>PN</th>
+                                    <th>Param</th>
+                                </tr>
+
+                            </thead>
+                            <tbody ng-repeat="item in RelatePurchaseOrderFiles " ng-class-odd="'OddRepeat'">
+                                <tr ng-class="{HighLightText: (item.PartNumber | lowercase).includes(searchPurchase | lowercase) && searchPurchase !=''}">
+                                    <td rowspan="3" class="PartNumber">
+                                        <b >{{item.PartNumber}}</b>
+                                    </td>
+                                    <td>
+                                        HSCode
+                                    </td>
+                                </tr>
+                                <tr ng-class="{HighLightText: (item.PartNumber | lowercase).includes(searchPurchase | lowercase) && searchPurchase !=''}">
+                                    <td>
+                                        IDCode
+                                    </td>
+
+                                </tr>
+                                <tr ng-class="{HighLightText: (item.PartNumber | lowercase).includes(searchPurchase | lowercase) && searchPurchase !=''}">
+                                    <td>
+                                        UnderValue
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="divContainerData">
+                        <div id="divData">
+                            <table class="table table-bordered tblPOHistory">
+                                <thead>
+                                    <tr>
+                                        <th ng-repeat="Col in PurchaseOrderFiles" class="pof{{Col.IDPurchaseOrderFile}} showall" style="display:none">
+                                            <span>{{Col.Title}}</span>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody ng-repeat="item in RelatePurchaseOrderFiles" ng-class-odd="'OddRepeat'" >
+                                    <tr>
+                                        <td ng-repeat="Col in PurchaseOrderFiles" class="pof{{Col.IDPurchaseOrderFile}} showall" style="display:none">
+                                            <span style="cursor:pointer;" data-original-title="{{Col.Title}}" placement="top" tooltip >{{::GetHSCode(Col.IDPurchaseOrderFile,item.PurchaseOrderFile)}}</span>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="Col in PurchaseOrderFiles" class="pof{{Col.IDPurchaseOrderFile}} showall" style="display:none">
+                                            <span style="cursor:pointer;" data-original-title="{{Col.Title}}" placement="top" tooltip ng-bind="::GetIDCode(Col.IDPurchaseOrderFile,item.PurchaseOrderFile)"></span>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td ng-repeat="Col in PurchaseOrderFiles" class="pof{{Col.IDPurchaseOrderFile}} showall" style="display:none">
+                                            <span style="cursor:pointer" data-original-title="{{Col.Title}}" placement="top" tooltip ng-bind="::GetUnderValue(Col.IDPurchaseOrderFile,item.PurchaseOrderFile)"></span>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+
+

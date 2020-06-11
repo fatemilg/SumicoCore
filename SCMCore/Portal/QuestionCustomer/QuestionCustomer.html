@@ -1,0 +1,247 @@
+﻿<head>
+    <title>Question Customer</title>
+</head>
+<div ng-controller="QuestionCustomerController">
+
+    <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <header class="panel-heading">
+            <span>List of Questions for Customers</span>
+            <i class="fa fa-th" style="float:right;font-size:20px;padding-top:3px;color:purple;cursor:pointer" ng-click="ShowModalCustomCompositions()" title="Generate Custom Compositions" data-placement="top" data-tooltip></i>
+            <i class="fa fa-times" style="float:right;font-size:20px;padding-top:3px;color:red;cursor:pointer;margin-right:10px" ng-click="DeleteAllCombination()" title="Delete All Combination" data-placement="top" data-tooltip  ng-hide="COUNTIDCombinationOptions==0"></i>
+
+        </header>
+        <div class="clearfix"></div>
+        <div class=" panel panel-body">
+            <div class="col-lg-12 col-md-12">
+                <ul id="QuestionTree" ng-sortable="SortTableQuestionCustomer">
+                    <li ng-repeat="item in QuestionCustomers" ng-include="'QuestionCutomerTree'">
+                    </li>
+                </ul>
+                <script type="text/ng-template" id="QuestionCutomerTree">
+                    <i class="fa fa-angle-double-right" ng-class="{'fa fa-angle-double-down': item.ShowOptionsInTree==true, 'fa fa-angle-double-right': item.ShowOptionsInTree==false}" style="margin-right:10px;cursor:pointer;display:inline-block" ng-click="CollapseIconQuestion(item)"></i>
+                    <div style="display:inline-block" ng-click="MouseOverQuestion(item)">
+                        <b style="display:inline-block;cursor:pointer">{{item.Question_Fa}}</b>
+                        <div ng-if="item.ShowNavigationForQuestion==true" style="display:inline-block; width:590px;padding-left:20px;background-color:#f8f7f7;border-radius:20px">
+                            <div style="display:inline-block" ng-if="item.CheckExistInOptionInheritance[0].COUNTIDOptionInheritance==0">
+                                <i class="fa fa-trash-o" style="color:red;font-size:20px;margin-right:5px;margin-top:5px;cursor:pointer" ng-click="DeleteQuestionCustomer(item)" title="delete question"></i>
+                                <i class="fa fa-pencil-square-o" style="color:Orange;font-size:20px;margin-right:5px;margin-top:5px;cursor:pointer" ng-click="EditQuestionCustomer(item)" title="edit question"></i>
+                                <i class="fa fa-plus-circle" style="color:green;font-size:20px;cursor:pointer" ng-click="ShowInputOptionForAdd(item)" title="Add new option"></i>
+                                <i class="fa fa-sort-numeric-asc" style="color:blue;font-size:20px;cursor:pointer;margin-left:2px" ng-click="ShowModalSortOptionList(item)" title="Sort option list"></i>
+                                <i class="fa fa-arrows" style="color:black;font-size:20px;cursor:pointer;margin-left:2px" ng-click="ShowModalMoveQuestions(item)" title="create parent child question" ng-if="COUNTIDCombinationOptions==0"></i>
+                                <i class="fa  fa-bullseye" style="display:inline-block;color:purple;font-size:16px;margin-left:10px;cursor:pointer"  ng-click="SetQuestionAsRoot(item)" title="Set As Root"></i>
+                            </div>
+                            <div style="display:inline-block">
+                                <div style="display:inline-block" ng-if="COUNTIDCombinationOptions==0">
+                                    <label style="margin-left:40px">Main Question :</label>
+                                    <input id="chkUseCombination{{$index}}" type="checkbox" ng-model="item.UseInCombination" ng-change="UpdateUseInCombination(item.UseInCombination,item.IDQuestionCustomer)">
+                                </div>
+
+                                <div style="display:inline-block">
+                                    <label style="margin-left:10px">SignUp Page :</label>
+                                    <input id="chkUseSignUp{{$index}}" type="checkbox" ng-model="item.UseInSignUp" ng-change="UpdateUseInSignUp(item.UseInSignUp,item.IDQuestionCustomer)">
+                                </div>
+
+                                <div style="display:inline-block">
+                                    <label style="margin-left:10px">Material Page :</label>
+                                    <input id="chkUseMaterialDetail{{$index}}" type="checkbox" ng-model="item.UseInMaterialDetail" ng-change="UpdateUseInMaterialDetail(item.UseInMaterialDetail,item.IDQuestionCustomer)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <ul ng-show="item.ShowOptionsInTree">
+                        <li>
+                            <form name="FormOptionCustomer">
+                                <input type="text" class="form-control" style="width:150px;margin-left:30px;display:inline-block" ng-if="item.ShowInputOption==true" ng-model="CurrentOptionCustomer.Option_Fa" placeholder="option" required />
+                                <input type="button" class="btn btn-warning" value="Cancel" style="width:80px;cursor:pointer;padding-left:10px" ng-click="CancelOptionCustomer(item)" title="cancel Option" data-placement="top" data-tooltip ng-if="item.ShowInputOption==true" />
+                                <input id="btnAddOptionCustomer" type="button" class="btn btn-info" value="Save" style="width:80px;cursor:pointer;padding-left:10px" ng-click="AddOptionCustomer(item)" ng-disabled="FormOptionCustomer.$invalid" title="Modify Option" data-placement="top" data-tooltip ng-if="item.ShowInputOption==true" />
+                            </form>
+
+                        </li>
+                        <li ng-repeat="opt in item.OptionCustomer" style="list-style:circle;margin-left:50px">
+                            <div ng-click="MouseOverOption(opt)" ng-mouseleave="MouseLeaveOption(opt)" style="width:300px">
+                                <span style="display:inline-block;cursor:pointer">{{opt.Option_Fa}}</span>
+                                <div ng-if="opt.ShowNavigationForOption==true" style="display:inline-block; width:40px;padding-left:12px;background-color:#f8f7f7;border-radius:20px">
+                                    <i class="fa fa-trash-o" style="color:red;font-size:20px;margin-right:5px;margin-top:5px;cursor:pointer" ng-click="DeleteOptionCustomer(opt,$index,item)"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <ul>
+                                <li ng-repeat="item in opt.NestedChild" ng-include="'QuestionCutomerTree'"></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </script>
+
+            </div>
+        </div>
+    </section>
+    <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <header class="panel-heading">
+            <span>Define Questions for Customers</span>
+        </header>
+        <div class="clearfix"></div>
+
+        <div class=" panel panel-body">
+            <form name="FormQuestionsCustomer">
+                <div class="col-lg-12 col-md-12 ">
+                    <input type="button" value="Cancel" class="btn btn-warning" style="width:80px" ng-click="CancelQuestionCustomer()" />
+                    <input id="btnAddQuestionCustomer" type="button" value="Add" class="btn btn-info" style="width:80px" ng-click="AddQuestionCustomer()" ng-disabled="FormQuestionsCustomer.$invalid" />
+                </div>
+                <div class="clearfix"></div>
+                <br />
+                <div class="col-lg-6 col-md-6 ">
+                    <label class="control-label">Question:</label>
+                    <input type="text" class="form-control" ng-model="CurrentQuestionsCustomer.Question_Fa" name="Question_Fa" required />
+                    <span ng-hide="FormQuestionsCustomer.Question_Fa.$valid || FormQuestionsCustomer.Question_Fa.$pristine" class="txtValidation"> Enter Question</span>
+                </div>
+                <div class="col-lg-6 col-md-6 ">
+                    <label class="control-label">Short Title:</label>
+                    <input type="text" class="form-control" ng-model="CurrentQuestionsCustomer.ShortTitle" name="ShortTitle" required />
+                    <span ng-hide="FormQuestionsCustomer.ShortTitle.$valid || FormQuestionsCustomer.ShortTitle.$pristine" class="txtValidation"> Enter Short Title</span>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+    <div class="modal fade" id="ModalCustomCompositions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class=" position-center modal-dialog" style="width:99%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title">
+                        Generate custom compositions for sellers
+                    </h5>
+                </div>
+                <section class="panel">
+                    <div class="panel-body" style="overflow-y:scroll;height:600px;">
+                        <div class="col-lg-4 col-md-4">
+                            <label>Select Seller :</label>
+                            <div id="tvSeller" type="text" svtreeview ng-model="IDSeller" datasource="SaleUsers" selectevent="SelectItemSeller"></div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="CustomHorizontalTree" id="CustomCompositionsTreeForSeller">
+                            <div class="label" ng-mouseover="MouseOverRoot()" ng-mouseleave="MouseLeaveRoot()">
+                                <span>Start</span>
+                                <div ng-if="ShowNavigationForRoot==true" class="NavigateNode">
+                                    <i class="fa fa-plus-circle" style="color:green;font-size:20px" ng-click="ShowModalOptionsCustomerForRoot()"></i>
+                                </div>
+                            </div>
+                            <div class="branch">
+                                <div class="entry {{ CombinationOptions.length ==1 ?'borderless' : ''}}" ng-repeat="Item in CombinationOptions" ng-include="'OptionsTree'">
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/ng-template" id="OptionsTree">
+                            <div class="label" ng-mouseover="MouseOverNode(Item)" ng-mouseleave="MouseLeaveNode(Item)">
+                                <div ng-click="ToggleCollapse(Item)">{{Item.Option_Fa}}</div>
+                                <div ng-if="Item.ShowNavigation==true" class="NavigateNode">
+                                    <i class="fa fa-trash-o" style="color:red;font-size:20px;margin-right:5px;margin-top:5px" ng-click="DeleteFromCompositionTree(Item)"></i>
+                                    <i class="fa fa-plus-circle" style="color:green;font-size:20px" ng-click="ShowModalOptionsCustomerForNextLevel(Item)"></i>
+                                </div>
+                            </div>
+                            <div class="branch" ng-if="Item.SubChild && (Item.ShowSub==true)"><!--&& Item.SubChild.length!=0-->
+                                <div class="entry {{ $parent.$parent.Item.SubChild.length ==1 ?'borderless' : ''}}" ng-repeat="Item in Item.SubChild" ng-include="'OptionsTree'">
+                                </div>
+                            </div>
+                        </script>
+
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalSortOptionCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class=" position-center modal-dialog" style="width:40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" style="color:red">
+                        {{QuestionTitleInModalSortOption}}
+                    </h5>
+                </div>
+                <section class="panel">
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Option Title</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-sortable="SortTableOptionCustomer">
+                                <tr ng-repeat="item in OptionListForSort">
+                                    <td style="cursor:pointer">{{item.Option_Fa}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalMoveQuestions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class=" position-center modal-dialog" style="width:40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title">
+                        Create nested questions
+                    </h5>
+                </div>
+                <section class="panel">
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="item in CopyScopeQuestionCustomerForMove" ng-include="'QuestionCutomerTreeForMove'">
+                            </li>
+                        </ul>
+                        <script type="text/ng-template" id="QuestionCutomerTreeForMove">
+                            <i class="fa fa-angle-double-right" ng-class="{'fa fa-angle-double-down': item.ShowOptionsInTree==true, 'fa fa-angle-double-right': item.ShowOptionsInTree==false}" style="margin-right:10px;cursor:pointer;display:inline-block" ng-click="CollapseIconQuestion(item)"></i>
+                            <b style="display:inline-block;cursor:pointer" ng-class="{SetTextColoRed: item.IDQuestionCustomer==SelectedQuestionForMove.IDQuestionCustomer}">{{item.Question_Fa}}</b>
+                            <div class="clearfix"></div>
+                            <ul ng-show="item.ShowOptionsInTree">
+                                <li ng-repeat="opt in item.OptionCustomer" style="list-style:circle;margin-left:50px">
+                                    <span style="display:inline-block;cursor:pointer" ng-click="SetQuestionAsChildOfOption(opt)">{{opt.Option_Fa}}</span>
+                                    <div class="clearfix"></div>
+                                    <ul>
+                                        <li ng-repeat="item in opt.NestedChild" ng-include="'QuestionCutomerTreeForMove'"></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </script>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalOptionsCustomerForNextLevel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:40%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title">
+                        Add sub childs for <span style="color:red">{{HeaderInModalOptionsCustomerForNextLevel}}</span>
+                    </h5>
+                </div>
+                <section class="panel">
+                    <div class="panel-body">
+                        <div ng-repeat="item in CompareJsons" class="col-lg-4 col-md-4" style="float:right;text-align:right">
+                            <input id="chkOption{{$index}}" type="checkbox" class="css-checkbox" ng-model="CheckOption" ng-change="AddSubChilds(item)" ng-hide="CheckOption">
+                            <label for="chkOption{{$index}}" class="css-label" style="margin-top:2px" ng-hide="CheckOption">{{item.Option_Fa}}</label>
+                            <br />
+                        </div>
+                        <div data-ng-show="CompareJsons.length == 0">
+                            <h5>All item are existing</h5>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
